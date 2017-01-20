@@ -20,7 +20,7 @@ class {'::sssd':
   }
 } ->
 file { "/etc/ssh/ldap-keys.sh":
-    mode => 755,
+    mode => 700,
     owner => root,
     group => root,
     source => "puppet:///modules/malariagen/ldap-keys.sh"
@@ -32,6 +32,6 @@ class { 'ssh':
 		'PubkeyAuthentication' => 'yes',
 		'AuthorizedKeysFile' =>	'%h/.ssh/authorized_keys',
 		'AuthorizedKeysCommand' => '/etc/ssh/ldap-keys.sh',
-		'AuthorizedKeysCommandUser' => 'nobody'
+		'AuthorizedKeysCommandUser' => 'root'
   }
 }
