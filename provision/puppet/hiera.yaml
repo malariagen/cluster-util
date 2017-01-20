@@ -1,0 +1,9 @@
+:backends:
+  - yaml
+:yaml:
+  :datadir: "/etc/puppet/code/environments/%{::environment}/hieradata"
+:hierarchy:
+  - common
+
+:puppet:
+  :datasource: 'data'

@@ -1,0 +1,9 @@
+---
+sssd::config:
+    'domain/malariagen':
+        'ldap_uri': 
+            - 'ldap://192.168.9.1/'
+        'ldap_default_bind_dn': 'cn=admin,dc=malariagen,dc=net'
+        'ldap_default_authtok': 'password'
+        'ldap_search_base': 'dc=malariagen,dc=net'
+

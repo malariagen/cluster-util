@@ -1,0 +1,181 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "iso_url": "http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-amd64.iso",
+      "iso_checksum": "d2d939ca0e65816790375f6826e4032f",
+      "iso_checksum_type": "md5",
+	  "boot_command": [
+        "<esc><f6><esc>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_GB auto locale=en_GB kbd-chooser/method=gb <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        " netcfg/get_domain=vm<wait>",
+        " netcfg/get_hostname=quebec<wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=UK keyboard-configuration/variant=UK console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
+      ],
+      "vm_name":"xenial-cluster-master",
+      "boot_wait": "4s",
+      "guest_additions_path": "/home/vagrant/VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "Ubuntu_64",
+      "headless": false,
+      "http_directory": "./httpdir",
+      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "ssh_username": "vagrant",
+      "ssh_wait_timeout": "10000s",
+      "virtualbox_version_file": ".vbox_version",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{user `mem`}}"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "1"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nic1",
+          "nat"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--nic2",
+          "hostonly",
+          "--hostonlyadapter2",
+          "vboxnet1"
+        ]
+      ]
+    },
+    {
+      "type": "qemu",
+      "iso_url": "http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-server-amd64.iso",
+      "iso_checksum": "d2d939ca0e65816790375f6826e4032f",
+      "iso_checksum_type": "md5",
+      "output_directory": "output_ubuntu_tdhtest",
+      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+      "disk_size": 10000,
+      "disk_cache": "writethrough",
+      "format": "qcow2",
+      "headless": false,
+      "accelerator": "kvm",
+      "http_directory": "httpdir",
+      "http_port_min": 10082,
+      "http_port_max": 10089,
+      "ssh_host_port_min": 2222,
+      "ssh_host_port_max": 2229,
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_port": 22,
+      "vm_name": "quebec",
+      "net_device": "virtio-net",
+      "disk_interface": "virtio",
+      "boot_wait": "20s",
+      "ssh_wait_timeout": "10000s",
+	  "boot_command": [
+        "<esc><f6><esc>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs>",
+        "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "debian-installer=en_GB auto locale=en_GB kbd-chooser/method=gb <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "netcfg/choose_interface=eth0 keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=UK keyboard-configuration/variant=UK console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
+      ],
+      "qemuargs": [
+          [ "-m", "2048M" ]
+      ]
+    },
+    {
+        "type": "docker",
+        "image": "ubuntu:trusty",
+        "export_path": "malariagen-cluster-master.tar"
+    }
+  ],
+  "provisioners": [
+      {
+          "type": "shell",
+          "inline": [
+              "DEBIAN_FRONTEND=noninteractive apt-get update",
+              "DEBIAN_FRONTEND=noninteractive apt-get -y install sudo wget"
+          ],
+          "only": ["docker"]
+      },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "inline": [ 
+                  "sudo apt-get update && sudo apt-get -y install puppet-common",
+                  "sudo mkdir -p /etc/puppet/hieradata", 
+                  "sudo chmod 777 /etc/puppet/hieradata" ]
+    },
+    {
+      "type": "file",
+      "source": "../puppet/code",
+      "destination": "/etc/puppet/hieradata"
+    },
+    {
+      "type": "file",
+      "source": "../../scripts/",
+      "destination": "/tmp"
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "inline": [ 
+          "find /tmp",
+                  "sudo /tmp/run-cluster.sh master.sh" 
+      ]
+    },
+    {
+      "type": "puppet-masterless",
+      "module_paths": "../puppet/modules",
+      "manifest_dir": "../puppet",
+      "manifest_file": "../puppet/{{user `puppet_manifest`}}",
+      "hiera_config_path": "../puppet/hiera.yaml",
+      "execute_command": "echo 'vagrant' | {{.FacterVars}}{{if .Sudo}} sudo -S -E {{end}}puppet apply  --verbose --modulepath='{{.ModulePath}}' {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+    }
+  ],
+	  "post-processors": [
+      {
+        "type": "docker-import",
+        "repository": "localhost/malariagen-cluster-master",
+        "tag": "latest",
+        "only": ["docker"]
+      }
+		],
+  "variables": {
+    "ip": "192.168.56.64",
+    "mem": "1024",
+    "aws_access_key": "",
+    "aws_secret_key": "",
+    "puppet_manifest": "sso-ldap-client.pp"
+  }
+}

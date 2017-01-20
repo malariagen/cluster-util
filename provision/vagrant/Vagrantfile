@@ -1,0 +1,118 @@
+Vagrant.configure("2") do |config|
+  # Ubuntu 14.04 LTS x64 official cloud image
+  config.vm.box = "ubuntu/xenial64"
+
+  config.hostmanager.enabled = true
+  config.hostmanager.include_offline = true
+
+  master_json_config = JSON.parse(IO.read("../packer/xenial-master.json"))
+  master_provisioners = master_json_config["provisioners"]
+  master_puppet_config = "hello"
+
+  worker_json_config = JSON.parse(IO.read("../packer/xenial-master.json"))
+  worker_provisioners = master_json_config["provisioners"]
+  worker_puppet_config = "hello"
+
+  master_provisioners.each { |pv|
+    if pv["type"] == "puppet-masterless"
+        master_puppet_config = pv
+        master_puppet_config["manifest_file"] = master_json_config["variables"]["puppet_manifest"]
+    end
+  }
+
+  worker_provisioners.each { |pv|
+    if pv["type"] == "puppet-masterless"
+        worker_puppet_config = pv
+        worker_puppet_config["manifest_file"] = worker_json_config["variables"]["puppet_manifest"]
+    end
+  }
+
+# Vagrant's "change host name" sets the short host name.
+# Before we undo the /etc/hosts silliness (see below) let's
+# reset /etc/hostname to the *full* host name
+#
+#config.vm.provision "shell",
+#  inline: "hostname --fqdn > /etc/hostname && hostname -F /etc/hostname"
+
+    # Vagrant's "change host name" capability for Fedora
+    # maps hostname to loopback, conflicting with hostmanager.
+    # We must repair /etc/hosts
+    #
+    config.vm.provision "shell" do |s|
+      s.privileged = false
+      s.inline = "sudo sed -ri 's/127\.0\.0\.1\s.*/127.0.0.1 localhost localhost.localdomain/' /etc/hosts"
+      s.inline = "sudo apt-get install -y puppet-common"
+    end
+
+  # VirtualBox, common settings
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 512
+    vb.cpus = 1
+#    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"] # fixes slow dns lookups
+  end
+
+  config.vm.synced_folder "../..", "/vagrant", mount_options: ['dmode=777,fmode=777']
+  config.vm.synced_folder "../puppet/code", "/etc/puppet/code", mount_options: ['dmode=777,fmode=777']
+
+  config.vm.define "master" do |srv|
+     srv.vm.hostname = "master"
+     srv.vm.network :private_network, ip: "192.168.9.10"
+     srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Master"; end
+     srv.vm.provision "puppet" do |puppet|
+           puppet.module_path = master_puppet_config["module_paths"]
+           puppet.manifests_path = master_puppet_config["manifest_dir"]
+           puppet.manifest_file  = master_puppet_config["manifest_file"]
+           puppet.hiera_config_path = master_puppet_config["hiera_config_path"]
+      #     puppet.environment = puppet_config["puppet_environment"]
+          puppet.options = "--verbose --debug --environment=local"
+      #    puppet.options = "--verbose --debug"
+      end
+     srv.vm.provision "shell" do |mstr|
+      mstr.privileged = false
+       mstr.inline = "sudo /vagrant/scripts/local.sh"
+       mstr.inline = "sudo /vagrant/scripts/run-local.sh master.sh"
+     end
+  end
+
+  config.vm.define "worker1" do |srv|
+    srv.vm.hostname = "worker1"
+    srv.vm.network :private_network, ip: "192.168.9.11"
+    srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Worker1"; end
+     srv.vm.provision "puppet" do |puppet|
+           puppet.module_path = worker_puppet_config["module_paths"]
+           puppet.manifests_path = worker_puppet_config["manifest_dir"]
+           puppet.manifest_file  = worker_puppet_config["manifest_file"]
+           puppet.hiera_config_path = worker_puppet_config["hiera_config_path"]
+      #     puppet.environment = puppet_config["puppet_environment"]
+          puppet.options = "--verbose --debug --environment=local"
+      #    puppet.options = "--verbose --debug"
+      end
+    srv.vm.provision "shell" do |mstr|
+      mstr.privileged = false
+       mstr.inline = "sudo /vagrant/scripts/local.sh"
+      mstr.inline = "sudo /vagrant/scripts/run-local.sh worker.sh"
+    end
+  end
+
+  config.vm.define "worker2" do |srv|
+    srv.vm.hostname = "worker2"
+    srv.vm.network :private_network, ip: "192.168.9.12"
+    srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Worker2"; end
+     srv.vm.provision "puppet" do |puppet|
+           puppet.module_path = worker_puppet_config["module_paths"]
+           puppet.manifests_path = worker_puppet_config["manifest_dir"]
+           puppet.manifest_file  = worker_puppet_config["manifest_file"]
+           puppet.hiera_config_path = worker_puppet_config["hiera_config_path"]
+      #     puppet.environment = puppet_config["puppet_environment"]
+          puppet.options = "--verbose --debug --environment=local"
+      #    puppet.options = "--verbose --debug"
+      end
+    srv.vm.provision "shell" do |mstr|
+      mstr.privileged = false
+       mstr.inline = "sudo /vagrant/scripts/local.sh"
+      mstr.inline = "sudo /vagrant/scripts/run-local.sh worker.sh"
+    end
+  end
+
+
+end

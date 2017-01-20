@@ -1,0 +1,9 @@
+hostname              juliet.well.ox.ac.uk
+load_scaling          NONE
+complex_values        h_vmem=60G,virtual_free=74G
+user_lists            NONE
+xuser_lists           NONE
+projects              NONE
+xprojects             NONE
+usage_scaling         NONE
+report_variables      NONE

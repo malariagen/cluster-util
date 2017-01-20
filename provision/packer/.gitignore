@@ -1,0 +1,6 @@
+deploy.sh
+malariagen-2015.crt
+malariagen.net.key
+RapidSSLIntermediate.pem
+output_ubuntu_tdhtest/
+packer_cache/
