@@ -14,7 +14,7 @@ echo "gridengine-client       shared/gridenginecell   string  default" | sudo de
 echo "gridengine-client       shared/gridengineconfig boolean false" | sudo debconf-set-selections
 
 # Install Grid Engine
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -y gridengine-master gridengine-client
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y gridengine-master gridengine-client gridengine-qmon
 
 # Set up Grid Engine
 sudo -u sgeadmin /usr/share/gridengine/scripts/init_cluster /var/lib/gridengine default /var/spool/gridengine/spooldb sgeadmin
