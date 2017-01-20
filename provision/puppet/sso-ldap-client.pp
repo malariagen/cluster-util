@@ -4,6 +4,7 @@ class {'::sssd':
       'domains'             => 'malariagen',
       'config_file_version' => 2,
       'services'            => ['nss', 'pam'],
+#      'services'            => ['nss', 'pam', 'ssh'],
     },
     'domain/malariagen' => {
       'cache_credentials'              => true,
@@ -15,7 +16,8 @@ class {'::sssd':
       'ldap_default_bind_dn'    => hiera('sssd::config:domain/malariagen:ldap_default_bind_dn', 'cn=admin,dc=malariagen,dc=net'),
       'ldap_default_authtok'    => hiera('sssd::config:domain/malariagen:ldap_default_authtok', 'password'),
       'ldap_search_base'    => hiera('sssd::config:domain/malariagen:ldap_search_base', 'dc=malariagen,dc=net')
-
+#      'ldap_access_filter' = (&(objectClass=posixAccount)(gidNumber=9999))
+#      'ldap_user_ssh_public_key' = sshPublicKey
     }
   }
 } ->
