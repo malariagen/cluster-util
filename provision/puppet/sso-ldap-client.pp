@@ -12,17 +12,17 @@ class {'::sssd':
       'auth_provider'                    => 'ldap',
       'ldap_schema'                     => 'rfc2307bis',
       'default_shell'                  => '/bin/bash',
-      'ldap_uri'    => hiera('sssd::config:domain/malariagen:ldap_uri', [ 'ldap://192.168.9.1/' ]),
-      'ldap_default_bind_dn'    => hiera('sssd::config:domain/malariagen:ldap_default_bind_dn', 'cn=admin,dc=malariagen,dc=net'),
-      'ldap_default_authtok'    => hiera('sssd::config:domain/malariagen:ldap_default_authtok', 'password'),
-      'ldap_search_base'    => hiera('sssd::config:domain/malariagen:ldap_search_base', 'dc=malariagen,dc=net')
+      'ldap_uri'    => lookup({ 'name' => 'sssd::config::domain::malariagen::ldap_uri', 'default_value' => [ 'ldap://192.168.9.1/' ]}),
+      'ldap_default_bind_dn'    => lookup({ 'name' => 'sssd::config::domain::malariagen::ldap_default_bind_dn', 'default_value' => 'cn=admin,dc=malariagen,dc=net'}),
+      'ldap_default_authtok'    => lookup({ 'name' => 'sssd::config::domain::malariagen::ldap_default_authtok', 'default_value' => 'password'}),
+      'ldap_search_base'    => lookup({ 'name' => 'sssd::config::domain::malariagen::ldap_search_base', 'default_value' => 'dc=malariagen,dc=net'})
 #      'ldap_access_filter' = (&(objectClass=posixAccount)(gidNumber=9999))
 #      'ldap_user_ssh_public_key' = sshPublicKey
     }
   }
 } ->
 file { "/etc/ssh/ldap-keys.sh":
-    mode => 700,
+    mode => "0700",
     owner => root,
     group => root,
     source => "puppet:///modules/malariagen/ldap-keys.sh"
