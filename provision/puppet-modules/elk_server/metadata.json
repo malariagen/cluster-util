@@ -1,0 +1,18 @@
+{
+  "name": "malariagen-elk_server",
+  "version": "0.1.0",
+  "author": "malariagen",
+  "summary": null,
+  "license": "Apache-2.0",
+  "source": "https://github.com/malariagen/cluster-util",
+  "project_page": "https://github.com/malariagen/cluster-util",
+  "issues_url": "https://github.com/malariagen/cluster-util/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"elastic-elasticsearch","version_requirement":">= 5.0.0"},
+    {"name":"elastic-logstash","version_requirement":">= 5.0.4"},
+    {"name":"cristifalcas-kibana","version_requirement":">= 5.0.1"}
+  ],
+  "data_provider": null
+}
+

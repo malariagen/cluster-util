@@ -1,0 +1,2 @@
+config::domain::malariagen::ldap_login_filter: '(memberOf=cn=sysadmin-users,ou=system,ou=groups,dc=malariagen,dc=net)'
+
