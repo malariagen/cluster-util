@@ -45,10 +45,12 @@
 class sso_ldap_client {
 
 	$fallback_user = lookup({ 'name' => 'config::fallback_user'})
+	$fallback_auth = lookup({ 'name' => 'config::fallback_auth'})
 	user { "${fallback_user}":
 		    ensure => present,
 		    comment => 'Fallback user',
 		    home => "/home/${fallback_user}",
+		    password => "${fallback_auth}",
 		    managehome => true
 	}
 
