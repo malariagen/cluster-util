@@ -66,10 +66,6 @@ class sso_ldap_client {
 		members => lookup({ 'name' => 'config::sudoers'})
 	}
 
-	#Because of passwords
-	file { '/etc/sssd/sssd.conf':
-		show_diff => false
-	}
 	class {'::sssd':
 	  config => {
 	    'sssd' => {
