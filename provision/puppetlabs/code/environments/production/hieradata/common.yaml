@@ -14,9 +14,9 @@ sudo::configs:
         'fallback':
                 'priority' : 10
                 'content' : "fallback ALL=(ALL:ALL) ALL"
-        'kristofk':
+        'kristof':
                 'priority' : 10
-                'content' : "kristofk ALL=(ALL:ALL) ALL"
+                'content' : "kristof ALL=(ALL:ALL) ALL"
         'iwright':
                 'priority' : 10
                 'content' : "iwright ALL=(ALL:ALL) ALL"
