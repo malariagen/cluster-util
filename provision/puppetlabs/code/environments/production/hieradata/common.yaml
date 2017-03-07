@@ -26,6 +26,7 @@ sudo::configs:
 
 config::relay_domains: 'localhost malariagen.net'
 config::relay_host: 'smtp.gmail.com:587'
+config::smtp_security_level: 'may'
 
 config::header_checks: '/^To:.*@malariagen.net/  DUNNO
         /^To:.*@/   DISCARD No outgoing mails allowed'

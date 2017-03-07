@@ -59,9 +59,10 @@ class mail {
 	}
 	$relay_host = lookup({ 'name' => 'config::relay_host'})
 	$relay_passwd = lookup({ 'name' => 'config::relay_passwd'})
+	$security_level = lookup({ 'name' => 'config::smtp_security_level'})
 	postfix::config { 
 		'relayhost': ensure  => present, value   => "${relay_host}";
-		'smtp_tls_security_level': ensure => present, value => 'may';
+		'smtp_tls_security_level': ensure => present, value => "${security_level}";
 		'smtp_sasl_password_maps': ensure => present, value => 'hash:/etc/postfix/sasl_passwd';
 	}
 	postfix::hash { '/etc/postfix/sasl_passwd':
