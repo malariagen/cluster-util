@@ -68,13 +68,5 @@ class mail {
 	  ensure  => 'present',
 	  content  => "${relay_passwd}"
 	}
-	postfix::config { 
-		'header_checks': value => 'regexp:/etc/postfix/header_checks'
-	}
-	$header_checks = lookup({ 'name' => 'config::header_checks'})
-	file {
-		'/etc/postfix/header_checks':
-		content => "${header_checks}"
-	}
 
 }
