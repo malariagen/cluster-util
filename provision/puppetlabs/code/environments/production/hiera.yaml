@@ -1,0 +1,19 @@
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+hierarchy:
+  - name: "Per-node data (yaml version)"
+    path: "nodes/%{trusted.certname}.yaml" # Add file extension.
+    # Omitting datadir and data_hash to use defaults.
+
+  - name: "Other YAML hierarchy levels"
+    paths: # Can specify an array of paths instead of one.
+      - "location/%{facts.whereami}/%{facts.group}.yaml"
+      - "groups/%{facts.group}.yaml"
+      - "os/%{facts.os.family}.yaml"
+      - "os/%{facts.os.family}/%{facts.os.name}.yaml"
+      - "os/%{facts.os.family}/%{facts.os.name}/%{facts.os.release.major}.yaml"
+      - "common.yaml"
+      - "secure.yaml"
+
