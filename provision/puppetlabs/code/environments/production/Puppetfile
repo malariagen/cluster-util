@@ -7,6 +7,7 @@ mod 'elastic-logstash', '5.0.4'
 mod 'cristifalcas-kibana', '5.0.1'
 mod 'sgnl05-sssd', '0.4.1'
 mod 'saz-ssh', '3.0.1'
+mod 'saz-sudo', '4.1.0'
 mod 'bodgit-etckeeper', '1.1.0'
 mod 'malariagen-sso_ldap_client',
     :git => "https://github.com/malariagen/cluster-util.git",

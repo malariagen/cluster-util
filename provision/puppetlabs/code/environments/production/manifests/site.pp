@@ -1,5 +1,9 @@
+
+
+include sudo
+include sso_ldap_client
+
 node default {
-	include sso_ldap_client
 	include mail
 }
 

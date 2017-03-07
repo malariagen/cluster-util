@@ -65,11 +65,6 @@ class sso_ldap_client {
 		  key => "${fallback_ssh_key}"
 	}
 
-	group { 'sudo':
-		ensure => present,
-		members => lookup({ 'name' => 'config::sudoers'})
-	}
-
 	class {'::sssd':
 	  config => {
 	    'sssd' => {
