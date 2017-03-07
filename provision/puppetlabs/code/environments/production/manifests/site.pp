@@ -1,3 +1,6 @@
+ class { '::etckeeper':
+    vcs => 'git',
+ }
 
 
 include sudo
