@@ -1,0 +1,12 @@
+---
+
+classes:
+    - ssh
+
+ssh::storeconfigs_enabled: true
+ssh::server_options:
+        PasswordAuthentication: 'no'
+        PubkeyAuthentication: 'yes'
+        AuthorizedKeysFile: '%h/.ssh/authorized_keys'
+
+

@@ -8,6 +8,7 @@ include sso_ldap_client
 
 include mail
 
+hiera_include('classes')
 
 node default {
 }

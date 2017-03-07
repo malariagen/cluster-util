@@ -9,8 +9,7 @@
   "issues_url": "https://github.com/malariagen/cluster-util/issues",
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
-    {"name":"sgnl05-sssd", "version_requirement":">= 0.4.1"},
-    {"name":"saz-ssh", "version_requirement":">= 3.0.1"}
+    {"name":"sgnl05-sssd", "version_requirement":">= 0.4.1"}
   ],
   "data_provider": null
 }

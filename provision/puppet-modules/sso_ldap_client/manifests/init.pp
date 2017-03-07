@@ -93,15 +93,5 @@ class sso_ldap_client {
 	    owner => root,
 	    group => root,
 	    content => epp('sso_ldap_client/ldap-keys_sh.epp', { 'login_filter' => lookup({ 'name' => 'config::domain::malariagen::ldap_login_filter', 'default_value' => ''})})
-	} ->
-	class { 'ssh':
-	  storeconfigs_enabled => false,
-	  server_options => {
-			'PasswordAuthentication' => 'no',
-			'PubkeyAuthentication' => 'yes',
-			'AuthorizedKeysFile' =>	'%h/.ssh/authorized_keys',
-			'AuthorizedKeysCommand' => '/etc/ssh/ldap-keys.sh',
-			'AuthorizedKeysCommandUser' => 'root'
-	  }
 	}
 }
