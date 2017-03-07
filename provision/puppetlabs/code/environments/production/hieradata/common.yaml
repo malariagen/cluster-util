@@ -8,7 +8,7 @@ config::domain::malariagen::ldap_search_base: 'dc=malariagen,dc=net'
 config::domain::malariagen::ldap_login_filter: ''
 
 config::fallback_user: 'fallback'
-config::fallback_ssh_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Gfe4eq6Oo5EcuGUm9N4iTjgkFuy6TWGLOa3qSAxWB3sJI1jYmnJtJTwnuWSxxM9dHLxGbbBln60l+e4N6WE9B7rdZGT44G7aC+ZeKAiTt4b14z03E9gTyzOprzYW7uHI4XALfWfB3DBhZCL6pWRSHjZmo6Pkv+sOonRBsXZKcKr/RkVe7HlIEjplmtDsF9TjIUtU9YQcNnGmV9UzMNXUtT7sGg6pzRwQESCy03q9oOUkVzvqaenP7gBfZr9a5K1m4pr8WpMiqZkma5iY2ovBxKCBlOhqVRblq6Lucg+nUON+97+o1u71DTi29MxfT4/In2JIvbHRkHb4QuSL8Hft'
+config::fallback_ssh_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDUZCJ6uRkoKKIkneZo/tZexlTZ8k7N4LUXCqdGAWjI6Zsva+zSj1TVGU0ra0B23OlanzujtgpzPEeSGDe/1NdDt7jS/nmgA1/tEeuA5SA0SJIlXLqxKjpgKABqWB52aklP/oyMJN87xMzuczweXgI66fBWLp4vrpRWJSenfX2WsuiADb3kGmimtSYWPemE9GmLwSxizNzkOAiH7NOMThcyBcviwKcBxg53mkT+mKbbSSkb9TERD3jG1Qh7/Qlu1pPn40c/jqFRebDC6/aFH/RIGWlCVyJvMsQej4+GCLPAz55+JC+YYzSL3OW6ePZ/7DNBCjGDQFoNhGQ+M0aHhfLd'
 
 sudo::configs:
         'fallback':
