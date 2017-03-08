@@ -27,3 +27,26 @@ node sierra.well.ox.ac.uk {
         include elk_server
 
 }
+
+node 'sso-dev.cggh.org' {
+
+        class { 'filebeat':
+		outputs => {
+		    'logstash'     => {
+		     'hosts' => [
+		       'localhost:5044',
+		     ],
+		    },
+		},
+		prospectors => hiera_hash('filebeat::prospector'),
+        }
+
+        filebeat::prospector { 'syslogs':
+          paths    => [
+            '/var/log/auth.log',
+            '/var/log/syslog',
+          ],
+          doc_type => 'syslog-beat',
+        }
+
+}

@@ -1,0 +1,7 @@
+---
+
+filebeat::prospector:
+    tomcat: 
+      doc_type: 'tomcat7log-beat'
+      paths:
+        - '/var/log/tomcat7/catalina.out'
