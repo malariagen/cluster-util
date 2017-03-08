@@ -70,4 +70,13 @@ class mail {
 	  content  => "${relay_passwd}"
 	}
 
+	$smtp_generic_maps = lookup({ 'name' => 'config::smtp_generic_maps'})
+	postfix::config {
+			'smtp_generic_maps': ensure => present, value => 'hash:/etc/postfix/smtp_generic_maps';
+	}
+	postfix::hash { '/etc/postfix/smtp_generic_maps':
+	  ensure  => 'present',
+	  content  => "${smtp_generic_maps}"
+	}
+
 }
