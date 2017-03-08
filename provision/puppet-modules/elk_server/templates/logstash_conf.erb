@@ -408,16 +408,6 @@ filter {
   }
 }
 
-# Drop unwanted data
-filter {
-  mutate {
-    remove_field => [ 'message' ]
-    remove_field => [ 'data' ]
-    remove_field => [ 'logdate' ]
-    remove_tag => [ '_grokparsefailure' ]
-  }
-}
-
 ###########################
 # output to elasticsearch #
 ###########################
