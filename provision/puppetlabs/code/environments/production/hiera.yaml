@@ -9,11 +9,13 @@ hierarchy:
 
   - name: "Other YAML hierarchy levels"
     paths: # Can specify an array of paths instead of one.
-      - "location/%{facts.whereami}/%{facts.group}.yaml"
-      - "groups/%{facts.group}.yaml"
       - "os/%{facts.os.family}.yaml"
       - "os/%{facts.os.family}/%{facts.os.name}.yaml"
       - "os/%{facts.os.family}/%{facts.os.name}/%{facts.os.release.major}.yaml"
+      - "location/%{facts.ec2_metadata.services.partition}/common.yaml"
+      - "location/%{facts.ec2_metadata.services.partition}/secure.yaml"
+      - "location/%{facts.networking.domain}/common.yaml"
+      - "location/%{facts.networking.domain}/secure.yaml"
       - "common.yaml"
       - "secure.yaml"
 

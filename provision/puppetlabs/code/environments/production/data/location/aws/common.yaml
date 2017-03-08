@@ -1,0 +1,13 @@
+---
+
+config::relay_host: email-smtp.us-east-1.amazonaws.com:25
+config::smtp_security_level: encrypt
+
+sudo::configs:
+        'cloudimg-ubuntu':
+                'priority' : 90
+                'content' : "ubuntu ALL=(ALL) NOPASSWD:ALL"
+        'cloud-init-users':
+                'priority' : 90
+                'content' : "ubuntu ALL=(ALL) NOPASSWD:ALL"
+
