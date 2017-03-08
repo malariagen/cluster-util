@@ -31,6 +31,7 @@ node sierra.well.ox.ac.uk {
 node 'sso-dev.cggh.org' {
 
         class { 'filebeat':
+		major_version => '5',
 		outputs => {
 		    'logstash'     => {
 		     'hosts' => [
@@ -38,6 +39,7 @@ node 'sso-dev.cggh.org' {
 		     ],
 		    },
 		},
+		prospectors_merge => true,
 		prospectors => hiera_hash('filebeat::prospector'),
         }
 
@@ -46,6 +48,7 @@ node 'sso-dev.cggh.org' {
             '/var/log/auth.log',
             '/var/log/syslog',
           ],
+	  tags => [ 'syslogs'],
           doc_type => 'syslog-beat',
         }
 
