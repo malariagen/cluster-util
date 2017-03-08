@@ -1,4 +1,7 @@
 ---
+config::domain::malariagen::ldap_uri:
+            - 'ldaps://sso1.malariagen.net/'
+            - 'ldaps://sso2.malariagen.net/'
 
 config::relay_host: email-smtp.us-east-1.amazonaws.com:25
 config::smtp_security_level: encrypt
