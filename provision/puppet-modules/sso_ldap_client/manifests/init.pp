@@ -70,7 +70,7 @@ class sso_ldap_client {
 	    'sssd' => {
 	      'domains'             => 'malariagen',
 	      'config_file_version' => 2,
-	      'services'            => ['nss', 'pam'],
+	      'services'            => ['nss', 'pam', 'sudo'],
 	#      'services'            => ['nss', 'pam', 'ssh'],
 	    },
 	    'domain/malariagen' => {
@@ -79,6 +79,8 @@ class sso_ldap_client {
 	      'auth_provider'                    => 'ldap',
 	      'ldap_schema'                     => 'rfc2307bis',
 	      'default_shell'                  => '/bin/bash',
+          #https://bugs.launchpad.net/ubuntu/+source/sssd/+bug/1249777
+	      'sudo_provider'                  => 'none',
 	      'ldap_uri'    => lookup({ 'name' => 'config::domain::malariagen::ldap_uri', 'default_value' => [ 'ldap://192.168.9.1/' ]}),
 	      'ldap_default_bind_dn'    => lookup({ 'name' => 'config::domain::malariagen::ldap_default_bind_dn', 'default_value' => 'cn=admin,dc=malariagen,dc=net'}),
 	      'ldap_default_authtok'    => lookup({ 'name' => 'config::domain::malariagen::ldap_default_authtok', 'default_value' => 'password'}),
