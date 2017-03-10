@@ -4,7 +4,9 @@ defaults:
   data_hash: yaml_data
 hierarchy:
   - name: "Per-node data (yaml version)"
-    path: "nodes/%{trusted.certname}.yaml" # Add file extension.
+    paths: 
+        - "nodes/%{trusted.certname}.yaml" # Add file extension.
+        - "nodes/%{trusted.certname}.eyaml" # Add file extension.
     # Omitting datadir and data_hash to use defaults.
 
   - name: "Other YAML hierarchy levels"
