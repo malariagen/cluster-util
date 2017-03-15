@@ -1,10 +1,10 @@
 ---
-config::domain::malariagen::ldap_uri:
+profile::ldap::client::ldap_uri:
             - 'ldaps://sso1.malariagen.net/'
             - 'ldaps://sso2.malariagen.net/'
 
-config::relay_host: email-smtp.us-east-1.amazonaws.com:25
-config::smtp_security_level: encrypt
+profile::mail::relay::relay_host: email-smtp.us-east-1.amazonaws.com:25
+profile::mail::relay::smtp_security_level: encrypt
 
 sudo::configs:
         'cloudimg-ubuntu':

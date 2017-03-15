@@ -1,0 +1,88 @@
+
+class { '::etckeeper':
+  vcs => 'git',
+}
+
+include sudo
+include sso_ldap_client
+
+include mail
+
+hiera_include('classes')
+
+node default {
+}
+
+node sierra.well.ox.ac.uk {
+        postfix::config {
+                'header_checks': value => 'regexp:/etc/postfix/header_checks'
+        }
+        $header_checks = lookup({ 'name' => 'config::header_checks'})
+        file {
+                '/etc/postfix/header_checks':
+                content => "${header_checks}"
+        }
+        
+
+        include elk_server
+
+}
+
+node 'sso-dev.cggh.org' {
+
+        class { 'filebeat':
+                major_version => '5',
+                outputs => {
+                    'logstash'     => {
+                     'hosts' => [
+                       'localhost:5044',
+                     ],
+                    },
+                },
+                prospectors_merge => true,
+                prospectors => hiera_hash('filebeat::prospector'),
+        }
+
+        filebeat::prospector { 'syslogs':
+          paths    => [
+            '/var/log/auth.log',
+            '/var/log/syslog',
+          ],
+          tags => [ 'syslogs'],
+          doc_type => 'syslog-beat',
+        }
+
+
+        @user { 'tomcat7':
+          groups     => [ 'ssl-cert' ],
+          membership => minimum # default
+        }
+        class { 'tomcat':
+                version => '7.0.52-1ubuntu0.10',
+                versionlogger_listener => false,
+                apr_listener => true,
+                listeners => [
+                                { 'className' => 'org.apache.catalina.security.SecurityListener' }
+                        ],
+                http_uriencoding => 'UTF-8',
+                ajp_connector => true,
+                ajp_port => 8009,
+                ajp_uriencoding => 'UTF-8',
+                ajp_params => { },
+                ssl_connector => true,
+                ssl_uriencoding => 'UTF-8',
+                ssl_protocol => 'org.apache.coyote.http11.Http11AprProtocol',
+                ssl_params => hiera_hash('tomcat::ssl_params'),
+                accesslog_valve => false,
+                valves => [
+                                { 'className' => 'org.apache.catalina.valves.AccessLogValve',
+                                  'directory' => 'logs',
+                                  'prefix' => 'access-',
+                                  'suffix' => '.log',
+                                  'pattern' => '%a %l %u %t "%r" %s %b "%{Referer}i" "%{User-agent}i" %D "%I"',
+                                  'resolveHosts' => 'false'
+                                }
+                          ]
+        }
+        realize User['tomcat7']
+}

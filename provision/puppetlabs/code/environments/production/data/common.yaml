@@ -1,14 +1,24 @@
 ---
-config::domain::malariagen::ldap_uri: 
+profile::ldap::client::ldap_uri: 
             - 'ldaps://alpha.malariagen.net/'
             - 'ldaps://sso1.malariagen.net/'
             - 'ldaps://sso2.malariagen.net/' 
-config::domain::malariagen::ldap_default_bind_dn: 'cn=admin,dc=malariagen,dc=net'
-config::domain::malariagen::ldap_search_base: 'dc=malariagen,dc=net'
-config::domain::malariagen::ldap_login_filter: ''
+profile::ldap::client::ldap_default_bind_dn: 'cn=admin,dc=malariagen,dc=net'
+profile::ldap::client::ldap_search_base: 'dc=malariagen,dc=net'
+profile::ldap::client::ldap_login_filter: ''
 
-config::fallback_user: 'fallback'
-config::fallback_ssh_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDUZCJ6uRkoKKIkneZo/tZexlTZ8k7N4LUXCqdGAWjI6Zsva+zSj1TVGU0ra0B23OlanzujtgpzPEeSGDe/1NdDt7jS/nmgA1/tEeuA5SA0SJIlXLqxKjpgKABqWB52aklP/oyMJN87xMzuczweXgI66fBWLp4vrpRWJSenfX2WsuiADb3kGmimtSYWPemE9GmLwSxizNzkOAiH7NOMThcyBcviwKcBxg53mkT+mKbbSSkb9TERD3jG1Qh7/Qlu1pPn40c/jqFRebDC6/aFH/RIGWlCVyJvMsQej4+GCLPAz55+JC+YYzSL3OW6ePZ/7DNBCjGDQFoNhGQ+M0aHhfLd'
+profile::ldap::client::hosts:
+    - name: sso1.malariagen.net
+      ip: 54.72.201.52
+    - name: sso2.malariagen.net
+      ip: 52.17.13.230
+    - name: alpha.malariagen.net
+      ip: 129.67.44.72
+      aliases:
+        - alpha.well.ox.ac.uk
+
+profile::ldap::client::fallback_user: 'fallback'
+profile::ldap::client::fallback_ssh_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDUZCJ6uRkoKKIkneZo/tZexlTZ8k7N4LUXCqdGAWjI6Zsva+zSj1TVGU0ra0B23OlanzujtgpzPEeSGDe/1NdDt7jS/nmgA1/tEeuA5SA0SJIlXLqxKjpgKABqWB52aklP/oyMJN87xMzuczweXgI66fBWLp4vrpRWJSenfX2WsuiADb3kGmimtSYWPemE9GmLwSxizNzkOAiH7NOMThcyBcviwKcBxg53mkT+mKbbSSkb9TERD3jG1Qh7/Qlu1pPn40c/jqFRebDC6/aFH/RIGWlCVyJvMsQej4+GCLPAz55+JC+YYzSL3OW6ePZ/7DNBCjGDQFoNhGQ+M0aHhfLd'
 
 sudo::configs:
         'fallback':
@@ -25,13 +35,16 @@ sudo::configs:
                 'content' : "aliman ALL=(ALL:ALL) ALL"
 
 
-config::relay_domains: 'localhost malariagen.net'
-config::relay_host: 'smtp.gmail.com:587'
-config::smtp_security_level: 'may'
+profile::mail::relay::relay_domains: 'localhost malariagen.net'
+profile::mail::relay::relay_host: 'smtp.gmail.com:587'
+profile::mail::relay::smtp_sasl_auth_enable: 'yes'
 
-config::smtp_generic_maps: 'root sysadmin@malariagen.net'
+profile::mail::relay::smtp_generic_maps: 'root sysadmin@malariagen.net'
 
-config::header_checks: '/^To:.*@malariagen.net/  DUNNO
-        /^To:.*@/   DISCARD No outgoing mails allowed'
+profile::mail::relay::header_checks: |
+                            /^Subject: GE 6.2u5: Job-array task .* failed/ DISCARD
+                            /^To:.*@malariagen.net/  DUNNO
+                            /^To:.*@/   DISCARD No outgoing mails allowed'
 
 postfix::root_mail_recipient: 'sysadmin@malariagen.net'
+

@@ -1,7 +1,33 @@
 ---
 
+classes:
+    - role::java::appserver
+    - profile::apache2::proxy
+
+profile::tomcat::user: 'tomcat7'
+
 filebeat::prospector:
     tomcat: 
       doc_type: 'tomcat7log-beat'
       paths:
         - '/var/log/tomcat7/catalina.out'
+
+profile::tomcat::accesslog_valve: false
+profile::tomcat::valves:
+    -
+        className: 'org.apache.catalina.valves.AccessLogValve'
+        directory: 'logs'
+        prefix: 'access-'
+        suffix: '.log'
+        pattern: '%a %l %u %t "%r" %s %b "%{Referer}i" "%{User-agent}i" %D "%I"'
+        resolveHosts: 'false'
+
+profile::apache2::proxy::proxy_pass:
+      - path: '/sso'
+        url: 'https://sso-dev.cggh.org:8443/sso'
+        reverse_urls:
+            - 'https://sso-dev.cggh.org:8443/sso'
+      - path: '/pwm'
+        url: 'https://sso-dev.cggh.org:8443/pwm'
+        reverse_urls:
+            - 'https://sso-dev.cggh.org:8443/pwm'

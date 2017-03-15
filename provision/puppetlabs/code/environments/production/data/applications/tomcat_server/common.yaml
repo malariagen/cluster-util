@@ -1,0 +1,18 @@
+---
+
+filebeat::prospector:
+    tomcat: 
+      doc_type: 'tomcat7log-beat'
+      paths:
+        - '/var/log/tomcat7/catalina.out'
+
+tomcat_server::accesslog_valve: false
+tomcat_server::valves:
+    -
+        className: 'org.apache.catalina.valves.AccessLogValve'
+        directory: 'logs'
+        prefix: 'access-'
+        suffix: '.log'
+        pattern: '%a %l %u %t "%r" %s %b "%{Referer}i" "%{User-agent}i" %D "%I"'
+        resolveHosts: 'false'
+

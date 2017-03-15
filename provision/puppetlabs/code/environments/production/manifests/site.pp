@@ -4,9 +4,9 @@ class { '::etckeeper':
 }
 
 include sudo
-include sso_ldap_client
+#include sso_ldap_client
 
-include mail
+#include mail
 
 hiera_include('classes')
 
@@ -14,15 +14,6 @@ node default {
 }
 
 node sierra.well.ox.ac.uk {
-        postfix::config {
-                'header_checks': value => 'regexp:/etc/postfix/header_checks'
-        }
-        $header_checks = lookup({ 'name' => 'config::header_checks'})
-        file {
-                '/etc/postfix/header_checks':
-                content => "${header_checks}"
-        }
-        
 
         include elk_server
 
@@ -30,17 +21,21 @@ node sierra.well.ox.ac.uk {
 
 node 'sso-dev.cggh.org' {
 
+#        class { 'tomcat_server' :
+#            user => 'tomcat7',
+#        }
+
         class { 'filebeat':
-		major_version => '5',
-		outputs => {
-		    'logstash'     => {
-		     'hosts' => [
-		       'localhost:5044',
-		     ],
-		    },
-		},
-		prospectors_merge => true,
-		prospectors => hiera_hash('filebeat::prospector'),
+                major_version => '5',
+                outputs => {
+                    'logstash'     => {
+                     'hosts' => [
+                       'localhost:5044',
+                     ],
+                    },
+                },
+                prospectors_merge => true,
+                prospectors => lookup('filebeat::prospector', Hash, { strategy => 'deep' }, {}),
         }
 
         filebeat::prospector { 'syslogs':
@@ -48,8 +43,9 @@ node 'sso-dev.cggh.org' {
             '/var/log/auth.log',
             '/var/log/syslog',
           ],
-	  tags => [ 'syslogs'],
+          tags => [ 'syslogs'],
           doc_type => 'syslog-beat',
         }
+
 
 }

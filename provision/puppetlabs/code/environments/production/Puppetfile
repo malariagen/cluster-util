@@ -11,14 +11,7 @@ mod 'saz-sudo', '4.1.0'
 mod 'bodgit-etckeeper', '1.1.0'
 mod 'pcfens-filebeat', '0.10.4'
 mod 'aco-tomcat', '1.7.0'
-mod 'malariagen-sso_ldap_client',
-    :git => "https://github.com/malariagen/cluster-util.git",
-    :ref => 'd5c01bf',
-    :path => 'provision/puppet-modules/sso_ldap_client'
-mod 'malariagen-mail',
-    :git => "https://github.com/malariagen/cluster-util.git",
-    :ref => 'd5c01bf',
-    :path => 'provision/puppet-modules/mail'
+mod 'puppetlabs-apache', '1.11.0'
 mod 'malariagen-elk_server',
     :git => "https://github.com/malariagen/cluster-util.git",
     :ref => 'd5c01bf',

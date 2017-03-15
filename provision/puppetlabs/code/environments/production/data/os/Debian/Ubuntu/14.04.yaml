@@ -9,4 +9,4 @@ ssh::server_options:
         PubkeyAuthentication: 'yes'
         AuthorizedKeysFile: '%h/.ssh/authorized_keys'
 
-
+profile::tomcat::server::version: '7.0.52-1ubuntu0.10'

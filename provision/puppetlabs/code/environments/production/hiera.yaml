@@ -3,11 +3,26 @@ defaults:
   datadir: data
   data_hash: yaml_data
 hierarchy:
+  - name: "Secret data: per-node, per-datacenter, common"
+    lookup_key: eyaml_lookup_key # eyaml backend
+    paths:
+        - "nodes/%{trusted.certname}.eyaml" # Add file extension.
+        - "location/%{facts.ec2_metadata.services.partition}/secure.eyaml"
+        - "location/%{facts.networking.domain}/secure.eyaml"
+        - "secure.eyaml"
+    options:
+      pkcs7_private_key: /etc/puppetlabs/puppet/keys/private_key.pkcs7.pem
+      pkcs7_public_key:  /etc/puppetlabs/puppet/keys/public_key.pkcs7.pem
+
+#Something of a nasty bodge
+#https://ask.puppet.com/question/16285/how-do-i-access-class-parameters-in-a-custom-fact/
+  - name: "Per-application data (yaml version)"
+    paths: 
+        - "applications/%{facts.tomcat_server}/common.yaml"
+
   - name: "Per-node data (yaml version)"
     paths: 
         - "nodes/%{trusted.certname}.yaml" # Add file extension.
-        - "nodes/%{trusted.certname}.eyaml" # Add file extension.
-    # Omitting datadir and data_hash to use defaults.
 
   - name: "Other YAML hierarchy levels"
     paths: # Can specify an array of paths instead of one.
@@ -15,9 +30,6 @@ hierarchy:
       - "os/%{facts.os.family}/%{facts.os.name}.yaml"
       - "os/%{facts.os.family}/%{facts.os.name}/%{facts.os.release.major}.yaml"
       - "location/%{facts.ec2_metadata.services.partition}/common.yaml"
-      - "location/%{facts.ec2_metadata.services.partition}/secure.yaml"
       - "location/%{facts.networking.domain}/common.yaml"
-      - "location/%{facts.networking.domain}/secure.yaml"
       - "common.yaml"
-      - "secure.yaml"
 
