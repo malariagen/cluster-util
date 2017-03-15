@@ -1,0 +1,83 @@
+---
+
+classes:
+    - profile::cluster::mount
+
+profile::cluster::mount::users:
+                          - aliman
+                          - antoine
+                          - apain
+                          - beniamino
+                          - benj
+                          - bergey
+                          - caroline
+                          - ckamdem
+                          - cndila
+                          - csclarkson
+                          - dan
+                          - dcooke
+                          - edward
+                          - eric
+                          - gamble88
+                          - gav
+                          - gclarke
+                          - george
+                          - iwright
+                          - jacob
+                          - jcbarret
+                          - jiyoung
+                          - jmidega
+                          - jobrien
+                          - joe
+                          - joel
+                          - jradrion
+                          - jshelton
+                          - jwendler
+                          - kanishka
+                          - kiran
+                          - kirk
+                          - krausem
+                          - kristofk
+                          - krzysztof
+                          - lee
+                          - leffler
+                          - lj4
+                          - lucas
+                          - mfontain
+                          - mriehle
+                          - njh
+                          - olivo
+                          - pvaut
+                          - quang
+                          - rlove
+                          - roamato
+                          - rpearson
+                          - rwh
+                          - ryan
+                          - sarah
+                          - shabrumi
+                          - sm0179
+                          - smol
+                          - spencer
+                          - tra
+                          - trochet
+                          - valentin
+                          - vipederg
+                          - zam
+
+profile::cluster::mount::level1:
+    - anopheles
+    - galton
+    - plasmodium
+
+profile::cluster::mount::level2:
+    - coluzzi
+    - grassi
+    - mirror
+    - morgan
+    - pf3k
+    - pfx
+
+
+
+
