@@ -20,6 +20,10 @@ hierarchy:
     paths: 
         - "applications/%{facts.tomcat_server}/common.yaml"
 
+  - name: "Per-role data (yaml version)"
+    paths: 
+        - "role/%{facts.role}/common.yaml"
+
   - name: "Per-node data (yaml version)"
     paths: 
         - "nodes/%{trusted.certname}.yaml" # Add file extension.

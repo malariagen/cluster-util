@@ -19,6 +19,19 @@ node sierra.well.ox.ac.uk {
 
 }
 
+node echo.well.ox.ac.uk {
+    $role = "---
+
+role: 'cluster_worker'
+"
+
+    file { '/opt/puppetlabs/facter/facts.d/role.yaml':
+                content => $role,
+                owner => root,
+                mode => '0500',
+    }
+}
+
 node 'sso-dev.cggh.org' {
 
 #        class { 'tomcat_server' :
