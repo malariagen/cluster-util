@@ -18,17 +18,12 @@ Vagrant.configure("2") do |config|
     end
   end
 
-#https://github.com/petems/vagrant-puppet-install
-#
   if Vagrant.has_plugin?("vagrant-puppet-install")
-      version = :latest
-      config.puppet_install.puppet_version = version
+    raise "vagrant-puppet-install must not be installed"
   end
 
   # Ubuntu 14.04 LTS x64 official cloud image
   config.vm.box = "ubuntu/xenial64"
-#  config.vm.box = "puppetlabs/ubuntu-16.04-64-puppet"
-
 
   config.hostmanager.enabled = true
   config.hostmanager.include_offline = true
