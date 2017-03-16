@@ -155,6 +155,8 @@
       "inline": [ 
               "DEBIAN_FRONTEND=noninteractive apt-get -y install ruby",
                     "gem install librarian-puppet",
+                    "gem install hiera-eyaml",
+                    "/opt/puppetlabs/bin/puppet resource package hiera-eyaml provider=puppet_gem",
                   "cd /etc/puppetlabs/code/environments/production && PATH=$PATH:/opt/puppetlabs/bin librarian-puppet install" 
       ],
       "setup": "vagrant"
