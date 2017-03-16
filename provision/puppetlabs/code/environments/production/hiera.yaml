@@ -3,6 +3,10 @@ defaults:
   datadir: data
   data_hash: yaml_data
 hierarchy:
+  - name: "Per-instance type"
+    paths: 
+        - "location/%{facts.virtual}/common.yaml"
+
   - name: "Secret data: per-node, per-datacenter, common"
     lookup_key: eyaml_lookup_key # eyaml backend
     paths:
