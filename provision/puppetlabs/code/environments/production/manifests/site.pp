@@ -13,13 +13,13 @@ hiera_include('classes')
 node default {
 }
 
-node sierra.well.ox.ac.uk {
+node 'sierra.well.ox.ac.uk' {
 
         include elk_server
 
 }
 
-node echo.well.ox.ac.uk {
+node 'echo.well.ox.ac.uk' {
     $role = "---
 
 role: 'cluster_worker'
