@@ -1,6 +1,34 @@
 Vagrant.configure("2") do |config|
+
+
+#  unless Vagrant.has_plugin?("vagrant-puppet-install")
+#    raise "vagrant-puppet-install has not been installed"
+#  end
+
+#https://github.com/emyl/vagrant-triggers
+  if Vagrant.has_plugin?("vagrant-trigger")
+
+    config.trigger.after :up do
+          #Force apt to use existing file
+          #http://askubuntu.com/questions/104899/make-apt-get-or-aptitude-run-with-y-but-not-prompt-for-replacement-of-configu
+          config.vm.provision "file" do |f|
+                f.source = 'config/apt'
+                f.destination = '/etc/apt/apt.conf.d/90local'
+          end
+    end
+  end
+
+#https://github.com/petems/vagrant-puppet-install
+#
+  if Vagrant.has_plugin?("vagrant-puppet-install")
+      version = :latest
+      config.puppet_install.puppet_version = version
+  end
+
   # Ubuntu 14.04 LTS x64 official cloud image
   config.vm.box = "ubuntu/xenial64"
+#  config.vm.box = "puppetlabs/ubuntu-16.04-64-puppet"
+
 
   config.hostmanager.enabled = true
   config.hostmanager.include_offline = true
@@ -16,23 +44,40 @@ Vagrant.configure("2") do |config|
   master_provisioners.each { |pv|
     if pv["type"] == "puppet-masterless"
         master_puppet_config = pv
-        master_puppet_config["manifest_file"] = master_json_config["variables"]["puppet_manifest"]
+        master_puppet_config["manifest_file"] = 'site.pp'
+        master_puppet_config["manifest_dir"] = '../puppetlabs/code/environments/production/manifests/'
+    end
+#    if pv["type"] == "file"
+#            config.vm.provision "file" do |f|
+#                f.source = pv["source"]
+#                f.destination = pv["destination"]
+#            end
+#    end
+    if pv["type"] == "shell" and pv["setup"] == "vagrant"
+          pv["inline"].each { |line|
+            config.vm.provision "shell" do |s|
+              s.privileged = false
+              s.inline = "sudo -E -S /bin/bash -c '" + line + "'"
+            end
+          }
     end
   }
 
   worker_provisioners.each { |pv|
     if pv["type"] == "puppet-masterless"
         worker_puppet_config = pv
-        worker_puppet_config["manifest_file"] = worker_json_config["variables"]["puppet_manifest"]
+        worker_puppet_config["manifest_file"] = 'site.pp'
+        worker_puppet_config["manifest_dir"] = '../puppetlabs/code/environments/production/manifests/'
     end
   }
+
 
 # Vagrant's "change host name" sets the short host name.
 # Before we undo the /etc/hosts silliness (see below) let's
 # reset /etc/hostname to the *full* host name
 #
-#config.vm.provision "shell",
-#  inline: "hostname --fqdn > /etc/hostname && hostname -F /etc/hostname"
+config.vm.provision "shell",
+  inline: "hostname --fqdn > /etc/hostname && hostname -F /etc/hostname"
 
     # Vagrant's "change host name" capability for Fedora
     # maps hostname to loopback, conflicting with hostmanager.
@@ -41,7 +86,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision "shell" do |s|
       s.privileged = false
       s.inline = "sudo sed -ri 's/127\.0\.0\.1\s.*/127.0.0.1 localhost localhost.localdomain/' /etc/hosts"
-      s.inline = "sudo apt-get install -y puppet-common"
     end
 
   # VirtualBox, common settings
@@ -52,26 +96,30 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.synced_folder "../..", "/vagrant", mount_options: ['dmode=777,fmode=777']
-  config.vm.synced_folder "../puppet/code", "/etc/puppet/code", mount_options: ['dmode=777,fmode=777']
+  #Note that the apt config defined above is necessary otherwise there will be conflict when
+  #attempting to install puppet
+  config.vm.synced_folder "../puppetlabs/code", "/etc/puppetlabs/code", mount_options: ['dmode=777,fmode=777']
 
   config.vm.define "master" do |srv|
      srv.vm.hostname = "master"
      srv.vm.network :private_network, ip: "192.168.9.10"
      srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Master"; end
-     srv.vm.provision "puppet" do |puppet|
-           puppet.module_path = master_puppet_config["module_paths"]
-           puppet.manifests_path = master_puppet_config["manifest_dir"]
-           puppet.manifest_file  = master_puppet_config["manifest_file"]
-           puppet.hiera_config_path = master_puppet_config["hiera_config_path"]
+     srv.vm.provision :puppet do |puppet|
+          puppet.environment_path = "../puppetlabs/code/environments"
+          puppet.facter = {
+            "role" => "cluster_master"
+          }
+         # puppet.manifest_file  = master_puppet_config["manifest_file"]
+         # puppet.manifests_path = master_puppet_config["manifest_dir"]
       #     puppet.environment = puppet_config["puppet_environment"]
-          puppet.options = "--verbose --debug --environment=local"
-      #    puppet.options = "--verbose --debug"
+      #    puppet.options = "--verbose --debug --environment=local"
+          puppet.options = "--verbose --debug"
       end
-     srv.vm.provision "shell" do |mstr|
-      mstr.privileged = false
-       mstr.inline = "sudo /vagrant/scripts/local.sh"
-       mstr.inline = "sudo /vagrant/scripts/run-local.sh master.sh"
-     end
+#     srv.vm.provision "shell" do |mstr|
+#      mstr.privileged = false
+#       mstr.inline = "sudo /vagrant/scripts/local.sh"
+#       mstr.inline = "sudo /vagrant/scripts/run-local.sh master.sh"
+#     end
   end
 
   config.vm.define "worker1" do |srv|
@@ -79,13 +127,12 @@ Vagrant.configure("2") do |config|
     srv.vm.network :private_network, ip: "192.168.9.11"
     srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Worker1"; end
      srv.vm.provision "puppet" do |puppet|
-           puppet.module_path = worker_puppet_config["module_paths"]
-           puppet.manifests_path = worker_puppet_config["manifest_dir"]
-           puppet.manifest_file  = worker_puppet_config["manifest_file"]
-           puppet.hiera_config_path = worker_puppet_config["hiera_config_path"]
-      #     puppet.environment = puppet_config["puppet_environment"]
-          puppet.options = "--verbose --debug --environment=local"
-      #    puppet.options = "--verbose --debug"
+          puppet.environment_path = "../puppetlabs/code/environments"
+          puppet.facter = {
+            "role" => "cluster_worker"
+          }
+      #    puppet.options = "--verbose --debug --environment=local"
+          puppet.options = "--verbose --debug"
       end
     srv.vm.provision "shell" do |mstr|
       mstr.privileged = false
@@ -99,13 +146,14 @@ Vagrant.configure("2") do |config|
     srv.vm.network :private_network, ip: "192.168.9.12"
     srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Worker2"; end
      srv.vm.provision "puppet" do |puppet|
-           puppet.module_path = worker_puppet_config["module_paths"]
-           puppet.manifests_path = worker_puppet_config["manifest_dir"]
-           puppet.manifest_file  = worker_puppet_config["manifest_file"]
-           puppet.hiera_config_path = worker_puppet_config["hiera_config_path"]
+          puppet.manifests_path = worker_puppet_config["manifest_dir"]
+          puppet.manifest_file  = worker_puppet_config["manifest_file"]
+          puppet.facter = {
+            "role" => "cluster_worker"
+          }
       #     puppet.environment = puppet_config["puppet_environment"]
-          puppet.options = "--verbose --debug --environment=local"
-      #    puppet.options = "--verbose --debug"
+      #    puppet.options = "--verbose --debug --environment=local"
+          puppet.options = "--verbose --debug"
       end
     srv.vm.provision "shell" do |mstr|
       mstr.privileged = false

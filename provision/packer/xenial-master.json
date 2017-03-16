@@ -130,37 +130,39 @@
       },
     {
       "type": "shell",
-      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+      "setup": "vagrant",
+      "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S /bin/bash '{{ .Path }}'",
       "inline": [ 
-                  "sudo apt-get update && sudo apt-get -y install puppet-common",
-                  "sudo mkdir -p /etc/puppet/hieradata", 
-                  "sudo chmod 777 /etc/puppet/hieradata" ]
+                    "wget https://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb",
+                    "dpkg -i puppetlabs-release-pc1-xenial.deb",
+                    "gpg --keyserver pgp.mit.edu --recv-key 7F438280EF8D349F",
+                    "apt-get update",
+                    "DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' --force-yes puppet-agent",
+                    "grep puppetlabs /root/.bashrc || echo 'export PATH=$PATH:/opt/puppetlabs/bin' >> /root/.bashrc",
+                    "grep puppetlabs /root/.bash_profile || echo 'export PATH=$PATH:/opt/puppetlabs/bin' >> /root/.bash_profile",
+                    "grep puppetlabs /root/.profile || echo 'export PATH=$PATH:/opt/puppetlabs/bin' >> /root/.profile"
+                ]
     },
     {
       "type": "file",
-      "source": "../puppet/code",
-      "destination": "/etc/puppet/hieradata"
-    },
-    {
-      "type": "file",
-      "source": "../../scripts/",
-      "destination": "/tmp"
+      "source": "../puppetlabs/code",
+      "destination": "/etc/puppetlabs/code"
     },
     {
       "type": "shell",
+      "setup": "vagrant",
       "execute_command": "echo 'vagrant' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
       "inline": [ 
-          "find /tmp",
-                  "sudo /tmp/run-cluster.sh master.sh" 
-      ]
+              "DEBIAN_FRONTEND=noninteractive apt-get -y install ruby",
+                    "gem install librarian-puppet",
+                  "cd /etc/puppetlabs/code/environments/production && PATH=$PATH:/opt/puppetlabs/bin librarian-puppet install" 
+      ],
+      "setup": "vagrant"
     },
     {
       "type": "puppet-masterless",
-      "module_paths": "../puppet/modules",
-      "manifest_dir": "../puppet",
-      "manifest_file": "../puppet/{{user `puppet_manifest`}}",
-      "hiera_config_path": "../puppet/hiera.yaml",
-      "execute_command": "echo 'vagrant' | {{.FacterVars}}{{if .Sudo}} sudo -S -E {{end}}puppet apply  --verbose --modulepath='{{.ModulePath}}' {{if ne .HieraConfigPath \"\"}}--hiera_config='{{.HieraConfigPath}}' {{end}} {{if ne .ManifestDir \"\"}}--manifestdir='{{.ManifestDir}}' {{end}} --detailed-exitcodes {{.ManifestFile}}"
+      "manifest_file": "/etc/puppetlabs/code/environments/production/manifests/site.pp",
+      "execute_command": "echo 'vagrant' | {{.FacterVars}}{{if .Sudo}} sudo -S -E {{end}}puppet apply  --verbose --detailed-exitcodes {{.ManifestFile}}"
     }
   ],
 	  "post-processors": [
@@ -175,7 +177,6 @@
     "ip": "192.168.56.64",
     "mem": "1024",
     "aws_access_key": "",
-    "aws_secret_key": "",
-    "puppet_manifest": "sso-ldap-client.pp"
+    "aws_secret_key": ""
   }
 }
