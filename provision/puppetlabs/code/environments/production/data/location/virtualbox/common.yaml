@@ -1,0 +1,39 @@
+---
+profile::ldap::client::ldap_uri: 
+            - 'ldap://10.0.2.2/'
+
+profile::ldap::client::ldap_login_filter: ''
+
+sudo::configs:
+        'ubuntu':
+                'priority' : 10
+                'content' : "ubuntu ALL=(ALL) NOPASSWD:ALL"
+
+
+profile::mail::relay::relay_domains: 'localhost malariagen.net'
+profile::mail::relay::relay_host: 'none'
+profile::mail::relay::smtp_sasl_auth_enable: 'yes'
+
+profile::mail::relay::smtp_generic_maps: ''
+
+postfix::root_mail_recipient: 'sysadmin@malariagen.net'
+
+
+profile::ldap::client::fallback_auth: 'password'
+
+profile::ldap::client::ldap_default_authtok: ''
+
+profile::mail::relay::relay_passwd: ''
+
+profile::cluster::mount::home_server: 'master'
+
+profile::cluster::mount::users:
+    - user1
+
+profile::cluster::mount::level1_server: 'master'
+profile::cluster::mount::level1:
+    - data
+
+profile::cluster::mount::level2_server: 'master'
+profile::cluster::mount::level2:
+    - data
