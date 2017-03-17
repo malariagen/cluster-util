@@ -3,3 +3,4 @@ modules/
 secure.*
 *.eyaml
 Puppetfile.lock
+.librarian
