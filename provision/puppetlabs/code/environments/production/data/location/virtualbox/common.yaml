@@ -21,10 +21,11 @@ postfix::root_mail_recipient: 'sysadmin@malariagen.net'
 
 profile::ldap::client::fallback_auth: 'password'
 
-profile::ldap::client::ldap_default_authtok: ''
+profile::ldap::client::ldap_default_authtok: 'password'
 
 profile::mail::relay::relay_passwd: ''
 
+profile::cluster::mount::cluster_server: 'master'
 profile::cluster::mount::home_server: 'master'
 
 profile::cluster::mount::users:
