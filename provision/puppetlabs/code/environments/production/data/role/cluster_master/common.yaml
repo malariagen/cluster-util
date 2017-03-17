@@ -1,0 +1,20 @@
+---
+
+classes:
+    - profile::cluster::master
+
+profile::cluster::master::ident:
+    - name: 'master'
+      ip: '192.168.9.10'
+
+profile::cluster::master::packages:
+    - name: 'gridengine-master'
+      version: 'latest'
+    - name: 'gridengine-client'
+      version: 'latest'
+    - name: 'gridengine-qmon'
+      version: 'latest'
+
+
+
+
