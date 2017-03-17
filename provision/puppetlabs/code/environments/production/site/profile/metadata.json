@@ -8,7 +8,8 @@
   "project_page": "https://github.com/malariagen/cluster-util",
   "issues_url": "https://github.com/malariagen/cluster-util/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"},
+    {"name":"derdanne-nfs","version_requirement":">= 2.0.2"}
   ]
 }
 
