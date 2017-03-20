@@ -100,7 +100,7 @@ class profile::cluster::master(
         $exec_name = "configure manager ${manager}"
 
         exec { "$exec_name":
-            command => "/usr/bin/qconf -am ${manager}"
+            command => "/usr/bin/qconf -sm | grep ${manager} || /usr/bin/qconf -am ${manager}"
         }
 
     }
