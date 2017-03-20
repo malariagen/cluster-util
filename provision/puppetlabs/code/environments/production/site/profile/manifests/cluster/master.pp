@@ -9,7 +9,8 @@ class profile::cluster::master(
     $users,
     $managers,
     $projects,
-    $sconf
+    $sconf,
+    $quotas
 ) {
 
     $packages.each |$package| {
@@ -92,6 +93,29 @@ class profile::cluster::master(
 
         exec { "$exec_name":
             command => "/usr/bin/qconf -Muser $userdefn || /usr/bin/qconf -Auser $userdefn"
+        }
+
+    }
+
+    $quotas.each |$quota| {
+
+        $quotadefn = "/tmp/${quota['name']}_rqs"
+
+        $exec_name = "configure quota ${quota['name']}"
+
+        file { $quotadefn:
+            ensure => file,
+            content => epp('profile/cluster_master/quota.epp', { 
+                            'rqs_name' => $quota[name],
+                            'rqs_description' => $quota[description],
+                            'rqs_enabled' => $quota[enabled],
+                            'rqs_limit' => $quota[limit],
+                            }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mrqs $quotadefn || /usr/bin/qconf -Arqs $quotadefn"
         }
 
     }

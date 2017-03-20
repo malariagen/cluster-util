@@ -80,6 +80,12 @@ profile::cluster::master::users:
 profile::cluster::master::managers:
     - user1
 
+profile::cluster::master::quotas:
+    - name: user1_slots
+      description: 'limit user1 to 10 slots so he does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {user1} to slots=10'
+
 profile::cluster::master::acls:
     - name: bigMem
       entries:

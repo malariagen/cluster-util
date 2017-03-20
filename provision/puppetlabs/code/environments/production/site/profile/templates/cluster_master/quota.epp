@@ -1,0 +1,6 @@
+{
+   name         <%= $rqs_name %>
+   description  <%= $rqs_description %>
+   enabled      <%= $rqs_enabled %>
+   limit        <%= $rqs_limit %>
+}
