@@ -1,6 +1,10 @@
 class profile::cluster::master(
     $ident,
     $packages,
+    $submit_nodes,
+    $queues,
+    $parallel_envs,
+    $acls
 ) {
 
     $packages.each |$package| {
@@ -23,6 +27,33 @@ class profile::cluster::master(
     nfs::server::export{ '/var/lib/gridengine/default':
         ensure  => 'mounted',
         clients => '@kwiat-cluster-nodes(rw,subtree_check)'
+    }
+    $submit_nodes.each |$node| {
+        exec { "submit nodes":
+            command => "/usr/bin/qconf -as $node"
+        }
+    }
+
+    $queues.each |$queue| {
+
+        $qdefn = "/tmp/${queue['name']}.q"
+
+        $exec_name = "configure queue ${queue['name']}"
+
+        $slots = $queue[slots].reduce(["${queue['default_slots']}"]) | $memo, $value | {
+            concat($memo, "[${value[host]}=${value[num]}]") 
+        }
+        file { $qdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/queue.epp', { 'queue_name' => $queue[name],
+            'slots' => $slots.join(','), 'pe_list' => $queue[pe_list] }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mq $qdefn || /usr/bin/qconf -Aq $qdefn"
+        }
+
     }
 }
 

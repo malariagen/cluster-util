@@ -38,3 +38,34 @@ profile::cluster::mount::level1:
 profile::cluster::mount::level2_server: 'master'
 profile::cluster::mount::level2:
     - data
+
+profile::cluster::master::submit_nodes:
+    - worker1
+
+#Workers will automatically be added as exec hosts
+profile::cluster::master::queues:
+    - name: longrun
+      pe_list: make simple_pe
+      default_slots: 2
+      slots:
+          - host: worker1
+            num: 2
+          - host: worker2
+            num: 2
+    - name: mpi
+      pe_list: make mpi_pe
+      default_slots: 2
+      slots:
+          - host: worker2
+            num: 2
+
+profile::cluster::master::parallel_envs:
+    - name: mpi
+      users:
+          - user1
+
+profile::cluster::master::acls:
+    - name: bigMem
+      entries:
+          - user1
+
