@@ -1,0 +1,10 @@
+hostname              <%= $exec_host_name %>
+load_scaling          NONE
+complex_values        <%= $complex_values %>
+user_lists            NONE
+xuser_lists           NONE
+projects              NONE
+xprojects             NONE
+usage_scaling         NONE
+report_variables      NONE
+

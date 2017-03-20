@@ -5,6 +5,7 @@ class profile::cluster::master(
     $queues,
     $parallel_envs,
     $acls,
+    $exec_hosts,
     $hostgroups,
     $users,
     $managers,
@@ -147,6 +148,28 @@ class profile::cluster::master(
         }
 
     }
+
+    $exec_hosts.each |$exechost| {
+
+        $exechost_defn = "/tmp/${exechost['name']}_exechost"
+
+        $exec_name = "configure exechost ${exechost['name']}"
+
+        file { $exechost_defn:
+            ensure => file,
+            content => epp('profile/cluster_master/exec_host.epp', { 
+                            'exec_host_name' => $exechost[name],
+                            'complex_values' => $exechost[complex_values]
+                            }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Me $exechost_defn || /usr/bin/qconf -Ae $exechost_defn"
+        }
+
+    }
+
     $hostgroups.each |$hostgroup| {
 
         $hostgroup_defn = "/tmp/${hostgroup['name']}_hostgroup"

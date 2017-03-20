@@ -42,6 +42,10 @@ profile::cluster::mount::level2:
 profile::cluster::master::submit_nodes:
     - worker1
 
+profile::cluster::master::exec_hosts:
+    - name: worker1
+      complex_values: 'h_vmem=100M,virtual_free=0G,arch_intel=TRUE'
+
 #Workers will automatically be added as exec hosts
 profile::cluster::master::queues:
     - name: longrun
