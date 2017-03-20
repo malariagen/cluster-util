@@ -90,3 +90,13 @@ profile::cluster::master::hostgroups:
       hosts: 
         - worker1
         - worker2
+
+profile::cluster::master::sconf:
+    :schedule_interval: '0:0:4'
+    :flush_submit_sec: 2
+    :flush_finish_sec: 2
+    :weight_tickets_share: 1000000
+    :weight_ticket: 1.000000
+    :weight_urgency: 0.200000
+    :weight_priority: 0.100000
+    :max_reservation: 8

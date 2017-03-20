@@ -8,7 +8,8 @@ class profile::cluster::master(
     $hostgroups,
     $users,
     $managers,
-    $projects
+    $projects,
+    $sconf
 ) {
 
     $packages.each |$package| {
@@ -161,5 +162,28 @@ class profile::cluster::master(
         }
 
     }
+
+    $sconfdefn = "/tmp/sconf"
+
+    $exec_name = "configure cluster"
+    file { $sconfdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/sconf.epp', { 
+                'schedule_interval' => $sconf[schedule_interval],
+                'flush_submit_sec' => $sconf[flush_submit_sec],
+                'flush_finish_sec' => $sconf[flush_finish_sec],
+                'weight_tickets_share' => $sconf[weight_tickets_share],
+                'weight_ticket' => $sconf[weight_ticket],
+                'weight_urgency' => $sconf[weight_urgency],
+                'weight_priority' => $sconf[weight_priority],
+                'max_reservation' => $sconf[max_reservation]
+            }),
+            notify => Exec["$exec_name"]
+    }
+
+    exec { "$exec_name":
+        command => "/usr/bin/qconf -Msconf $sconfdefn"
+    }
+
 }
 
