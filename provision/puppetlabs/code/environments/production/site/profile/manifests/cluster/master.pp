@@ -7,6 +7,7 @@ class profile::cluster::master(
     $acls,
     $hostgroups,
     $users,
+    $managers,
     $projects
 ) {
 
@@ -75,6 +76,7 @@ class profile::cluster::master(
 
     }
 
+
     $users.each |$user| {
 
         $userdefn = "/tmp/${user['name']}_user"
@@ -89,6 +91,16 @@ class profile::cluster::master(
 
         exec { "$exec_name":
             command => "/usr/bin/qconf -Muser $userdefn || /usr/bin/qconf -Auser $userdefn"
+        }
+
+    }
+
+    $managers.each |$manager| {
+
+        $exec_name = "configure manager ${manager}"
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -am ${manager}"
         }
 
     }

@@ -77,6 +77,9 @@ profile::cluster::master::users:
     - name: user1
       project: other
 
+profile::cluster::master::managers:
+    - user1
+
 profile::cluster::master::acls:
     - name: bigMem
       entries:
