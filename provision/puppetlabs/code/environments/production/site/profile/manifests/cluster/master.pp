@@ -55,5 +55,23 @@ class profile::cluster::master(
         }
 
     }
+    $parallel_envs.each |$pe| {
+
+        $pedefn = "/tmp/${pe['name']}_pe"
+
+        $exec_name = "configure parallel env ${pe['name']}"
+
+        file { $pedefn:
+            ensure => file,
+            content => epp('profile/cluster_master/pe.epp', { 'pe_name' => $pe[name],
+            'num_slots' => $pe[slots], 'rule' => $pe[rule], 'control_slaves' => $pe[control_slaves] }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mp $pedefn || /usr/bin/qconf -Ap $pedefn"
+        }
+
+    }
 }
 

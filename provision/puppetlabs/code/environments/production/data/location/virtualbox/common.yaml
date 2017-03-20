@@ -60,9 +60,15 @@ profile::cluster::master::queues:
             num: 2
 
 profile::cluster::master::parallel_envs:
+    - name: simple
+      slots: 280
+      rule: '$pe_slots'
+      control_slaves: 'FALSE'
     - name: mpi
-      users:
-          - user1
+      slots: 99999
+      rule: '$fill_up'
+      control_slaves: 'TRUE'
+
 
 profile::cluster::master::acls:
     - name: bigMem
