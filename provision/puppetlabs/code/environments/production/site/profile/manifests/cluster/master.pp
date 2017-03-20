@@ -73,5 +73,24 @@ class profile::cluster::master(
         }
 
     }
+
+    $acls.each |$ul| {
+
+        $uldefn = "/tmp/${ul['name']}_ul"
+
+        $exec_name = "configure parallel env ${ul['name']}"
+
+        file { $uldefn:
+            ensure => file,
+            content => epp('profile/cluster_master/ul.epp', { 'ul_name' => $ul[name],
+            'entries' => $ul[entries].join(',') }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mu $uldefn || /usr/bin/qconf -Au $uldefn"
+        }
+
+    }
 }
 
