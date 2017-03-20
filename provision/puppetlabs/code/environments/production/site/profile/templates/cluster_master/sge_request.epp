@@ -1,0 +1,17 @@
+# Default Requests File
+
+# request expected RAM usage of 100M, hard RAM limit of 200M and a 1 hour runtime limit:
+#-l vf=100M,h_vmem=200M,h_rt=1:0:0
+
+# don't restart the job in case of system crashes
+#-r n
+
+# assign a default priority of -100 to allow users to schedule higher-priority
+# jobs.  Normal users cannot schedule jobs with a priority > 0.
+-p -512
+
+# set normal jobs to not request priority access to the shortrun.q
+#-l priority=false
+#-q longrun.q
+-l s_rt=168:00:00
+

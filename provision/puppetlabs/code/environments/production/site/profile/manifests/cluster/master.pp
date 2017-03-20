@@ -223,5 +223,12 @@ class profile::cluster::master(
     exec { "$cexec_name":
         command => "/usr/bin/qconf -Mc $cconfdefn"
     }
+
+
+    file { '/var/lib/gridengine/default/common/sge_request':
+            ensure => file,
+            content => epp('profile/cluster_master/sge_request.epp', { 
+            })
+    }
 }
 
