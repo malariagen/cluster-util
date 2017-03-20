@@ -209,5 +209,19 @@ class profile::cluster::master(
         command => "/usr/bin/qconf -Msconf $sconfdefn"
     }
 
+
+    $cconfdefn = "/tmp/cconf"
+
+    $cexec_name = "configure complexes"
+    file { $cconfdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/complexes.epp', { 
+            }),
+            notify => Exec["$cexec_name"]
+    }
+
+    exec { "$cexec_name":
+        command => "/usr/bin/qconf -Mc $cconfdefn"
+    }
 }
 
