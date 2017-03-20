@@ -70,9 +70,12 @@ profile::cluster::master::parallel_envs:
       control_slaves: 'TRUE'
 
 
+profile::cluster::master::projects:
+    - name: other
+
 profile::cluster::master::users:
     - name: user1
-      project: NONE
+      project: other
 
 profile::cluster::master::acls:
     - name: bigMem

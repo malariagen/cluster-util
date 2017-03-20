@@ -6,7 +6,8 @@ class profile::cluster::master(
     $parallel_envs,
     $acls,
     $hostgroups,
-    $users
+    $users,
+    $projects
 ) {
 
     $packages.each |$package| {
@@ -51,6 +52,25 @@ class profile::cluster::master(
 
         exec { "$exec_name":
             command => "/usr/bin/qconf -Mp $pedefn || /usr/bin/qconf -Ap $pedefn"
+        }
+
+    }
+
+
+    $projects.each |$prj| {
+
+        $prjdefn = "/tmp/${prj['name']}_prj"
+
+        $exec_name = "configure prj ${prj['name']}"
+
+        file { $prjdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/project.epp', { 'prj_name' => $prj[name] }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mprj $prjdefn || /usr/bin/qconf -Aprj $prjdefn"
         }
 
     }
