@@ -5,7 +5,8 @@ class profile::cluster::master(
     $queues,
     $parallel_envs,
     $acls,
-    $hostgroups
+    $hostgroups,
+    $users
 ) {
 
     $packages.each |$package| {
@@ -35,27 +36,6 @@ class profile::cluster::master(
         }
     }
 
-    $queues.each |$queue| {
-
-        $qdefn = "/tmp/${queue['name']}.q"
-
-        $exec_name = "configure queue ${queue['name']}"
-
-        $slots = $queue[slots].reduce(["${queue['default_slots']}"]) | $memo, $value | {
-            concat($memo, "[${value[host]}=${value[num]}]") 
-        }
-        file { $qdefn:
-            ensure => file,
-            content => epp('profile/cluster_master/queue.epp', { 'queue_name' => $queue[name],
-            'slots' => $slots.join(','), 'pe_list' => $queue[pe_list] }),
-            notify => Exec["$exec_name"]
-        }
-
-        exec { "$exec_name":
-            command => "/usr/bin/qconf -Mq $qdefn || /usr/bin/qconf -Aq $qdefn"
-        }
-
-    }
     $parallel_envs.each |$pe| {
 
         $pedefn = "/tmp/${pe['name']}_pe"
@@ -71,6 +51,24 @@ class profile::cluster::master(
 
         exec { "$exec_name":
             command => "/usr/bin/qconf -Mp $pedefn || /usr/bin/qconf -Ap $pedefn"
+        }
+
+    }
+
+    $users.each |$user| {
+
+        $userdefn = "/tmp/${user['name']}_user"
+
+        $exec_name = "configure user ${user['name']}"
+
+        file { $userdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/user.epp', { 'user_name' => $user[name], 'default_project' => $user[project] }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Muser $userdefn || /usr/bin/qconf -Auser $userdefn"
         }
 
     }
@@ -106,6 +104,28 @@ class profile::cluster::master(
 
         exec { "$exec_name":
             command => "/usr/bin/qconf -Mhgrp $hostgroup_defn || /usr/bin/qconf -Ahgrp $hostgroup_defn"
+        }
+
+    }
+
+    $queues.each |$queue| {
+
+        $qdefn = "/tmp/${queue['name']}.q"
+
+        $exec_name = "configure queue ${queue['name']}"
+
+        $slots = $queue[slots].reduce(["${queue['default_slots']}"]) | $memo, $value | {
+            concat($memo, "[${value[host]}=${value[num]}]") 
+        }
+        file { $qdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/queue.epp', { 'queue_name' => $queue[name],
+            'slots' => $slots.join(','), 'pe_list' => $queue[pe_list] }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mq $qdefn || /usr/bin/qconf -Aq $qdefn"
         }
 
     }
