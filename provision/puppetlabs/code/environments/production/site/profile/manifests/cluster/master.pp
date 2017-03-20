@@ -4,7 +4,8 @@ class profile::cluster::master(
     $submit_nodes,
     $queues,
     $parallel_envs,
-    $acls
+    $acls,
+    $hostgroups
 ) {
 
     $packages.each |$package| {
@@ -78,17 +79,33 @@ class profile::cluster::master(
 
         $uldefn = "/tmp/${ul['name']}_ul"
 
-        $exec_name = "configure parallel env ${ul['name']}"
+        $exec_name = "configure acl ${ul['name']}"
 
         file { $uldefn:
             ensure => file,
-            content => epp('profile/cluster_master/ul.epp', { 'ul_name' => $ul[name],
-            'entries' => $ul[entries].join(',') }),
+            content => epp('profile/cluster_master/ul.epp', { 'ul_name' => $ul[name], 'entries' => $ul[entries].join(',') }),
             notify => Exec["$exec_name"]
         }
 
         exec { "$exec_name":
             command => "/usr/bin/qconf -Mu $uldefn || /usr/bin/qconf -Au $uldefn"
+        }
+
+    }
+    $hostgroups.each |$hostgroup| {
+
+        $hostgroup_defn = "/tmp/${hostgroup['name']}_hostgroup"
+
+        $exec_name = "configure hostgroup ${hostgroup['name']}"
+
+        file { $hostgroup_defn:
+            ensure => file,
+            content => epp('profile/cluster_master/hostgroup.epp', { 'group_name' => $hostgroup[name], 'hostlist' => $hostgroup[hosts].join(' ') }),
+            notify => Exec["$exec_name"]
+        }
+
+        exec { "$exec_name":
+            command => "/usr/bin/qconf -Mhgrp $hostgroup_defn || /usr/bin/qconf -Ahgrp $hostgroup_defn"
         }
 
     }

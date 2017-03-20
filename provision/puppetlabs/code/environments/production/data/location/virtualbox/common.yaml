@@ -75,3 +75,8 @@ profile::cluster::master::acls:
       entries:
           - user1
 
+profile::cluster::master::hostgroups:
+    - name: 'allhosts'
+      hosts: 
+        - worker1
+        - worker2
