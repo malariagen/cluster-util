@@ -110,3 +110,20 @@ profile::cluster::master::sconf:
     :weight_urgency: 0.200000
     :weight_priority: 0.100000
     :max_reservation: 8
+
+profile::cluster::master::share_tree:
+    :nodes:
+        - id: 0
+          name: 'user1'
+          shares: 33
+
+
+profile::cluster::master::cluster_conf:
+    :enforce_project: 'true'
+    :administrator_mail: 'sysadmin@malariagen.net'
+    :qmaster_params: 'MAX_DYN_EC=256'
+    :execd_params: 'S_DESCRIPTORS=5461,H_DESCRIPTORS=10922'
+    :max_aj_instances: 310
+    :max_aj_tasks: 0
+
+

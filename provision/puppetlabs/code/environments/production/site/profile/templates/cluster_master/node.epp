@@ -1,0 +1,18 @@
+<%- | 
+$nodes
+| -%>
+<% $nodes.each |$node| { -%>
+id=<%= "${node['id']}" %>
+name=<%= "${node['name']}" %>
+<% if $node[nodetype] { -%>
+type=<%= "${node['nodetype']}" %>
+<% } else { -%>
+type=0
+<% } -%>
+shares=<%= "${node['shares']}" %>
+<% if $node[childnodes] { -%>
+childnodes=<%= "${node['childnodes']}" %>
+<% } else { -%>
+childnodes=NONE
+<% } -%>
+<% } -%>

@@ -12,7 +12,8 @@ class profile::cluster::master(
     $projects,
     $sconf,
     $quotas,
-    $cluster_conf
+    $cluster_conf,
+    $share_tree
 ) {
 
     $packages.each |$package| {
@@ -290,5 +291,23 @@ class profile::cluster::master(
             content => epp('profile/cluster_master/sge_request.epp', { 
             })
     }
+
+
+    $tree_defn = "/tmp/share_tree"
+
+    $tree_exec_name = "configure share tree"
+
+    file { $tree_defn:
+        ensure => file,
+        content => epp('profile/cluster_master/node.epp', {
+                                                            'nodes' => $share_tree[nodes]
+                                                        }),
+        notify => Exec["$tree_exec_name"]
+    }
+
+    exec { "$tree_exec_name":
+        command => "/usr/bin/qconf -Mstree $tree_defn || /usr/bin/qconf -Astree $tree_defn"
+    }
+
 }
 
