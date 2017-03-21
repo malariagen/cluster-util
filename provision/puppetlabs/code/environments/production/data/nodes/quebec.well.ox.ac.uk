@@ -1,0 +1,440 @@
+---
+
+profile::cluster::master::submit_nodes:
+    - india.well.ox.ac.uk
+    - romeo.well.ox.ac.uk
+
+profile::cluster::master::exec_hosts:
+    - name: delta.well.ox.ac.uk
+      complex_values: 'h_vmem=45G,virtual_free=48G,arch_amd=TRUE'
+    - name: echo.well.ox.ac.uk
+      complex_values: 'h_vmem=45G,virtual_free=48G,arch_amd=TRUE'
+    - name: foxtrot.well.ox.ac.uk
+      complex_values: 'h_vmem=58G,virtual_free=48G,arch_amd=TRUE'
+    - name: golf.well.ox.ac.uk
+      complex_values: 'h_vmem=45G,virtual_free=48G,arch_amd=TRUE'
+    - name: hotel.well.ox.ac.uk
+      complex_values: 'h_vmem=45G,virtual_free=48G,arch_amd=TRUE'
+    - name: india.well.ox.ac.uk
+      complex_values: 'h_vmem=245G,virtual_free=256G,arch_amd=TRUE'
+    - name: juliet.well.ox.ac.uk
+      complex_values: 'h_vmem=60G,virtual_free=74G,arch_intel=TRUE'
+    - name: kilo.well.ox.ac.uk
+      complex_values: 'h_vmem=60G,virtual_free=74G,arch_intel=TRUE'
+    - name: lima.well.ox.ac.uk
+      complex_values: 'h_vmem=60G,virtual_free=74G,arch_intel=TRUE'
+    - name: mike.well.ox.ac.uk
+      complex_values: 'h_vmem=60G,virtual_free=74G,arch_intel=TRUE'
+    - name: november.well.ox.ac.uk
+      complex_values: 'h_vmem=60G,virtual_free=74G,arch_intel=TRUE'
+    - name: oscar.well.ox.ac.uk
+      complex_values: 'h_vmem=160G,virtual_free=160G,arch_intel=TRUE'
+
+#Workers will automatically be added as exec hosts
+profile::cluster::master::queues:
+    - name: longrun
+      pe_list: make simple_pe
+      default_slots: 24
+      owner_list: 'kristofk, [india.well.ox.ac.uk=bigMem]'
+      complex_values: 'h_vmem=800G,virtual_free=800G,priority=false'
+      slots:
+        - host: delta.well.ox.ac.uk
+          num: 21
+        - host: foxtrot.well.ox.ac.uk
+          num: 16
+        - host: golf.well.ox.ac.uk
+          num: 20
+        - host: india.well.ox.ac.uk
+          num: 20
+        - host: juliet.well.ox.ac.uk
+          num: 31
+        - host: kilo.well.ox.ac.uk
+          num: 30
+        - host: lima.well.ox.ac.uk
+          num: 30
+        - host: mike.well.ox.ac.uk
+          num: 30
+        - host: november.well.ox.ac.uk
+          num: 30
+        - host: oscar.well.ox.ac.uk
+          num: 16
+    - name: mpi
+      pe_list: make mpi_pe
+      load_thresholds: np_load_avg=1.75
+      seq_no: 0
+      user_lists: mpi
+      default_slots: 24
+      slots:
+        - host: delta.well.ox.ac.uk
+          num: 23
+        - host: foxtrot.well.ox.ac.uk
+          num: 16
+        - host: golf.well.ox.ac.uk
+          num: 18
+        - host: india.well.ox.ac.uk
+          num: 0
+        - host: juliet.well.ox.ac.uk
+          num: 32
+        - host: kilo.well.ox.ac.uk
+          num: 32
+        - host: lima.well.ox.ac.uk
+          num: 32
+        - host: mike.well.ox.ac.uk
+          num: 32
+        - host: november.well.ox.ac.uk
+          num: 32
+        - host: oscar.well.ox.ac.uk
+          num: 0
+    - name: bigMem
+      pe_list: make simple_pe
+      default_slots: 1
+      seq_no: 20
+      load_thresholds: np_load_avg=1.75
+      hostlist: india.well.ox.ac.uk oscar.well.ox.ac.uk
+      owner_list: bigMem
+      user_lists: bigMem
+      complex_values: 'h_vmem=256G,virtual_free=255G'
+      subordinate_list: 'NONE'
+    - name: shortrun
+      pe_list: make
+      seq_no: 0
+      load_thresholds: np_load_avg=1.75
+      default_slots: 10
+      hostlist: juliet.well.ox.ac.uk kilo.well.ox.ac.uk lima.well.ox.ac.uk mike.well.ox.ac.uk november.well.ox.ac.uk
+      user_lists: 'shortrun'
+      subordinate_list: 'slots=36(longrun.q:0:sr)'
+      complex_values:   's_rt=10800,h_vmem=30G,virtual_free=30G,priority=false'
+
+profile::cluster::master::parallel_envs:
+    - name: simple_pe
+      slots: 280
+      rule: '$pe_slots'
+      control_slaves: 'FALSE'
+    - name: mpi_pe
+      slots: 99999
+      rule: '$fill_up'
+      control_slaves: 'TRUE'
+
+
+profile::cluster::master::projects:
+    - name: anopheles
+    - name: human
+    - name: plasmodium
+    - name: other
+
+profile::cluster::master::users:
+    - name: aliman
+      project: NONE
+    - name: antoine
+      project: NONE
+    - name: benj
+      project: NONE
+    - name: ckamdem
+      project: NONE
+    - name: cndila
+      project: NONE
+    - name: csclarkson
+      project: NONE
+    - name: eric
+      project: NONE
+    - name: gav
+      project: NONE
+    - name: gclarke
+      project: NONE
+    - name: george
+      project: NONE
+    - name: iwright
+      project: NONE
+    - name: jacob
+      project: NONE
+    - name: jobrien
+      project: NONE
+    - name: joe
+      project: NONE
+    - name: jwendler
+      project: NONE
+    - name: kanishka
+      project: NONE
+    - name: kiran
+      project: NONE
+    - name: kristofk
+      project: NONE
+    - name: lee
+      project: NONE
+    - name: leffler
+      project: NONE
+    - name: mfontain
+      project: NONE
+    - name: njh
+      project: NONE
+    - name: pvaut
+      project: NONE
+    - name: quang
+      project: NONE
+    - name: roamato
+      project: NONE
+    - name: rpearson
+      project: NONE
+    - name: rwh
+      project: NONE
+    - name: seth
+      project: NONE
+    - name: shabrumi
+      project: NONE
+    - name: sm0179
+      project: NONE
+    - name: spencer
+      project: NONE
+    - name: tra
+      project: NONE
+    - name: trochet
+      project: NONE
+    - name: valentin
+      project: NONE
+    - name: vrpipe
+      project: NONE
+    - name: zam
+      project: NONE
+
+profile::cluster::master::managers:
+    - aliman
+    - kristofk
+    - iwright
+
+profile::cluster::master::quotas:
+    - name: 'aliman_slots'
+      description: 'limit alistair'
+      enabled: 'TRUE'
+      limit: 'users {aliman} to slots=250'
+    - name: 'ckamdem_slots'
+      description: 'limit ckamdem to 10 slots so he does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {ckamdem} to slots=10'
+    - name: 'csclarkson_slots'
+      description: 'limit csclarkson'
+      enabled: 'TRUE'
+      limit: 'users {csclarkson} to slots=50'
+    - name: 'eric_slots'
+      description: 'limit zam to 10 slots so he does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {eric} to slots=10'
+    - name: 'gav_slots'
+      description: 'temporary limit'
+      enabled: 'TRUE'
+      limit: 'users {gav} to slots=150'
+    - name: 'gclarke_slots'
+      description: 'limit gclarke to 50 slots so she does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {gclarke} to slots=50'
+    - name: 'george_slots'
+      description: 'temporary limit'
+      enabled: 'TRUE'
+      limit: 'users {george} to slots=50'
+    - name: 'jacob_slots'
+      description: 'limit zam to 50 slots so he does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {jacob} to slots=50'
+    - name: 'jwendler_slots'
+      description: 'limit jason'
+      enabled: 'TRUE'
+      limit: 'users {jwendler} to slots=50'
+    - name: 'kiran_slots'
+      description: 'limit kiran to 50 slots so he does not kill the NFS server'
+      enabled: 'TRUE'
+      limit: 'users {kiran} to slots=40'
+    - name: 'leffler_slots'
+      description: 'limit leffler'
+      enabled: 'TRUE'
+      limit: 'users {leffler} to slots=50'
+    - name: 'njh_slots'
+      description: 'limit njh'
+      enabled: 'TRUE'
+      limit: 'users {njh} to slots=200'
+    - name: 'quang_slots'
+      description: 'temporary limit'
+      enabled: 'TRUE'
+      limit: 'users {quang} to slots=100'
+    - name: 'rpearson_slots'
+      description: 'temporary limit'
+      enabled: 'TRUE'
+      limit: 'users {rpearson} to slots=50'
+    - name: 'rwh_slots'
+      description: 'temporary limit for pysamstats'
+      enabled: 'TRUE'
+      limit: 'users {rwh} to slots=50'
+    - name: 'shabrumi_slots'
+      description: 'limit giordano'
+      enabled: 'TRUE'
+      limit: 'users {shabrumi} to slots=50'
+    - name: 'sm0179_slots'
+      description: 'limit sm0179 to slots so she does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {sm0179} to slots=25'
+    - name: 'tra_slots'
+      description: 'temporary limit'
+      enabled: 'TRUE'
+      limit: 'users {tra} to slots=50'
+    - name: 'zam_slots'
+      description: 'limit zam to 50 slots so he does not cause too much io'
+      enabled: 'TRUE'
+      limit: 'users {zam} to slots=50'
+
+profile::cluster::master::acls:
+    - name: bigMem
+      entries:
+          - jwendler,kiran,rpearson,rwh,valentin,zam,trochet,quang,gav
+    - name: human
+      entries:
+          - gav,jwendler,quang,rwh,spencer,trochet
+    - name: mpi
+      entries:
+          - aliman,benj,iwright,lee
+    - name: shortrun
+      entries:
+          - leffler
+    - name: users
+      entries:
+          - antoine,benj,gav,jobrien,quang,rwh,spencer,tra,valentin,zam
+
+profile::cluster::master::hostgroups:
+    - name: 'allhosts'
+      hosts: 
+        - foxtrot.well.ox.ac.uk
+        - golf.well.ox.ac.uk
+        - hotel.well.ox.ac.uk
+        - delta.well.ox.ac.uk
+        - echo.well.ox.ac.uk
+        - india.well.ox.ac.uk
+        - juliet.well.ox.ac.uk
+        - kilo.well.ox.ac.uk
+        - lima.well.ox.ac.uk
+        - mike.well.ox.ac.uk
+        - november.well.ox.ac.uk
+        - oscar.well.ox.ac.uk
+
+profile::cluster::master::share_tree:
+    :nodes:
+        - id: 0
+          name: 'Root'
+          shares: 1
+          childnodes: '0,0,0,0'
+        - id: 0
+          name: 'anopheles'
+          nodetype: 1
+          shares: 60
+          childnodes: '0,0,0,0,0'
+        - id: 0
+          name: 'aliman'
+          shares: 33
+        - id: 0
+          name: 'njh'
+          shares: 33
+        - id: 0
+          name: 'seth'
+          shares: 33
+        - id: 0
+          name: 'shabrumi'
+          shares: 50
+        - id: 0
+          name: 'tra'
+          shares: 33
+        - id: 0
+          name: 'human'
+          nodetype: 1
+          shares: 40
+          childnodes: '0,0,0,0,0,0,0,0'
+        - id: 0
+          name: 'cndila'
+          shares: 33
+        - id: 0
+          name: 'gav'
+          shares: 33
+        - id: 0
+          name: 'gclarke'
+          shares: 33
+        - id: 0
+          name: 'george'
+          shares: 33
+        - id: 0
+          name: 'leffler'
+          shares: 33
+        - id: 0
+          name: 'quang'
+          shares: 33
+        - id: 0
+          name: 'spencer'
+          shares: 33
+        - id: 0
+          name: 'trochet'
+          shares: 33
+        - id: 0
+          name: 'other'
+          nodetype: 1
+          shares: 40
+          childnodes: '0,0,0,0,0'
+        - id: 0
+          name: 'benj'
+          shares: 33
+        - id: 0
+          name: 'iwright'
+          shares: 33
+        - id: 0
+          name: 'pvaut'
+          shares: 33
+        - id: 0
+          name: 'rwh'
+          shares: 33
+        - id: 0
+          name: 'vrpipe'
+          shares: 33
+        - id: 0
+          name: 'plasmodium'
+          nodetype: 1
+          shares: 40
+          childnodes: '0,0,0,0,0,0,0,0,0'
+        - id: 0
+          name: 'antoine'
+          shares: 33
+        - id: 0
+          name: 'jacob'
+          shares: 33
+        - id: 0
+          name: 'jwendler'
+          shares: 33
+        - id: 0
+          name: 'kiran'
+          shares: 33
+        - id: 0
+          name: 'roamato'
+          shares: 33
+        - id: 0
+          name: 'rpearson'
+          shares: 33
+        - id: 0
+          name: 'sm0179'
+          shares: 33
+        - id: 0
+          name: 'valentin'
+          shares: 33
+        - id: 0
+          name: 'zam'
+          shares: 33
+
+
+profile::cluster::master::cluster_conf:
+    :enforce_project: 'true'
+    :administrator_mail: 'sysadmin@malariagen.net'
+    :qmaster_params: 'MAX_DYN_EC=256'
+    :execd_params: 'S_DESCRIPTORS=5461,H_DESCRIPTORS=10922'
+    :max_aj_instances: 310
+    :max_aj_tasks: 0
+
+profile::cluster::master::sconf:
+    :schedule_interval: '0:0:4'
+    :flush_submit_sec: 2
+    :flush_finish_sec: 2
+    :weight_tickets_share: 1000000
+    :weight_ticket: 1.000000
+    :weight_urgency: 0.200000
+    :weight_priority: 0.100000
+    :max_reservation: 8
