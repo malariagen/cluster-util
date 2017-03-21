@@ -1,7 +1,11 @@
+<%- | String $pe_list = 'make', String $slots, String $queue_name,
+String $hostlist = '@allhosts', String $load_thresholds = 'np_load_avg=2.5',
+$user_lists = 'NONE', $owner_list = 'NONE', $seq_no = 10, $complex_values = 'NONE',
+$subordinate_list = 'NONE' | -%>
 qname                 <%= $queue_name %>.q
-hostlist              @allhosts
-seq_no                10
-load_thresholds       np_load_avg=2.5
+hostlist              <%= $hostlist %>
+seq_no                <%= $seq_no %>
+load_thresholds       <%= $load_thresholds %>
 suspend_thresholds    NONE
 nsuspend              1
 suspend_interval      00:05:00
@@ -23,11 +27,11 @@ suspend_method        NONE
 resume_method         NONE
 terminate_method      NONE
 notify                00:00:60
-owner_list            NONE
-user_lists            NONE
+owner_list            <%= $owner_list %>
+user_lists            <%= $user_lists %>
 xuser_lists           NONE
-subordinate_list      NONE
-complex_values        h_vmem=800G,virtual_free=800G
+subordinate_list      <%= $subordinate_list %>
+complex_values        <%= $complex_values %>
 projects              NONE
 xprojects             NONE
 calendar              NONE

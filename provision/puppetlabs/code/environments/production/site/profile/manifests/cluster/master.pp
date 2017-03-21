@@ -43,7 +43,7 @@ class profile::cluster::master(
 
     $parallel_envs.each |$pe| {
 
-        $pedefn = "/tmp/${pe['name']}_pe"
+        $pedefn = "/tmp/${pe['name']}"
 
         $exec_name = "configure parallel env ${pe['name']}"
 
@@ -116,7 +116,7 @@ class profile::cluster::master(
         }
 
         exec { "$exec_name":
-            command => "/usr/bin/qconf -Mrqs $quotadefn || /usr/bin/qconf -Arqs $quotadefn"
+            command => "/usr/bin/qconf -Mrqs $quotadefn ${quota['name']} || /usr/bin/qconf -Arqs $quotadefn ${quota['name']} "
         }
 
     }
@@ -194,13 +194,28 @@ class profile::cluster::master(
 
         $exec_name = "configure queue ${queue['name']}"
 
-        $slots = $queue[slots].reduce(["${queue['default_slots']}"]) | $memo, $value | {
-            concat($memo, "[${value[host]}=${value[num]}]") 
+        $s = ["${queue['default_slots']}"]
+        if $queue['slots'] {
+            $slots = $queue[slots].reduce($s) | $memo, $value | {
+                concat($memo, "[${value[host]}=${value[num]}]") 
+            }
+        } else {
+            $slots = $s
         }
         file { $qdefn:
             ensure => file,
-            content => epp('profile/cluster_master/queue.epp', { 'queue_name' => $queue[name],
-            'slots' => $slots.join(','), 'pe_list' => $queue[pe_list] }),
+            content => epp('profile/cluster_master/queue.epp', { 
+                                                        'queue_name' => $queue[name],
+                                                        'hostlist' => $queue[hostlist],
+                                                        'seq_no' => $queue[seq_no],
+                                                        'load_thresholds' => $queue[load_thresholds],
+                                                        'user_lists' => $queue[user_lists],
+                                                        'owner_list' => $queue[owner_list],
+                                                        'complex_values' => $queue[complex_values],
+                                                        'subordinate_list' => $queue[subordinate_list],
+                                                        'slots' => $slots.join(','),
+                                                        'pe_list' => $queue[pe_list]
+                                                        }),
             notify => Exec["$exec_name"]
         }
 
