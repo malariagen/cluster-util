@@ -11,7 +11,8 @@ class profile::cluster::master(
     $managers,
     $projects,
     $sconf,
-    $quotas
+    $quotas,
+    $cluster_conf
 ) {
 
     $packages.each |$package| {
@@ -227,7 +228,7 @@ class profile::cluster::master(
 
     $sconfdefn = "/tmp/sconf"
 
-    $exec_name = "configure cluster"
+    $exec_name = "configure schedule"
     file { $sconfdefn:
             ensure => file,
             content => epp('profile/cluster_master/sconf.epp', { 
@@ -248,6 +249,28 @@ class profile::cluster::master(
     }
 
 
+    #This name has to be global
+    $confdefn = "/tmp/global"
+
+    $confexec_name = "configure cluster"
+    file { $confdefn:
+            ensure => file,
+            content => epp('profile/cluster_master/cluster_conf.epp', { 
+                'enforce_project' => $cluster_conf[enforce_project],
+                'administrator_mail' => $cluster_conf[administrator_mail],
+                'qmaster_params' => $cluster_conf[qmaster_params],
+                'execd_params' => $cluster_conf[execd_params],
+                'max_aj_instances' => $cluster_conf[max_aj_instances],
+                'max_aj_tasks' => $cluster_conf[max_aj_tasks],
+            }),
+            notify => Exec["$confexec_name"]
+    }
+
+    exec { "$confexec_name":
+        command => "/usr/bin/qconf -Mconf $confdefn"
+    }
+
+
     $cconfdefn = "/tmp/cconf"
 
     $cexec_name = "configure complexes"
@@ -261,7 +284,6 @@ class profile::cluster::master(
     exec { "$cexec_name":
         command => "/usr/bin/qconf -Mc $cconfdefn"
     }
-
 
     file { '/var/lib/gridengine/default/common/sge_request':
             ensure => file,
