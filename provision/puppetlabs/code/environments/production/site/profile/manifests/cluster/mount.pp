@@ -73,7 +73,7 @@ class profile::cluster::mount(
 				atboot => "false",
 				ensure => "mounted",
 				fstype => "cifs",
-				options => "iocharset=utf8,${mount['option']},credentials=$credfile",
+				options => "iocharset=utf8,${mount['options']},credentials=$credfile",
 				require => [ File[$credfile], File["${mount['path']}"] ],
 			}
 		}
