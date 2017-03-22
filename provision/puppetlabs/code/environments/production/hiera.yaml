@@ -13,6 +13,7 @@ hierarchy:
         - "nodes/%{trusted.certname}.eyaml" # Add file extension.
         - "location/%{facts.ec2_metadata.services.partition}/secure.eyaml"
         - "location/%{facts.networking.domain}/secure.eyaml"
+        - "role/%{facts.role}/secure.eyaml"
         - "secure.eyaml"
     options:
       pkcs7_private_key: /etc/puppetlabs/puppet/keys/private_key.pkcs7.pem
