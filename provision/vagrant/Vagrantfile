@@ -121,21 +121,21 @@ config.vm.provision "shell",
     srv.vm.hostname = "worker1"
     srv.vm.network :private_network, ip: "192.168.9.11"
     srv.vm.provider "virtualbox" do |vb| 
+
 		vb.name = "SGE-Worker1";
+
+   # Note that this may not be the correct file name
+        defaultdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk"
+		if ARGV[0] == "up" && File.exist?(defaultdisk)
+            puts("provider worker1 - destroying default disk")
+            vb.customize "pre-import", [ "closemedium", "disk", defaultdisk, "--delete" ]
+        end
 
 		#Create a larger root disk
 		vbdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu.vdi"
 		if ARGV[0] == "up" && ! File.exist?(vbdisk)
-			vb.customize [
-   # Note that this may not be the correct file name
-			  "clonehd", "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk",
-						 vbdisk,
-			  "--format", "VDI"
-			]
-			vb.customize [
-			  "modifyhd", vbdisk,
-			  "--resize", 20 * 1024
-			]
+			vb.customize [ "clonehd", defaultdisk, vbdisk, "--format", "VDI" ]
+			vb.customize [ "modifyhd", vbdisk, "--resize", 20 * 1024 ]
 			vb.customize [
 			  "storageattach", :id, 
 			  "--storagectl", "SCSI Controller",
@@ -162,19 +162,18 @@ config.vm.provision "shell",
     srv.vm.network :private_network, ip: "192.168.9.12"
     srv.vm.provider "virtualbox" do |vb| 
 		vb.name = "SGE-Worker2";
+
+        defaultdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk"
+		if ARGV[0] == "up" && File.exist?(defaultdisk)
+            puts("provider worker2 - destroying default disk")
+            vb.customize "pre-import", [ "closemedium", "disk", defaultdisk, "--delete" ]
+        end
+
 		#Create a larger root disk
 		vbdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu.vdi"
 		if ARGV[0] == "up" && ! File.exist?(vbdisk)
-			vb.customize [
-   # Note that this may not be the correct file name
-			  "clonehd", "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk",
-						 vbdisk,
-			  "--format", "VDI"
-			]
-			vb.customize [
-			  "modifyhd", vbdisk,
-			  "--resize", 20 * 1024
-			]
+			vb.customize [ "clonehd", defaultdisk, vbdisk, "--format", "VDI" ]
+			vb.customize [ "modifyhd", vbdisk, "--resize", 20 * 1024 ]
 			vb.customize [
 			  "storageattach", :id, 
 			  "--storagectl", "SCSI Controller",
