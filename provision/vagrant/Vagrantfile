@@ -92,6 +92,7 @@ config.vm.provision "shell",
     vb.memory = 512
     vb.cpus = 1
 #    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"] # fixes slow dns lookups
+
   end
 
   config.vm.synced_folder "../..", "/vagrant", mount_options: ['dmode=777,fmode=777']
@@ -119,22 +120,73 @@ config.vm.provision "shell",
   config.vm.define "worker1" do |srv|
     srv.vm.hostname = "worker1"
     srv.vm.network :private_network, ip: "192.168.9.11"
-    srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Worker1"; end
-     srv.vm.provision "puppet" do |puppet|
+    srv.vm.provider "virtualbox" do |vb| 
+		vb.name = "SGE-Worker1";
+
+		#Create a larger root disk
+		vbdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu.vdi"
+		if ARGV[0] == "up" && ! File.exist?(vbdisk)
+			vb.customize [
+   # Note that this may not be the correct file name
+			  "clonehd", "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk",
+						 vbdisk,
+			  "--format", "VDI"
+			]
+			vb.customize [
+			  "modifyhd", vbdisk,
+			  "--resize", 20 * 1024
+			]
+			vb.customize [
+			  "storageattach", :id, 
+			  "--storagectl", "SCSI Controller",
+			  "--port", "0", 
+			  "--device", "0", 
+			  "--type", "hdd",
+			  "--nonrotational", "on",
+			  "--medium", vbdisk,
+			]
+		end
+    end
+    srv.vm.provision "puppet" do |puppet|
           puppet.environment_path = "../puppetlabs/code/environments"
           puppet.facter = {
             "role" => "cluster_worker"
           }
       #    puppet.options = "--verbose --debug --environment=local"
           puppet.options = "--verbose --debug"
-      end
+    end
   end
 
   config.vm.define "worker2" do |srv|
     srv.vm.hostname = "worker2"
     srv.vm.network :private_network, ip: "192.168.9.12"
-    srv.vm.provider "virtualbox" do |vb| vb.name = "SGE-Worker2"; end
-     srv.vm.provision "puppet" do |puppet|
+    srv.vm.provider "virtualbox" do |vb| 
+		vb.name = "SGE-Worker2";
+		#Create a larger root disk
+		vbdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu.vdi"
+		if ARGV[0] == "up" && ! File.exist?(vbdisk)
+			vb.customize [
+   # Note that this may not be the correct file name
+			  "clonehd", "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk",
+						 vbdisk,
+			  "--format", "VDI"
+			]
+			vb.customize [
+			  "modifyhd", vbdisk,
+			  "--resize", 20 * 1024
+			]
+			vb.customize [
+			  "storageattach", :id, 
+			  "--storagectl", "SCSI Controller",
+			  "--port", "0", 
+			  "--device", "0", 
+			  "--type", "hdd",
+			  "--nonrotational", "on",
+			  "--medium", vbdisk,
+			]
+		end
+	end
+    srv.vm.provision "puppet" do |puppet|
           puppet.manifests_path = worker_puppet_config["manifest_dir"]
           puppet.manifest_file  = worker_puppet_config["manifest_file"]
           puppet.facter = {
@@ -143,7 +195,7 @@ config.vm.provision "shell",
       #     puppet.environment = puppet_config["puppet_environment"]
       #    puppet.options = "--verbose --debug --environment=local"
           puppet.options = "--verbose --debug"
-      end
+    end
   end
 
 
