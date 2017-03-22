@@ -51,17 +51,29 @@ class profile::cluster::mount(
 	}
 
 	if $smb_mounts {
-    $smb_mounts.each |$mount| {
+		$smb_mounts.each |$mount| {
 
 			$credfile = "${cred_dir}/${mount['user']}"
-			file { $credfile:
-				owner   => root,
-				group   => root,
-				mode    => '0644',
-				ensure  => present,
-				content =>  "user=${mount['user']}\npass=${mount['pass']}\n",
-			}
 
+			
+			if $mount[ensure] {
+				$mount_status = "${mount['ensure']}"
+			} else {
+				$mount_status = "mounted"
+			}
+			$default_options = "iocharset=utf8,${mount['options']}"
+			if $mount[pass] {
+				file { $credfile:
+					owner   => root,
+					group   => root,
+					mode    => '0644',
+					ensure  => present,
+					content =>  "user=${mount['user']}\npass=${mount['pass']}\n",
+				}
+				$options = "$default_options,credentials=$credfile"
+			} else {
+				$options = "$default_options,user=${mount['user']}"
+			}
 			file {"${mount['path']}":
 				owner => "${mount['user']}",
 				ensure => directory,
@@ -71,10 +83,10 @@ class profile::cluster::mount(
 			mount {"${mount['path']}":
 				device => "${mount['device']}",
 				atboot => "false",
-				ensure => "mounted",
+				ensure => $mount_status,
 				fstype => "cifs",
-				options => "iocharset=utf8,${mount['options']},credentials=$credfile",
-				require => [ File[$credfile], File["${mount['path']}"] ],
+				options => $options,
+				require => [ File["${mount['path']}"] ],
 			}
 		}
 	}
