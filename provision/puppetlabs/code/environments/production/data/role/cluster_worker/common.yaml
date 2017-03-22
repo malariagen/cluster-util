@@ -4,65 +4,66 @@ classes:
     - profile::cluster::mount
 
 profile::cluster::mount::users:
-                          - aliman
-                          - antoine
-                          - apain
-                          - beniamino
-                          - benj
-                          - bergey
-                          - caroline
-                          - ckamdem
-                          - cndila
-                          - csclarkson
-                          - dan
-                          - dcooke
-                          - edward
-                          - eric
-                          - gamble88
-                          - gav
-                          - gclarke
-                          - george
-                          - iwright
-                          - jacob
-                          - jcbarret
-                          - jiyoung
-                          - jmidega
-                          - jobrien
-                          - joe
-                          - joel
-                          - jradrion
-                          - jshelton
-                          - jwendler
-                          - kanishka
-                          - kiran
-                          - kirk
-                          - krausem
-                          - kristofk
-                          - krzysztof
-                          - lee
-                          - leffler
-                          - lj4
-                          - lucas
-                          - mfontain
-                          - mriehle
-                          - njh
-                          - olivo
-                          - pvaut
-                          - quang
-                          - rlove
-                          - roamato
-                          - rpearson
-                          - rwh
-                          - ryan
-                          - sarah
-                          - shabrumi
-                          - sm0179
-                          - smol
-                          - tra
-                          - trochet
-                          - valentin
-                          - vipederg
-                          - zam
+                          - name: 'aliman'
+                          - name: 'antoine'
+                          - name: 'apain'
+                          - name: 'beniamino'
+                          - name: 'benj'
+                          - name: 'bergey'
+                          - name: 'caroline'
+                          - name: 'ckamdem'
+                          - name: 'cndila'
+                          - name: 'csclarkson'
+                          - name: 'dan'
+                          - name: 'dcooke'
+                          - name: 'edward'
+                          - name: 'eric'
+                          - name: 'gamble88'
+                          - name: 'gav'
+                          - name: 'gclarke'
+                          - name: 'george'
+                          - name: 'iwright'
+                          - name: 'jacob'
+                          - name: 'jcbarret'
+                          - name: 'jiyoung'
+                          - name: 'jmidega'
+                          - name: 'jobrien'
+                          - name: 'joe'
+                          - name: 'joel'
+                          - name: 'jradrion'
+                          - name: 'jshelton'
+                          - name: 'jwendler'
+                          - name: 'kanishka'
+                          - name: 'kiran'
+                          - name: 'kirk'
+                          - name: 'krausem'
+                          - name: 'kristofk'
+                          - name: 'krzysztof'
+                          - name: 'lee'
+                          - name: 'leffler'
+                          - name: 'lj4'
+                          - name: 'lucas'
+                          - name: 'mfontain'
+                          - name: 'mriehle'
+                          - name: 'njh'
+                          - name: 'olivo'
+                          - name: 'pvaut'
+                            ensure: 'absent'
+                          - name: 'quang'
+                          - name: 'rlove'
+                          - name: 'roamato'
+                          - name: 'rpearson'
+                          - name: 'rwh'
+                          - name: 'ryan'
+                          - name: 'sarah'
+                          - name: 'shabrumi'
+                          - name: 'sm0179'
+                          - name: 'smol'
+                          - name: 'tra'
+                          - name: 'trochet'
+                          - name: 'valentin'
+                          - name: 'vipederg'
+                          - name: 'zam'
 
 profile::cluster::mount::level1:
     - anopheles

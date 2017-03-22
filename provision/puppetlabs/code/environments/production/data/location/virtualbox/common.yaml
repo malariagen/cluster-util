@@ -29,7 +29,7 @@ profile::cluster::mount::cluster_server: 'master'
 profile::cluster::mount::home_server: 'master'
 
 profile::cluster::mount::users:
-    - user1
+    - name: 'user1'
 
 profile::cluster::mount::level1_server: 'master'
 profile::cluster::mount::level1:
