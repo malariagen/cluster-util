@@ -48,6 +48,7 @@ class profile::cluster::mount(
 			group   => root,
 			mode    => '0700',
 			ensure  => directory,
+            require => [ Package["cifs-utils"] ],
 	}
 
 	if $smb_mounts {
@@ -69,6 +70,7 @@ class profile::cluster::mount(
 					mode    => '0644',
 					ensure  => present,
 					content =>  "user=${mount['user']}\npass=${mount['pass']}\n",
+                    require => [ File["${cred_dir}"] ],
 				}
 				$options = "$default_options,credentials=$credfile"
 			} else {

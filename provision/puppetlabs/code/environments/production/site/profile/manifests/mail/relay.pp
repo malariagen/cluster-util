@@ -93,7 +93,8 @@ class profile::mail::relay(
         }
         file {
                 '/etc/postfix/header_checks':
-                content => "${header_checks}"
+                content => "${header_checks}",
+                require => [ Class["postfix"] ],
         }
     }
         
