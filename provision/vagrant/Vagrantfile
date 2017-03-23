@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
           pv["inline"].each { |line|
             config.vm.provision "shell" do |s|
               s.privileged = false
-              s.inline = "sudo -E -S /bin/bash -c '" + line + "'"
+              s.inline = 'sudo -E -S /bin/bash -c "' + line + '"'
             end
           }
     end
@@ -115,6 +115,13 @@ config.vm.provision "shell",
       #    puppet.options = "--verbose --debug --environment=local"
           puppet.options = "--verbose --debug"
       end
+    config.vm.provision "shell" do |s|
+      s.privileged = false
+      s.inline = "sudo -E -S /bin/bash -c 'mkdir -p /opt/puppetlabs/facter/facts.d/ &&
+                                              chgrp ubuntu /opt/puppetlabs/facter/facts.d/ && 
+                                              chmod g+w /opt/puppetlabs/facter/facts.d/ '"
+    end
+    srv.vm.provision "file", source: "config/role_master.yaml", destination: "/opt/puppetlabs/facter/facts.d/role.yaml"
   end
 
   config.vm.define "worker1" do |srv|
@@ -126,13 +133,9 @@ config.vm.provision "shell",
 
    # Note that this may not be the correct file name
         defaultdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk"
-		if ARGV[0] == "up" && File.exist?(defaultdisk)
-            puts("provider worker1 - destroying default disk")
-            vb.customize "pre-import", [ "closemedium", "disk", defaultdisk, "--delete" ]
-        end
-
 		#Create a larger root disk
 		vbdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu.vdi"
+
 		if ARGV[0] == "up" && ! File.exist?(vbdisk)
 			vb.customize [ "clonehd", defaultdisk, vbdisk, "--format", "VDI" ]
 			vb.customize [ "modifyhd", vbdisk, "--resize", 20 * 1024 ]
@@ -145,6 +148,8 @@ config.vm.provision "shell",
 			  "--nonrotational", "on",
 			  "--medium", vbdisk,
 			]
+            #Tidy up the one we're not using
+            vb.customize "post-boot", [ "closemedium", "disk", defaultdisk, "--delete" ]
 		end
     end
     srv.vm.provision "puppet" do |puppet|
@@ -155,6 +160,13 @@ config.vm.provision "shell",
       #    puppet.options = "--verbose --debug --environment=local"
           puppet.options = "--verbose --debug"
     end
+    config.vm.provision "shell" do |s|
+      s.privileged = false
+      s.inline = "sudo -E -S /bin/bash -c 'mkdir -p /opt/puppetlabs/facter/facts.d/ &&
+                                              chgrp ubuntu /opt/puppetlabs/facter/facts.d/ && 
+                                              chmod g+w /opt/puppetlabs/facter/facts.d/ '"
+    end
+    srv.vm.provision "file", source: "config/role_worker.yaml", destination: "/opt/puppetlabs/facter/facts.d/role.yaml"
   end
 
   config.vm.define "worker2" do |srv|
@@ -164,11 +176,6 @@ config.vm.provision "shell",
 		vb.name = "SGE-Worker2";
 
         defaultdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu-xenial-16.04-cloudimg.vmdk"
-		if ARGV[0] == "up" && File.exist?(defaultdisk)
-            puts("provider worker2 - destroying default disk")
-            vb.customize "pre-import", [ "closemedium", "disk", defaultdisk, "--delete" ]
-        end
-
 		#Create a larger root disk
 		vbdisk = "#{ENV["HOME"]}/VirtualBox VMs/#{vb.name}/ubuntu.vdi"
 		if ARGV[0] == "up" && ! File.exist?(vbdisk)
@@ -183,18 +190,25 @@ config.vm.provision "shell",
 			  "--nonrotational", "on",
 			  "--medium", vbdisk,
 			]
+            #Tidy up the one we're not using
+            vb.customize "post-boot", [ "closemedium", "disk", defaultdisk, "--delete" ]
 		end
 	end
     srv.vm.provision "puppet" do |puppet|
-          puppet.manifests_path = worker_puppet_config["manifest_dir"]
-          puppet.manifest_file  = worker_puppet_config["manifest_file"]
+          puppet.environment_path = "../puppetlabs/code/environments"
           puppet.facter = {
             "role" => "cluster_worker"
           }
-      #     puppet.environment = puppet_config["puppet_environment"]
       #    puppet.options = "--verbose --debug --environment=local"
           puppet.options = "--verbose --debug"
     end
+    config.vm.provision "shell" do |s|
+      s.privileged = false
+      s.inline = "sudo -E -S /bin/bash -c 'mkdir -p /opt/puppetlabs/facter/facts.d/ &&
+                                              chgrp ubuntu /opt/puppetlabs/facter/facts.d/ && 
+                                              chmod g+w /opt/puppetlabs/facter/facts.d/ '"
+    end
+    srv.vm.provision "file", source: "config/role_worker.yaml", destination: "/opt/puppetlabs/facter/facts.d/role.yaml"
   end
 
 
