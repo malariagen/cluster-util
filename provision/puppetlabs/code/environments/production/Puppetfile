@@ -14,6 +14,7 @@ mod 'pcfens-filebeat', '0.10.4'
 mod 'aco-tomcat', '1.7.0'
 mod 'puppetlabs-apache', '1.11.0'
 mod 'derdanne-nfs', '2.0.2'
+mod 'maestrodev-wget', '1.7.3'
 mod 'malariagen-elk_server',
     :git => "https://github.com/malariagen/cluster-util.git",
     :ref => 'd5c01bf',
