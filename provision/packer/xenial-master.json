@@ -138,9 +138,9 @@
                     "gpg --keyserver pgp.mit.edu --recv-key 7F438280EF8D349F",
                     "apt-get update",
                     "DEBIAN_FRONTEND=noninteractive apt-get install -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold' --force-yes puppet-agent",
-                    "grep puppetlabs /root/.bashrc || echo 'export PATH=$PATH:/opt/puppetlabs/bin' >> /root/.bashrc",
-                    "grep puppetlabs /root/.bash_profile || echo 'export PATH=$PATH:/opt/puppetlabs/bin' >> /root/.bash_profile",
-                    "grep puppetlabs /root/.profile || echo 'export PATH=$PATH:/opt/puppetlabs/bin' >> /root/.profile"
+                    "(grep puppetlabs /root/.bashrc || echo 'export PATH=\\$PATH:/opt/puppetlabs/bin' >> /root/.bashrc)",
+                    "(grep puppetlabs /root/.bash_profile || echo 'export PATH=\\$PATH:/opt/puppetlabs/bin' >> /root/.bash_profile)",
+                    "(grep puppetlabs /root/.profile || echo 'PATH=\\$PATH:/opt/puppetlabs/bin\nexport PATH' >> /root/.profile)"
                 ]
     },
     {
