@@ -6,7 +6,6 @@ class profile::cluster::mount(
     Optional[String] $home_server = 'papa.well.ox.ac.uk',
     Optional[String] $level1_server = 'papa.well.ox.ac.uk',
     Optional[String] $level2_server = 'papa.well.ox.ac.uk',
-    Optional[String] $cluster_server = 'quebec.well.ox.ac.uk',
 ) {
 
 
@@ -16,13 +15,6 @@ class profile::cluster::mount(
     class { '::nfs':
           client_enabled => true,
     }
-
-    nfs::client::mount{ '/var/lib/gridengine/default':
-        server => $cluster_server,
-        ensure  => 'mounted',
-        options_nfs => $nfs_options
-    }
-
 
     $users.each |$user| {
         $u = "${user['name']}"

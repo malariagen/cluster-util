@@ -4,6 +4,8 @@ classes:
     - apt
     - profile::cluster::mount
     - profile::cluster::packages
+    - profile::cluster::exec
+
 
 profile::cluster::mount::users:
                           - name: 'aliman'
