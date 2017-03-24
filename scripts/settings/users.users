@@ -1,5 +1,0 @@
-name    users
-type    ACL
-fshare  0
-oticket 0
-entries antoine,benj,gav,jobrien,quang,rwh,spencer,tra,valentin,zam

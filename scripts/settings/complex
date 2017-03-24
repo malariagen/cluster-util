@@ -1,6 +1,0 @@
-h_vmem              h_vmem        MEMORY      <=    YES         YES        1G       0
-virtual_free        vf            MEMORY      <=    YES         YES        100M     0
-
-
-os_release          os_release    CSTRING     ==    YES         NO         NONE     0
-priority            prio          BOOL        ==    YES         NO         0        0
