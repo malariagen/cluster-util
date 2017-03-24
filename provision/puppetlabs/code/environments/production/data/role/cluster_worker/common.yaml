@@ -129,6 +129,8 @@ profile::cluster::packages::analysis:
       description: 'automake - Tool for generating GNU Standards-compliant Makefiles'
     - name: 'bedtools'
       description: 'bedtools - suite of utilities for comparing genomic features'
+    - name : 'blast2'
+      description: 'blast2 - Basic Local Alignment Search Tool'
     - name: 'bonnie++'
       description: 'bonnie++ - Hard drive benchmark suite'
     - name: 'bridge-utils'
