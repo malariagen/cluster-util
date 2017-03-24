@@ -5,6 +5,7 @@ classes:
     - profile::cluster::mount
     - profile::cluster::packages
     - profile::cluster::exec
+    - profile::cluster::mpi
 
 
 profile::cluster::mount::users:
@@ -181,7 +182,7 @@ profile::cluster::packages::analysis:
     - name: 'gfortran'
       description: 'gfortran - GNU Fortran 95 compiler'
     - name: 'gnat'
-	  description: 'gnat - GNU Ada compiler' 
+      description: 'gnat - GNU Ada compiler' 
     - name: 'gnuplot-nox'
       description: 'gnuplot-nox - Command-line driven interactive plotting program. No-X package'
     - name: 'graphviz'
