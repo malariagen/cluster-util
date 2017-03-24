@@ -43,12 +43,15 @@ class profile::cluster::packages(
 			timeout  => 0,
 			destination => "${rstudioserver}",
 			source  => "${rstudio_server_url}",
+            unless => "test -x /usr/sbin/rstudio-server"
+
 		}
 		->
 		exec {'rstudio-server-install':
 			provider => shell,
 			command  => "gdebi -n ${rstudioserver}",
 			require  => Package['gdebi'],
+            unless => "test -x /usr/sbin/rstudio-server"
 		}
 	}
 }
