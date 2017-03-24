@@ -36,6 +36,20 @@ class profile::cluster::packages(
         }
     }
 
+    #Not the obvious dependency (dlocate/dpkg -S) as containing packages are themselves dependencies
+    #Arguably the target could be /etc/alternatives to save a layer of redirection
+    file { '/usr/lib/libblas.so.3gf':
+        ensure => link,
+        target => '/usr/lib/libblas.so.3',
+        require  => [ Package['python-scipy'] ],
+    }
+
+    file { '/usr/lib/liblapack.so.3gf':
+        ensure => link,
+        target => '/usr/lib/liblapack.so.3',
+        require  => Package['python-scipy'],
+    }
+
 	if $rstudio_server_url {
 		$rstudioserver = '/tmp/rstudio-server.deb'
 		wget::fetch {'rstudio-server-download':

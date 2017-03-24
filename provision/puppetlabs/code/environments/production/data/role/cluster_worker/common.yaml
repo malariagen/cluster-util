@@ -116,6 +116,7 @@ profile::cluster::packages::rstudio_server_url: 'https://download2.rstudio.org/r
 profile::cluster::tsm::ox-hfs-repo: 'http://downloads.hfs.ox.ac.uk/repo/apt/pool/ox-hfs-repo_1.4.0-1_all.deb'
 
 #apt-mark showmanual is a good way to look at the installed packages
+#apt-cache rdepends --installed << >> shows dependencies
 #Some packages will be installed by specific profiles
 #Descriptions via apt-cache search 
 profile::cluster::packages::analysis:
