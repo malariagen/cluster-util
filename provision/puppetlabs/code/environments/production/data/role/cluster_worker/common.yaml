@@ -111,7 +111,7 @@ apt::sources:
               id: '8E70D862'
               source: 'http://dist.htsql.org/misc/build.gpg.key'
 
-profile::cluster::packages::rstudio_server_url: 'https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb'
+#profile::cluster::packages::rstudio_server_url: 'https://download2.rstudio.org/rstudio-server-1.0.136-amd64.deb'
 
 profile::cluster::tsm::ox-hfs-repo: 'http://downloads.hfs.ox.ac.uk/repo/apt/pool/ox-hfs-repo_1.4.0-1_all.deb'
 
