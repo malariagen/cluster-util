@@ -17,6 +17,12 @@ profile::ldap::client::hosts:
       aliases:
         - alpha.well.ox.ac.uk
 
+profile::cluster::common::master: 
+   - name: quebec
+     ip: 129.67.44.49
+     aliases:
+       - quebec.well.ox.ac.uk
+
 profile::ldap::client::fallback_user: 'fallback'
 profile::ldap::client::fallback_ssh_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDUZCJ6uRkoKKIkneZo/tZexlTZ8k7N4LUXCqdGAWjI6Zsva+zSj1TVGU0ra0B23OlanzujtgpzPEeSGDe/1NdDt7jS/nmgA1/tEeuA5SA0SJIlXLqxKjpgKABqWB52aklP/oyMJN87xMzuczweXgI66fBWLp4vrpRWJSenfX2WsuiADb3kGmimtSYWPemE9GmLwSxizNzkOAiH7NOMThcyBcviwKcBxg53mkT+mKbbSSkb9TERD3jG1Qh7/Qlu1pPn40c/jqFRebDC6/aFH/RIGWlCVyJvMsQej4+GCLPAz55+JC+YYzSL3OW6ePZ/7DNBCjGDQFoNhGQ+M0aHhfLd'
 

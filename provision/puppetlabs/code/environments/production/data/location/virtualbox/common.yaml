@@ -25,6 +25,10 @@ profile::ldap::client::ldap_default_authtok: 'password'
 
 profile::mail::relay::relay_passwd: ''
 
+profile::cluster::common::master: 
+     - name: master
+       ip: 192.168.9.10
+
 profile::cluster::exec::cluster_server: 'master'
 
 profile::cluster::mount::home_server: 'master'

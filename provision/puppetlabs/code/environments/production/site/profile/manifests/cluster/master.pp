@@ -16,6 +16,15 @@ class profile::cluster::master(
     $share_tree
 ) {
 
+    $hosts = lookup ("profile::cluster::common::master")
+    $hosts.each |$host| {
+         host { $host["name"]:
+           ensure       => 'present',
+           ip           => $host[ip],
+           host_aliases           => $host[aliases],
+         }
+    }
+
     $packages.each |$package| {
         package { $package["name"] :
             ensure => $package["version"]
@@ -37,8 +46,9 @@ class profile::cluster::master(
         ensure  => 'mounted',
         clients => '@kwiat-cluster-nodes(rw,subtree_check)'
     }
+
     $submit_nodes.each |$node| {
-        exec { "submit nodes":
+        exec { "submit nodes ${node}":
             command => "/usr/bin/qconf -as $node"
         }
     }
