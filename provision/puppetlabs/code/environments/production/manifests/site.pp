@@ -32,6 +32,19 @@ role: 'cluster_worker'
     }
 }
 
+node 'quebec.well.ox.ac.uk' {
+     $role = "---
+
+role: 'cluster_master'
+"
+ 
+     file { '/opt/puppetlabs/facter/facts.d/role.yaml':
+                 content => $role,
+                 owner => root,
+                 mode => '0500',
+     }
+}
+
 node 'sso-dev.cggh.org' {
 
 #        class { 'tomcat_server' :
