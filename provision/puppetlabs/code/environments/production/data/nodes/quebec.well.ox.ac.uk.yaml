@@ -422,7 +422,7 @@ profile::cluster::master::share_tree:
 
 
 profile::cluster::master::cluster_conf:
-    :enforce_project: 'true'
+    :enforce_project: 'false'
     :administrator_mail: 'sysadmin@malariagen.net'
     :qmaster_params: 'MAX_DYN_EC=256'
     :execd_params: 'S_DESCRIPTORS=5461,H_DESCRIPTORS=10922'
