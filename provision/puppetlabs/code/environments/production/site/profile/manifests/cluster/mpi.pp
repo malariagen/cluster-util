@@ -27,6 +27,7 @@ class profile::cluster::mpi(
 		exec {'mpi_configure':
 			provider => shell,
             cwd => "/tmp/openmpi-${mpi_version}",
+            timeout => 0,
 			command  => "./configure --with-sge",
             unless => "test `/usr/local/bin/orte-info | grep 'Open RTE:' | awk '{print \$3}'` = ${mpi_version}"
 		}
