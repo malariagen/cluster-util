@@ -29,6 +29,12 @@ profile::cluster::common::master:
      - name: master
        ip: 192.168.9.10
 
+profile::cluster::common::workers: 
+     - name: worker1
+       ip: 192.168.9.11
+     - name: worker2
+       ip: 192.168.9.12
+
 profile::cluster::exec::cluster_server: 'master'
 
 profile::cluster::mount::home_server: 'master'

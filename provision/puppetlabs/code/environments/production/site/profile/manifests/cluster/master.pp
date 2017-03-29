@@ -25,6 +25,15 @@ class profile::cluster::master(
          }
     }
 
+    $workers = lookup ("profile::cluster::common::workers")
+    $workers.each |$worker| {
+         host { $worker["name"]:
+           ensure       => 'present',
+           ip           => $worker[ip],
+           host_aliases           => $worker[aliases],
+         }
+    }
+
     $packages.each |$package| {
         package { $package["name"] :
             ensure => $package["version"]
@@ -42,9 +51,13 @@ class profile::cluster::master(
         server_enabled => true
     }
 
+    $clients = $workers.reduce([]) | $memo, $value | {
+        concat($memo,"${value[ip]}(rw,subtree_check)") 
+    }
+
     nfs::server::export{ '/var/lib/gridengine/default':
         ensure  => 'mounted',
-        clients => '@kwiat-cluster-nodes(rw,subtree_check)'
+        clients => $clients.join(" ")
     }
 
     $submit_nodes.each |$node| {

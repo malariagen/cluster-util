@@ -23,6 +23,65 @@ profile::cluster::common::master:
      aliases:
        - quebec.well.ox.ac.uk
 
+
+profile::cluster::common::workers: 
+	- ip: 129.67.44.53
+	  name: delta.well.ox.ac.uk
+	  aliases:
+		- delta
+	- ip: 129.67.44.117
+	  name: echo.well.ox.ac.uk
+	  aliases:
+		- echo
+	- ip: 129.67.44.118
+	  name: foxtrot.well.ox.ac.uk
+	  aliases:
+		- foxtrot
+	- ip: 129.67.44.120
+	  name: golf.well.ox.ac.uk
+	  aliases:
+		- golf
+	- ip: 129.67.44.121
+	  name: hotel.well.ox.ac.uk
+	  aliases:
+		- hotel
+	- ip: 129.67.44.173
+	  name: india.well.ox.ac.uk
+	  aliases:
+		- india
+	- ip: 129.67.44.114
+	  name: juliet.well.ox.ac.uk
+	  aliases:
+		- juliet
+	- ip: 129.67.44.166
+	  name: kilo.well.ox.ac.uk
+	  aliases:
+		- kilo
+	- ip: 129.67.44.195
+	  name: lima.well.ox.ac.uk
+	  aliases:
+		- lima
+	- ip: 129.67.44.196
+	  name: mike.well.ox.ac.uk
+	  aliases:
+		- mike
+	- ip: 129.67.44.197
+	  name: november.well.ox.ac.uk
+	  aliases:
+		- november
+	- ip: 129.67.44.57
+	  name: oscar.well.ox.ac.uk
+	  aliases:
+		- oscar
+	- ip: 129.67.44.58
+	  name: papa.well.ox.ac.uk
+	  aliases:
+		- papa
+	- ip: 129.67.44.54
+	  name: romeo.well.ox.ac.uk
+	  aliases:
+		- romeo
+
 profile::ldap::client::fallback_user: 'fallback'
 profile::ldap::client::fallback_ssh_key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDUZCJ6uRkoKKIkneZo/tZexlTZ8k7N4LUXCqdGAWjI6Zsva+zSj1TVGU0ra0B23OlanzujtgpzPEeSGDe/1NdDt7jS/nmgA1/tEeuA5SA0SJIlXLqxKjpgKABqWB52aklP/oyMJN87xMzuczweXgI66fBWLp4vrpRWJSenfX2WsuiADb3kGmimtSYWPemE9GmLwSxizNzkOAiH7NOMThcyBcviwKcBxg53mkT+mKbbSSkb9TERD3jG1Qh7/Qlu1pPn40c/jqFRebDC6/aFH/RIGWlCVyJvMsQej4+GCLPAz55+JC+YYzSL3OW6ePZ/7DNBCjGDQFoNhGQ+M0aHhfLd'
 
