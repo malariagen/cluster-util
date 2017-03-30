@@ -3,7 +3,6 @@
 classes:
     - ssh
 
-ssh::storeconfigs_enabled: true
 ssh::server_options:
         PasswordAuthentication: 'no'
         PubkeyAuthentication: 'yes'
