@@ -1,5 +1,7 @@
 ---
 
+ssh::storeconfigs_enabled: true
+
 classes:
     - profile::cluster::master
 

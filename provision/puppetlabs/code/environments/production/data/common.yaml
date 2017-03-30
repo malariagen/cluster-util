@@ -1,4 +1,7 @@
 ---
+
+ssh::storeconfigs_enabled: false
+
 profile::ldap::client::ldap_uri: 
             - 'ldaps://alpha.malariagen.net/'
             - 'ldaps://sso1.malariagen.net/'
