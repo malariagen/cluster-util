@@ -96,3 +96,12 @@ ssh::server_options:
         AllowTcpForwarding: 'no'
         PermitTunnel: 'no'
         X11Forwarding: 'no'
+	'Match User oswann':
+		ChrootDirectory: '/home/%u'
+		ForceCommand: 'internal-sftp'
+		AllowTcpForwarding: 'no'
+	'Match User kwiat-malaria':
+		ChrootDirectory: '/home/%u'
+		ForceCommand: 'internal-sftp'
+		AllowTcpForwarding: 'no'
+
