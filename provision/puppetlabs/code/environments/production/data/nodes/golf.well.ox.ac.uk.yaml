@@ -1,0 +1,98 @@
+---
+
+classes:
+    - profile::sftp::partner
+
+profile::sftp::partner::partners:
+    - name: 'burkinafaso-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: 'valentina mangano <valentina.mangano@gmail.com>'
+            pubkey: 'AAAAB3NzaC1yc2EAAAABJQAAAQEAgMOmOG9KPnJOs/TPouH3H028CwioRVPXpImdmTjTJr0pDcnJA5VL2ItLxglpwXs7TzGClWIaqlpDc4vBlpzssUtg0kKyK74fdy3nI8w9+FGKTx3h5hP1mu4b/eO3gOZCEbCgnJfwW6fSc5jYJpag485dFyp79MyxcSTk/R4M6TokuekPy8ZZxOcMspLcBmnMGAxs0ANCJS7auXoiFjl5vWHCZDspcF5gdQXoBPldDoP/lAhU1GL//P3OrQh1t7fmji/ob5czxm6NYIwZQLcNLmmUBSoup+2MAZQJMC9mUOI9xddj1jugw0wxT95DNYuUBVWI8u76dFh5rMcKT99Rgw=='
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhUJ6/1kAJqs+JiYN7d02LwD06jF+G4li5NphvaLt65tTiAIfO2AhnQ5UdbMZb1iioG+wEoMTVP3Oix7Veq6o+sxkal45hJvh18RKbZJ92ZAZpxIKJTDvgb6eQsUIATjkoskDEDw1IYd+m/jDutwZEkiH8ERJa5RzViCIJuc8KypPBVwVb4Oj9SprpReGiUoqVwQZCukZutOUYhZPiOf7JPsA8Y9ohTlYyi8S9MwEJQgkJ90IcDPc3fGAS+wH0kqxMKzSzAMu8GjXVyVPK51nDPfEqMdzydUIaQj8w3X/ZuZ7eoGW2vgxMj/Qvg+3BakW0ZurUPMkr7o/dw50Mekvpw== rsa-key-20150415'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAp1X8+OMDM2kXqNPHNb+w2asPNleonbcBzNk7A2cdmu2mP8jMo1sXg9W8YHQ3bCqwWBHWdk6715W777RK3fQBRWJZroPaJoh9J0jv7kSXeET5E8sbHddjuKEuQNdv/kDjkceeZUsLY7KI0TStdHM29gkq5aEUzx4Zko6c+O7eVLXV7DQnY12Pyu+S5zRwd0Y/3uyYhhym6CpYY/qqkobt2qf13XPCAZSUXts1X9MDlbYFuZQu5Iu8RCeOxCsLEivfx2VtMjB9cIRiycYSG5UwuEuqHBq8WWVNzjZf1/sCfH3pjgPJEuEMH9jZtfuubswqwJBvw0EntOmvdtI1D+y00Q== vale_malariagen'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAv6nzB7dB5LUEkEYvdPit8f6uIsquXi99T7zXKLD5sZjMu6pQAGqF5ig/uOMe5mxqO1ur/Ws0tvHugaUqteb3nmpv7wSIfSH6bVEZ18CJwXvm8RYYfGKjS32h1g32eZL8iuX9sJMJ5vQD3eI2bNBeKb+dVqaWXuvPakKFThObsvDGCUD6f+Af6UWbV0Qcd7EG8e62ZqboaG6qDo2e4mmeITKnuy1YfZUpvhy/3Ee+pcD+Oq2OJM5RDcRne2CwVPwg2b5F0faejkt6EPD+t41ytfM/C1gsFBbo1xyKe7illmYxsxHLxmcLBT0OF6nDE6nlfVkjAqaOj56928At6CFeJw== rsa-key-20150928'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhxXPzf/xPgOZom3023u4DzqlmnMY4BvVgRTpSPmi31cqghVAidZ+qKeEiLYK8l+PkjVfxeYOgZgn8VfZ99ZpS1Fz3+mxR0zdPIfYe5+blOdEWZuTfv0Gsv84Iyw628SbgtZyFlXeq9kDtQgueF/W4cUO9zO0Xbl42HrLJ+DOr2nU9OHfTUTN42jEHO4by0DGzvitzlKm4x6HiGKsTiQ4MVKiuYilVdOrN972uXxF2EDS8Cj1oi4V/v2K8DZYQZhJHsEX3rb79LVkpuAPjXJHTvduBIGgQe5aPSW2eBQrwjQM21FgMCd2JSX9ZDkZn71lsffIPR4Sy8CR3Y/csAGqzw== rsa-key-20151021'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCohpbQVDsu6rMhWuHd7FgSJ3/uOP/m340pZGm/5LlEGfVCh+VCWf13vRTYz2MmdIuEBeRtxhSLbEt8NGCi04AnKRGZDDP/EZbtyJ4sxga0/AaJ9LATc3l//AVzxvLW0jmJeTaFkaA2PD48HNGv0Um6xe6VYFpL3JFn0a+8BeYGFkVe097nmAQLZHqI7dLK4Vaq7pUlUXZnqebDbbruAgGONrIH0dC70Z7Z3qCvuKI2m/PZ8Y6KLQ4poyEhHPS3LTrntIWF15aYRAbHNownQOC2maLG1hLTxBEazXFseucKm999mqDgyu0p6BWXTyJRVNUVpflMBggLNB0vPO6opT7h gclarke@dhcp264.well.ox.ac.uk'
+    - name: 'cameroon-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'gambia-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'ghana-kumasi-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'ghana-navrongo-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'kenya-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'malawi-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAgfenSzeAIum13wrtLtRfUIeqFoKOrXhs9QtU8wIK2GAVmOS9YsMl2VuHa+5QliRbC0KXmrw2H5Rp/JyDVXZurJStVKUMWsH/5Vgji56yvj/KB7iZB5u9TwXeWOJUPiwWuguCUpnNc6O4KLdvU3bB3Z/O6XW/CV9D30GwNPOaTeunN++AMQOPKHJ2pVqMij0X3cJXMQIMVALc3RXwYpCEBWyerhXkuLKTUc/fXODAoXScXGTcKWFTra/oTJkB1h/5VqC7pb5SbYRNP2o1wN/TzCImH2ShXCI4DAkok0l5qYs9JtOo9e4hDXjTT80kZCFVoWCycoSjXMcFW0oBJWDt0Q== rsa-key-20151208'
+    - name: 'mali-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'nigeria-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+    - name: 'png-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: 'Saskia Freytag <freytag.s@wehi.EDU.AU>'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/xK6rZLI5JJv54K6mv/3wKIdLZZ4dIlkMQzOJ/trgNqD5WleU2K7I7XEaUbQme2h7Q4LiOWIulkOTRAEcqPHjHIaqthXhdbg2CUd2UWWivF3WOyGxqrim+ECMU8D5kNctu20AZbHzPoAYKxJpIQS80ioSgnVy5FKak9xbuLod5oPNpUOwsfo9HgToqbS2xPrN4/hqszoj3tz+lQzLrEHZH4YETLS8zJEvrbTA1KJNL0GYzF1DrVkGRdGvEM+N+LA2ghO3jdJGlkQGzvh7Dmqb/yYQlCdVAW4EZhz5l0NLnHQI+w3KmoW4+3IWE+OvDm4vbGnVK30r68bdILhUUU4l freytag.s@mac2558.local'
+    - name: 'soranzo-group'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpaUja4GUCnZrqCIDs+nXR9yqC1lVnX8jSTNXFMlTE+v81b+F50t8D7h+ivTTeZoZ/BRFJ0nDitNJlBlc4QTZwQEQG13PzL2OElWVDbN1M+iDhb7NQszh5QvsQxA6eyHMbi3669iq2vqFHUo9TeWbwLrcFSYpqTvJZfepc1J4L7qpgfhJlC03bEDxr5cqel7jwpW4ugyqbwbdVymY/aXuDaoSIkP96jFtV5cFZ9jOCgvwKT3MfJMRzkIO7/n/i2hTA296HmAWr/Xil5HCO7OOBYsPt+aQ9cfOZtTyLXOSThIBf28N//7HN0J81uhvjBUOK/5PIZEVHG7Nc7rdw3y53 tj2@TOSH106564'
+    - name: 'tanzania-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDkrPlrH3yc01yFuuSY6CzcuiQjb6KE/ybq2sAEKbvgiXPz8Mt+NB5hyEJ79G7rbzVhPsZW8tPULKR+4hnHCEKmcyoJnsUE5ZLxTF4C1CjVQZAzvmswS2/lSSbKOtjSFEf8fFSpKbsWumrXrNKQrJznrn5dHatHYgSDflZuoaq8q5KlJyiTD8GEk1V/PpkQEJ+Hrur++VvwjJIeaRLlrHMZ8rWVlZMPMzP1qfdv1mPIJ1ZcSg01nofGuTLOxSo0MccIhNTlCAoXZeeNq2BQSao9R4hqCezmV97YJYXFh4S57EiJjgqnM6ZiTf4r9/EtYFnGvEyQgjh2IU0mvAVe8j+3JfLij1eGYAUagHaucii4WR0EqXkqtsa/4wV6KX3mNk/oXQlfynGR5OmnEnpjzaHFSzunnKq/17u98nT/451jn/eIUTBZXXMiuqFFz1ffdGxgMbeQO/u76kNcZx/bpHC9bss5loLNLgX5fSPE8eA1WYfOmmQ/PdfIUJ5b/ICSAOj0exTHzzeeAxK/q96KRwM2RRj1KgWp0IWEXgizS7fuQCWcuC+EVMdxpJNh9tsW/x4B4ZKsbga30CYJBfaOKStScTBB8uD+WZBb1ZNLG4h4He+TTvAr+C0MCVz+D75ytU8uIgLYQaTHikUZMhkOmbG+YwcFgQS4K4cCNILvdDLQ0Q== matt.ravenhall@lshtm.ac.uk'
+    - name: 'vietnam-gwas'
+      keys:
+          - name: 'Gavin'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA3wlxwboCg2aklgSGUt4Tw+v4e8F6tqgJmQaxQWtHNQ3JUJ7uN3Lu5sJSMn8Meh+M/NzdP2Lk7CEjpwl1+R45yDJZYkSBXYKvHmR3aeOipPpJPzIYpaxV1h9svy6O0Wi48fJIttkqRwy+3PqB9GMdF8Vr1j/f3P3w8hQSs9mtxiN8ENxHfOai17hHlDISOGOwH/eqi0xLgzzzzU4LLEm4h/4u6JANFXo20uUg7xNEemuDDtmpsITHseSjO3nmngfSQDJqIK5wMQfMATUQ3AmYP78pCmNTnycPrJgs5VMFz8thLzQbX9wfruKHupd5e63igqLm4yhXEPLE701K9208Kw== teo@mandrake_eph.nus.edu.sg'
+
+ssh::server_options:
+    #    SyslogFacility: 'AUTH'
+    #LogLevel: 'VERBOSE' #In order to log the ssh key that was used to log in
+    PasswordAuthentication: 'no'
+    PubkeyAuthentication: 'yes'
+    AuthorizedKeysFile: '%h/.ssh/authorized_keys'
+    AuthorizedKeysCommand: '/etc/ssh/ldap-keys.sh'
+    AuthorizedKeysCommandUser: 'root'
+    Subsystem: 'sftp internal-sftp'
+    'Match Group datarelease':
+        ChrootDirectory: '/mnt/d2200sb/datarelease/%u'
+        Banner: '/mnt/d2200sb/datarelease/sftp_banner'
+        AuthorizedKeysFile: '/etc/ssh-pool/%u.pub'
+        ForceCommand: 'internal-sftp -f LOCAL1 -l VERBOSE'
+        AllowTcpForwarding: 'no'
+        PermitTunnel: 'no'
+        X11Forwarding: 'no'
