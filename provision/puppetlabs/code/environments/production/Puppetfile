@@ -17,5 +17,5 @@ mod 'derdanne-nfs', '2.0.2'
 mod 'maestrodev-wget', '1.7.3'
 mod 'malariagen-elk_server',
     :git => "https://github.com/malariagen/cluster-util.git",
-    :ref => 'd5c01bf',
+    :ref => '95b0b7b',
     :path => 'provision/puppet-modules/elk_server'
