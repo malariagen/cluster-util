@@ -48,7 +48,7 @@ class elk_server {
 	class { 'elasticsearch':
 	  java_install => true,
 	  manage_repo  => true,
-	  autoupgrade => true,
+	  autoupgrade => false,
 	  repo_version => '5.x',
 	}
 
