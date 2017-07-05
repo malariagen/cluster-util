@@ -53,7 +53,6 @@ class elk_server {
 	}
 
 	elasticsearch::instance { 'es-01': }
-	elasticsearch::plugin { 'x-pack': instances => 'es-01' }
 
 	include logstash
 
