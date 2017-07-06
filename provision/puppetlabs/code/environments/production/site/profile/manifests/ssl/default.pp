@@ -5,8 +5,10 @@ class profile::ssl::default(
     String $server_key_location,
     String $server_cert_location,
     String $server_cert,
-    String $ca_cert_location,
-    String $ca_cert,
+    Optional[String] $ca_cert_location = undef,
+    Optional[String] $ca_cert = undef,
+    Optional[String] $cert_chain_location = undef,
+    Optional[String] $cert_chain = undef,
     Optional[String] $cert_reader = undef,
 ) {
 
@@ -29,11 +31,23 @@ class profile::ssl::default(
         mode => '0644' ,
         content => $server_cert
     }
-    file { $ca_cert_location:
-        owner => 'root', 
-        group => 'root',
-        mode => '0644' ,
-        content => $ca_cert
+
+    if $ca_cert_location {
+        file { $ca_cert_location:
+            owner => 'root', 
+            group => 'root',
+            mode => '0644' ,
+            content => $ca_cert
+        }
+    }
+
+    if $cert_chain_location {
+        file { $cert_chain_location:
+            owner => 'root', 
+            group => 'root',
+            mode => '0644' ,
+            content => $cert_chain
+        }
     }
 
     if $cert_reader {
