@@ -4,6 +4,12 @@ then
 	echo "Must be run as root"
 	exit 1
 fi
+
+if [ $(hostname) = 'localhost' ]
+then
+    echo "hostname must be set"
+    exit 1
+fi
 PUPPET_SERVER=$1
 TUNNEL=$2
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
