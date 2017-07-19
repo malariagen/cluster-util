@@ -14,7 +14,7 @@ class profile::ssl::default(
 
     group { $server_key_group:
         ensure => 'present',
-        gid => 115
+        gid => 2000
     }
 
     file { $server_key_directory:
