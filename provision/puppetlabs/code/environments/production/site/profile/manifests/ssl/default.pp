@@ -10,6 +10,11 @@ class profile::ssl::default(
     Optional[String] $cert_reader = undef,
 ) {
 
+    group { $server_key_group:
+        ensure => 'present',
+        gid => 115
+    }
+
     file { $server_key_directory:
         owner => 'root', 
         group => $server_key_group,
