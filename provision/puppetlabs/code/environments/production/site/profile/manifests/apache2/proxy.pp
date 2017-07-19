@@ -5,6 +5,8 @@ class profile::apache2::proxy(
     Optional[String] $ssl_cert  = lookup( 'profile::ssl::default::server_cert_location', { default_value => '/etc/ssl/private/ssl-cert-snakeoil.key'} ),
     Optional[String] $ssl_ca  = lookup( 'profile::ssl::default::ca_cert_location', { default_value => '/etc/ssl/private/ssl-cert-snakeoil.key'} ),
     Optional[String] $user = 'apache2',
+    Optional[String] $include_conf = undef,
+    Optional[Tuple] $restricted = undef,
 ) {
 
 # proxy_pass => [
@@ -42,7 +44,7 @@ class profile::apache2::proxy(
         ssl_compression => true,
     }
 
-    apache::vhost { "$hostname non-ssl":
+    apache::vhost { "${hostname}":
         servername => $fqdn,
         serveradmin => 'sysadmin@malariagen.net',
         port            => '80',
@@ -51,7 +53,7 @@ class profile::apache2::proxy(
         redirect_dest   => "https://$hostname/",
     }
 
-    apache::vhost { "$hostname ssl":
+    apache::vhost { "${hostname}_ssl":
         servername => $fqdn,
         serveradmin => 'sysadmin@malariagen.net',
         port       => '443',
@@ -63,12 +65,10 @@ class profile::apache2::proxy(
         ssl_ca => $ssl_ca,
         ssl_cert => $ssl_cert,
         ssl_options => undef,
-        proxy_pass => $proxy_pass
+        proxy_pass => $proxy_pass,
+        additional_includes => $include_conf,
+        directories         => $restricted,
+        jk_mounts => $jk_mounts
     }
 
-    if $jk_mounts {
-        apache::vhost { $hostname:
-          jk_mounts => $jk_mounts
-        }
-    }
 }

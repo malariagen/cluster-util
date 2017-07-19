@@ -48,12 +48,11 @@ class elk_server {
 	class { 'elasticsearch':
 	  java_install => true,
 	  manage_repo  => true,
-	  autoupgrade => true,
+	  autoupgrade => false,
 	  repo_version => '5.x',
 	}
 
 	elasticsearch::instance { 'es-01': }
-	elasticsearch::plugin { 'x-pack': instances => 'es-01' }
 
 	include logstash
 

@@ -1,0 +1,25 @@
+---
+
+classes:
+    - role::apache2::webserver
+
+
+profile::apache2::proxy::include_conf: '/etc/apache2/default-common.conf'
+
+profile::apache2::proxy::restricted:
+        - path: '/'
+          auth_name: 'Restricted Files'
+          auth_basic_provider: 'file'
+          auth_user_file: '/etc/apache2/password'
+          auth_type: 'Basic'
+          require: 'user editor'
+
+profile::apache2::proxy::proxy_pass:
+      - path: '/sso'
+        url: 'https://sso1.malariagen.net/sso'
+        reverse_urls:
+            - 'https://sso1.malariagen.net/sso'
+      - path: '/pwm'
+        url: 'https://sso1.malariagen.net/pwm'
+        reverse_urls:
+            - 'https://sso1.malariagen.net/pwm'
