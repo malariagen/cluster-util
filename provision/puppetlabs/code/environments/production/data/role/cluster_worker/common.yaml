@@ -66,6 +66,7 @@ profile::cluster::mount::users:
                           - name: 'shabrumi'
                           - name: 'sm0179'
                           - name: 'smol'
+                          - name: 'stlaurentbs'
                           - name: 'tra'
                           - name: 'trochet'
                           - name: 'valentin'
