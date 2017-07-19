@@ -20,7 +20,7 @@ class profile::ssl::default(
     file { $server_key_directory:
         owner => 'root', 
         group => $server_key_group,
-        mode => '0710'
+        mode => '0750'
     }
 
     file { $server_key_location:
@@ -32,7 +32,7 @@ class profile::ssl::default(
 
     file { $server_cert_location:
         owner => 'root', 
-        group => 'root',
+        group => $server_key_group,
         mode => '0644' ,
         content => $server_cert
     }
@@ -40,7 +40,7 @@ class profile::ssl::default(
     if $ca_cert_location {
         file { $ca_cert_location:
             owner => 'root', 
-            group => 'root',
+            group => $server_key_group,
             mode => '0644' ,
             content => $ca_cert
         }
@@ -49,18 +49,16 @@ class profile::ssl::default(
     if $cert_chain_location {
         file { $cert_chain_location:
             owner => 'root', 
-            group => 'root',
+            group => $server_key_group,
             mode => '0644' ,
             content => $cert_chain
         }
     }
 
     if $cert_reader {
-       @user { $cert_reader:
-          groups     => [ $server_key_group ],
-          membership => minimum # default
-        }
+         profile::ssl::user { "default_${cert_reader}":
+                 cert_reader => $cert_reader
+         }
 
-        realize User[$cert_reader]
     }
 }
