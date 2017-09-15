@@ -53,6 +53,8 @@ class profile::cas::server(
      Optional[String] $ldap_search_base  = lookup('profile::ldap::client::ldap_search_base', { default_value => 'dc=malariagen,dc=net'} ),
      Optional[String] $user_filter = 'mail={user}',
      Optional[String] $owner  = lookup('profile::tomcat::user', { default_value => 'tomcat7'} ),
+     Optional[Tuple] $admin_users  = ['ian.wright@well.ox.ac.uk'],
+     Optional[String] $log_directory  = lookup('profile::tomcat::log_directory', { default_value => '/var/log/tomcat7'} ),
 ) {
 
 
@@ -83,6 +85,28 @@ class profile::cas::server(
                                                                     'user_filter' => $user_filter,
                                                                     })
 
-	}
+	} -> 
+	file { "/etc/cas/config/management.properties":
+	    mode => "0600",
+	    owner => $owner,
+	    group => $owner,
+	    content => epp('profile/cas_management/management.properties.epp', { 'cas_server_name' => $uri,
+                                                                    'context' => $context,
+                                                              })
+  } ->
+	file { "/etc/cas/config/users.properties":
+	    mode => "0600",
+	    owner => $owner,
+	    group => $owner,
+	    content => epp('profile/cas_management/users.properties.epp', { 'admin_users' => $admin_users,
+                                                              })
+  } ->
+	file { "/etc/cas/config/log4j2-management.xml":
+	    mode => "0600",
+	    owner => $owner,
+	    group => $owner,
+	    content => epp('profile/cas_management/log4j2-management.xml.epp', { 'log_directory' => $log_directory,
+                                                              })
+  }
 
 }

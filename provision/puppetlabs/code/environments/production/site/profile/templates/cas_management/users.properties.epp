@@ -1,0 +1,5 @@
+<%- | Array  $admin_users
+    | -%>
+<% $admin_users.flatten.each |$user| { -%>
+<%= $user %>=notused,ROLE_ADMIN
+<% } -%>
