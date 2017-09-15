@@ -19,7 +19,7 @@ node 'sierra.well.ox.ac.uk' {
 
 }
 
-node 'echo.well.ox.ac.uk' {
+node 'delta.well.ox.ac.uk','echo.well.ox.ac.uk','foxtrot.well.ox.ac.uk','golf.well.ox.ac.uk','hotel.well.ox.ac.uk','india.well.ox.ac.uk','juliet.well.ox.ac.uk','kilo.well.ox.ac.uk','lima.well.ox.ac.uk','mike.well.ox.ac.uk','november.well.ox.ac.uk','romeo.well.ox.ac.uk' {
     $role = "---
 
 role: 'cluster_worker'
