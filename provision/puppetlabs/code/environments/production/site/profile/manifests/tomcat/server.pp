@@ -37,13 +37,15 @@ class profile::tomcat::server (
     Optional[Boolean] $install_java = true
 ) {
 
+    if $install_java { include profile::java::tomcat7 }
+
+    contain profile::tomcat::install
+
     include profile::ssl::default
 
     profile::ssl::user { 'tomcat_ssl_user':
         cert_reader => $user
     }
 
-    contain profile::tomcat::install
 
-    if $install_java { include profile::java::tomcat7 }
 }

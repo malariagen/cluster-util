@@ -3,14 +3,30 @@
 classes:
     - role::java::appserver
     - profile::apache2::proxy
+    - profile::cas::server
 
-profile::tomcat::user: 'tomcat7'
+profile::ldap::client::ldap_uri: 
+                - 'ldaps://sso-dev.cggh.org/'
+
+profile::tomcat::user: 'tomcat8'
+profile::tomcat::package: 'tomcat8'
+profile::tomcat::server::user: 'tomcat8'
+profile::tomcat::server::package: 'tomcat8'
+profile::tomcat::server::version: '8.0.32-1ubuntu1.4'
+#profile::java::tomcat7::java_dist: 'oracle-jdk'
+#profile::java::tomcat7::java_version: '8'
+
+profile::cas::server::uri: 'https://sso-dev.cggh.org'
+
+#apt::ppas:
+#    'ppa:webupd8team/java':
+#        ensure: 'present'
 
 filebeat::prospector:
     tomcat: 
-      doc_type: 'tomcat7log-beat'
+      doc_type: 'tomcat8log-beat'
       paths:
-        - '/var/log/tomcat7/catalina.out'
+        - '/var/log/tomcat8/catalina.out'
 
 profile::tomcat::accesslog_valve: false
 profile::tomcat::valves:
@@ -31,3 +47,7 @@ profile::apache2::proxy::proxy_pass:
         url: 'https://sso-dev.cggh.org:8443/pwm'
         reverse_urls:
             - 'https://sso-dev.cggh.org:8443/pwm'
+      - path: '/cas-management'
+        url: 'https://sso-dev.cggh.org:8443/cas-management'
+        reverse_urls:
+            - 'https://sso-dev.cggh.org:8443/cas-management'

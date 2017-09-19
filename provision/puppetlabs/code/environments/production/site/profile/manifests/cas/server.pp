@@ -52,9 +52,9 @@ class profile::cas::server(
      Optional[String] $lookup  = lookup('profile::ldap::client::lookup', { default_value => 'cn=%s,ou=users,ou=people,dc=malariagen,dc=net'} ),
      Optional[String] $ldap_search_base  = lookup('profile::ldap::client::ldap_search_base', { default_value => 'dc=malariagen,dc=net'} ),
      Optional[String] $user_filter = 'mail={user}',
-     Optional[String] $owner  = lookup('profile::tomcat::user', { default_value => 'tomcat7'} ),
+     Optional[String] $owner  = lookup('profile::tomcat::user', { default_value => 'tomcat8'} ),
      Optional[Tuple] $admin_users  = ['ian.wright@well.ox.ac.uk'],
-     Optional[String] $log_directory  = lookup('profile::tomcat::log_directory', { default_value => '/var/log/tomcat7'} ),
+     Optional[String] $log_directory  = lookup('profile::tomcat::log_directory', { default_value => '/var/log/tomcat8'} ),
 ) {
 
 
