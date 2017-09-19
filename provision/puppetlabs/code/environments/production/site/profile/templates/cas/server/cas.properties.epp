@@ -145,7 +145,7 @@ cas.serviceRegistry.ldap.ldapUrl=<%= $ldap_url.join(' ') %>
 # cas.serviceRegistry.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
 cas.serviceRegistry.ldap.bindDn=<%= $ldap_manager_userdn %>
 # cas.serviceRegistry.ldap.bindCredential=Password
-cas.serviceRegistry.ldap.bindCredential=Password=<%= $ldap_manager_password %>
+cas.serviceRegistry.ldap.bindCredential=<%= $ldap_manager_password %>
 # cas.serviceRegistry.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
 # cas.serviceRegistry.ldap.connectTimeout=5000
 # cas.serviceRegistry.ldap.trustCertificates=

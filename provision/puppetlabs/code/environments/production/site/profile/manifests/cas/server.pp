@@ -107,6 +107,13 @@ class profile::cas::server(
 	    group => $owner,
 	    content => epp('profile/cas_management/log4j2-management.xml.epp', { 'log_directory' => $log_directory,
                                                               })
+  } ->
+	file { "/etc/cas/config/log4j2.xml":
+	    mode => "0600",
+	    owner => $owner,
+	    group => $owner,
+	    content => epp('profile/cas/server/log4j2.xml.epp', { 'log_directory' => $log_directory,
+                                                              })
   }
 
 }
