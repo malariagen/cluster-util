@@ -29,7 +29,7 @@ cat > /etc/puppetlabs/puppet/puppet.conf <<EOF
 # - https://docs.puppetlabs.com/puppet/latest/reference/configuration.html
 [main]
 server = ${PUPPET_SERVER}
-certname = $(hostname)
+certname = $(hostname -f)
 environment = production
 runinterval = 1h
 
@@ -50,4 +50,4 @@ EOF
 	echo "Create a tunnel from ${PUPPET_SERVER}"
 fi
 puppet agent --test --noop --server ${PUPPET_SERVER}
-echo "Run puppet cert --sign $(hostname) on ${PUPPET_SERVER}"
+echo "Run puppet cert --sign $(hostname -f) on ${PUPPET_SERVER}"
