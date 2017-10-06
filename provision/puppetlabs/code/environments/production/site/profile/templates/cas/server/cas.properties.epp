@@ -6,7 +6,12 @@
     String  $ldap_manager_userdn,
     String  $ldap_manager_password,
     String  $ldap_authn_format,
-    String  $user_filter
+    String  $user_filter,
+    String  $service_def_base_dn,
+    String  $tgc_encryption_key,
+    String  $tgc_signing_key,
+    String  $clearpass_encryption_key,
+    String  $clearpass_signing_key
 | -%>
 #cas.server.name: https://cas.example.org:8443
 #cas.server.prefix: https://cas.example.org:8443/cas
@@ -14,7 +19,21 @@
 cas.server.name:<%= $cas_server_name %>
 cas.server.prefix:<%= $cas_server_name %>/<%= $context %>
 
+cas.webflow.crypto.encryption.key=<%= $tgc_encryption_key %>
+cas.webflow.crypto.signing.key=<%= $tgc_signing_key %>
+
+cas.logout.followServiceRedirects=true
+cas.logout.redirectParameter=service
+# cas.logout.confirmLogout=false
+
 cas.adminPagesSecurity.ip=127\.0\.0\.1
+cas.monitor.endpoints.enabled=true
+cas.monitor.endpoints.sensitive=false
+cas.adminPagesSecurity.loginUrl=https://sso-dev.cggh.org/sso/login
+cas.adminPagesSecurity.service=https://sso-dev.cggh.org/sso/status/dashboard
+cas.adminPagesSecurity.users=file:/etc/cas/config/adminusers.properties
+cas.adminPagesSecurity.adminRoles[0]=ROLE_ADMIN
+cas.adminPagesSecurity.actuatorEndpointsEnabled=true
 
 logging.config: file:/etc/cas/config/log4j2.xml
 # cas.serviceRegistry.config.location: classpath:/services
@@ -48,7 +67,15 @@ cas.authn.ldap[0].dnFormat=<%= $ldap_authn_format %>
 cas.authn.ldap[0].principalAttributeId=mail
 # cas.authn.ldap[0].principalAttributePassword=password
 # cas.authn.ldap[0].principalAttributeList=sn,cn:commonName,givenName,eduPersonTargettedId:SOME_IDENTIFIER
-cas.authn.ldap[0].principalAttributeList=sn,cn:commonName,givenName,mail,memberOf,malariagenUID
+cas.authn.attributeRepository.ldap[0].attributes.sn=sn
+cas.authn.attributeRepository.ldap[0].attributes.cn=casId
+cas.authn.attributeRepository.ldap[0].attributes.givenName=givenName
+cas.authn.attributeRepository.ldap[0].attributes.mail=mail
+cas.authn.attributeRepository.ldap[0].attributes.memberOf=memberOf
+cas.authn.attributeRepository.ldap[0].attributes.malariagenUID=malariagenUID
+
+cas.authn.ldap[0].principalAttributeList=sn:familyName,casId,givenName,mail,memberOf,malariagenUID
+
 # cas.authn.ldap[0].allowMultiplePrincipalAttributeValues=true
 # cas.authn.ldap[0].allowMissingPrincipalAttributeValue=true
 # cas.authn.ldap[0].credentialCriteria=
@@ -133,15 +160,44 @@ cas.authn.ldap[0].principalAttributeList=sn,cn:commonName,givenName,mail,memberO
 # cas.authn.ldap[0].passwordPolicy.warnAll=true
 # cas.authn.ldap[0].passwordPolicy.warningDays=30
 
+cas.authn.attributeRepository.attributes.sn=sn
+cas.authn.attributeRepository.attributes.cn=casId
+cas.authn.attributeRepository.attributes.givenName=givenName
+cas.authn.attributeRepository.attributes.mail=mail
+cas.authn.attributeRepository.attributes.memberOf=memberOf
+cas.authn.attributeRepository.attributes.malariagenUID=malariagenUID
+
+cas.authn.releaseProtocolAttributes=true
+
+cas.authn.attributeRepository.defaultAttributesToRelease=sn:familyName,casId,givenName,mail,memberOf,malariagenUID
+
+cas.personDirectory.principalAttribute=mail
+cas.personDirectory.returnNull=false
+cas.personDirectory.principalResolutionFailureFatal=false
+
+cas.clearpass.cacheCredential=true
+cas.clearpass.crypto.encryption.key=<%= $clearpass_encryption_key %>
+cas.clearpass.crypto.signing.key=<%= $clearpass_signing_key %>
+cas.clearpass.crypto.enabled=true
+cas.clearpass.cipherEnabled=true
+
+# cas.serviceRegistry.watcherEnabled=true
+# cas.serviceRegistry.repeatInterval=120000
+# cas.serviceRegistry.startDelay=15000
+cas.serviceRegistry.initFromJson=false
+
 # cas.serviceRegistry.ldap.serviceDefinitionAttribute=description
+cas.serviceRegistry.ldap.serviceDefinitionAttribute=casServiceDescription
 # cas.serviceRegistry.ldap.idAttribute=uid
 cas.serviceRegistry.ldap.idAttribute=cn
-# cas.serviceRegistry.ldap.objectClass=casRegisteredService
+cas.serviceRegistry.ldap.objectClass=casRegisteredService
 
 # cas.serviceRegistry.ldap.ldapUrl=ldaps://ldap1.example.edu ldaps://ldap2.example.edu
 cas.serviceRegistry.ldap.ldapUrl=<%= $ldap_url.join(' ') %>
 # cas.serviceRegistry.ldap.connectionStrategy=
+cas.serviceRegistry.ldap.connectionStrategy=ACTIVE_PASSIVE
 # cas.serviceRegistry.ldap.baseDn=dc=example,dc=org
+cas.serviceRegistry.ldap.baseDn=<%= $service_def_base_dn %>
 # cas.serviceRegistry.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
 cas.serviceRegistry.ldap.bindDn=<%= $ldap_manager_userdn %>
 # cas.serviceRegistry.ldap.bindCredential=Password

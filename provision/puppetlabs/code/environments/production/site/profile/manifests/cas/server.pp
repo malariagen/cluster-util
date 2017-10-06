@@ -55,6 +55,12 @@ class profile::cas::server(
      Optional[String] $owner  = lookup('profile::tomcat::user', { default_value => 'tomcat8'} ),
      Optional[Tuple] $admin_users  = ['ian.wright@well.ox.ac.uk'],
      Optional[String] $log_directory  = lookup('profile::tomcat::log_directory', { default_value => '/var/log/tomcat8'} ),
+     Optional[String] $service_def_base_dn = 'ou=cas,ou=system,dc=malariagen,dc=net',
+     String  $tgc_encryption_key,
+     String  $tgc_signing_key,
+     String  $clearpass_encryption_key,
+     String  $clearpass_signing_key,
+
 ) {
 
 
@@ -71,18 +77,24 @@ class profile::cas::server(
         ensure => 'directory',
     } ->
 	file { "/etc/cas/config/cas.properties":
-	    mode => "0600",
-	    owner => $owner,
-	    group => $owner,
-	    content => epp('profile/cas/server/cas.properties.epp', { 'cas_server_name' => $uri,
-                                                                    'context' => $context,
-                                                                    'ldap_url' => $ldap_uri,
-                                                                    'ldap_manager_userdn' => $bind_dn,
+	    mode                                                                                => "0600",
+	    owner                                                                               => $owner,
+	    group                                                                               => $owner,
+	    content                                                                             => epp('profile/cas/server/cas.properties.epp', { 'cas_server_name' => $uri,
+                                                                    'context'               => $context,
+                                                                    'ldap_url'              => $ldap_uri,
+                                                                    'ldap_manager_userdn'   => $bind_dn,
                                                                     'ldap_manager_password' => $authtok,
-                                                                    'ldap_authn_format' => $lookup,
-                                                                    'ldap_base_dn' => $base_dn,
-                                                                    'ldap_search_filter' => $ldap_search_base,
-                                                                    'user_filter' => $user_filter,
+                                                                    'ldap_authn_format'     => $lookup,
+                                                                    'ldap_base_dn'          => $base_dn,
+                                                                    'ldap_search_filter'    => $ldap_search_base,
+                                                                    'user_filter'           => $user_filter,
+                                                                    'service_def_base_dn'   => $service_def_base_dn,
+                                                                    'tgc_encryption_key'    => $tgc_encryption_key,
+                                                                    'tgc_signing_key'       => $tgc_signing_key,
+                                                                    'clearpass_encryption_key'    => $clearpass_encryption_key,
+                                                                    'clearpass_signing_key'       => $clearpass_signing_key,
+
                                                                     })
 
 	} -> 
@@ -90,22 +102,27 @@ class profile::cas::server(
 	    mode => "0600",
 	    owner => $owner,
 	    group => $owner,
-	    content => epp('profile/cas_management/management.properties.epp', { 'cas_server_name' => $uri,
+	    content => epp('profile/cas/management/management.properties.epp', { 'cas_server_name' => $uri,
                                                                     'context' => $context,
+                                                                    'service_def_base_dn'   => $service_def_base_dn,
+                                                                    'user_filter'           => $user_filter,
+                                                                    'ldap_url'              => $ldap_uri,
+                                                                    'ldap_manager_userdn'   => $bind_dn,
+                                                                    'ldap_manager_password' => $authtok,
                                                               })
   } ->
 	file { "/etc/cas/config/users.properties":
 	    mode => "0600",
 	    owner => $owner,
 	    group => $owner,
-	    content => epp('profile/cas_management/users.properties.epp', { 'admin_users' => $admin_users,
+	    content => epp('profile/cas/management/users.properties.epp', { 'admin_users' => $admin_users,
                                                               })
   } ->
 	file { "/etc/cas/config/log4j2-management.xml":
 	    mode => "0600",
 	    owner => $owner,
 	    group => $owner,
-	    content => epp('profile/cas_management/log4j2-management.xml.epp', { 'log_directory' => $log_directory,
+	    content => epp('profile/cas/management/log4j2-management.xml.epp', { 'log_directory' => $log_directory,
                                                               })
   } ->
 	file { "/etc/cas/config/log4j2.xml":
