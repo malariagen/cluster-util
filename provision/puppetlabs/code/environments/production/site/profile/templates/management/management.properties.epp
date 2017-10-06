@@ -1,0 +1,89 @@
+<%- | String  $cas_server_name,
+    String  $context,
+    Array   $ldap_url,
+    String  $ldap_manager_userdn,
+    String  $ldap_manager_password,
+    String  $user_filter,
+    String  $service_def_base_dn,
+| -%>
+
+# CAS server that management app will authenticate with
+# This server will authenticate for any app (service) and you can login as casuser/Mellon 
+#cas.server.name: https://jasigcas.herokuapp.com
+#cas.server.prefix: https://jasigcas.herokuapp.com/cas
+cas.server.name:<%= $cas_server_name %>
+cas.server.prefix:<%= $cas_server_name %>/<%= $context %>
+
+cas.mgmt.adminRoles=ROLE_ADMIN
+cas.mgmt.userPropertiesFile=file:/etc/cas/config/users.properties
+
+# Update this URL to point at server running this management app
+#cas.mgmt.serverName=https://mmoayyed.unicon.net:8443
+cas.mgmt.serverName:<%= $cas_server_name %>
+
+server.context-path=/cas-management
+server.port=8443
+
+spring.thymeleaf.mode=HTML
+logging.config=file:/etc/cas/config/log4j2-management.xml
+
+cas.authn.attributeRepository.defaultAttributesToRelease=sn,cn,givenName,mail,memberOf,malariagenUID
+cas.personDirectory.principalAttribute=mail
+cas.personDirectory.returnNull=false
+cas.personDirectory.principalResolutionFailureFatal=false
+
+# cas.mgmt.authzAttributes[0]=memberOf
+# cas.mgmt.authzAttributes[1]=groupMembership
+
+# cas.mgmt.ldap.ldapAuthz.groupAttribute=
+# cas.mgmt.ldap.ldapAuthz.groupPrefix=
+# cas.mgmt.ldap.ldapAuthz.groupFilter=
+# cas.mgmt.ldap.ldapAuthz.groupBaseDn=
+# cas.mgmt.ldap.ldapAuthz.rolePrefix=ROLE_
+# cas.mgmt.ldap.ldapAuthz.roleAttribute=uugid
+# cas.mgmt.ldap.ldapAuthz.searchFilter=cn={user}
+# cas.mgmt.ldap.ldapAuthz.baseDn=
+
+# cas.mgmt.ldap.allowMultipleResults=false
+# cas.mgmt.ldap.baseDn=dc=example,dc=org
+cas.mgmt.ldap.baseDn=<%= $service_def_base_dn %>
+# cas.mgmt.ldap.ldapUrl=ldaps://ldap1.example.edu ldaps://ldap2.example.edu
+cas.mgmt.ldap.ldapUrl=<%= $ldap_url.join(' ') %>
+# cas.mgmt.ldap.connectionStrategy=
+cas.mgmt.ldap.connectionStrategy=ACTIVE_PASSIVE
+# cas.mgmt.ldap.userFilter=cn={user}
+cas.mgmt.ldap.userFilter=<%= $user_filter %>
+# cas.mgmt.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
+cas.mgmt.ldap.bindDn=<%= $ldap_manager_userdn %>
+# cas.mgmt.ldap.bindCredential=Password
+cas.mgmt.ldap.bindCredential=<%= $ldap_manager_password %>
+# cas.mgmt.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
+# cas.mgmt.ldap.connectTimeout=5000
+# cas.mgmt.ldap.trustCertificates=
+# cas.mgmt.ldap.keystore=
+# cas.mgmt.ldap.keystorePassword=
+# cas.mgmt.ldap.keystoreType=JKS|JCEKS|PKCS12
+# cas.mgmt.ldap.poolPassivator=NONE|CLOSE|BIND
+# cas.mgmt.ldap.minPoolSize=3
+# cas.mgmt.ldap.maxPoolSize=10
+# cas.mgmt.ldap.validateOnCheckout=true
+# cas.mgmt.ldap.validatePeriodically=true
+# cas.mgmt.ldap.validatePeriod=600
+# cas.mgmt.ldap.validateTimeout=5000
+# cas.mgmt.ldap.failFast=true
+# cas.mgmt.ldap.idleTime=500
+# cas.mgmt.ldap.prunePeriod=600
+# cas.mgmt.ldap.blockWaitTime=5000
+# cas.mgmt.ldap.subtreeSearch=true
+# cas.mgmt.ldap.useSsl=true
+# cas.mgmt.ldap.useStartTls=false
+
+cas.serviceRegistry.ldap.serviceDefinitionAttribute=casServiceDescription
+cas.serviceRegistry.ldap.idAttribute=cn
+cas.serviceRegistry.ldap.objectClass=casRegisteredService
+cas.serviceRegistry.ldap.ldapUrl=<%= $ldap_url.join(' ') %>
+cas.serviceRegistry.ldap.connectionStrategy=ACTIVE_PASSIVE
+cas.serviceRegistry.ldap.baseDn=<%= $service_def_base_dn %>
+cas.serviceRegistry.ldap.bindDn=<%= $ldap_manager_userdn %>
+cas.serviceRegistry.ldap.bindCredential=<%= $ldap_manager_password %>
+
