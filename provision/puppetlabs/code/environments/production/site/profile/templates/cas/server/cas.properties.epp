@@ -10,6 +10,8 @@
     String  $service_def_base_dn,
     String  $tgc_encryption_key,
     String  $tgc_signing_key,
+    String  $webflow_encryption_key,
+    String  $webflow_signing_key,
     String  $clearpass_encryption_key,
     String  $clearpass_signing_key
 | -%>
@@ -19,8 +21,11 @@
 cas.server.name:<%= $cas_server_name %>
 cas.server.prefix:<%= $cas_server_name %>/<%= $context %>
 
-cas.webflow.crypto.encryption.key=<%= $tgc_encryption_key %>
-cas.webflow.crypto.signing.key=<%= $tgc_signing_key %>
+cas.tgc.crypto.encryption.key=<%= $tgc_encryption_key %>
+cas.tgc.crypto.signing.key=<%= $tgc_signing_key %>
+
+cas.webflow.crypto.encryption.key=<%= $webflow_encryption_key %>
+cas.webflow.crypto.signing.key=<%= $webflow_signing_key %>
 
 cas.logout.followServiceRedirects=true
 cas.logout.redirectParameter=service
@@ -64,17 +69,17 @@ cas.authn.ldap[0].bindCredential=<%= $ldap_manager_password %>
 # cas.authn.ldap[0].dnFormat=uid=%s,ou=people,dc=example,dc=org
 # cas.authn.ldap[0].principalAttributeId=uid
 cas.authn.ldap[0].dnFormat=<%= $ldap_authn_format %>
-cas.authn.ldap[0].principalAttributeId=mail
+cas.authn.ldap[0].principalAttributeId=malariagenUID
 # cas.authn.ldap[0].principalAttributePassword=password
 # cas.authn.ldap[0].principalAttributeList=sn,cn:commonName,givenName,eduPersonTargettedId:SOME_IDENTIFIER
 cas.authn.attributeRepository.ldap[0].attributes.sn=sn
-cas.authn.attributeRepository.ldap[0].attributes.cn=casId
+cas.authn.attributeRepository.ldap[0].attributes.cn=cn
 cas.authn.attributeRepository.ldap[0].attributes.givenName=givenName
 cas.authn.attributeRepository.ldap[0].attributes.mail=mail
 cas.authn.attributeRepository.ldap[0].attributes.memberOf=memberOf
 cas.authn.attributeRepository.ldap[0].attributes.malariagenUID=malariagenUID
 
-cas.authn.ldap[0].principalAttributeList=sn:familyName,casId,givenName,mail,memberOf,malariagenUID
+cas.authn.ldap[0].principalAttributeList=sn:familyName,cn:casId,givenName,mail,memberOf,malariagenUID
 
 # cas.authn.ldap[0].allowMultiplePrincipalAttributeValues=true
 # cas.authn.ldap[0].allowMissingPrincipalAttributeValue=true
@@ -161,7 +166,7 @@ cas.authn.ldap[0].principalAttributeList=sn:familyName,casId,givenName,mail,memb
 # cas.authn.ldap[0].passwordPolicy.warningDays=30
 
 cas.authn.attributeRepository.attributes.sn=sn
-cas.authn.attributeRepository.attributes.cn=casId
+cas.authn.attributeRepository.attributes.cn=cn
 cas.authn.attributeRepository.attributes.givenName=givenName
 cas.authn.attributeRepository.attributes.mail=mail
 cas.authn.attributeRepository.attributes.memberOf=memberOf
@@ -169,9 +174,9 @@ cas.authn.attributeRepository.attributes.malariagenUID=malariagenUID
 
 cas.authn.releaseProtocolAttributes=true
 
-cas.authn.attributeRepository.defaultAttributesToRelease=sn:familyName,casId,givenName,mail,memberOf,malariagenUID
+cas.authn.attributeRepository.defaultAttributesToRelease=sn:familyName,cn:casId,givenName,mail,memberOf,malariagenUID
 
-cas.personDirectory.principalAttribute=mail
+cas.personDirectory.principalAttribute=malariagenUID
 cas.personDirectory.returnNull=false
 cas.personDirectory.principalResolutionFailureFatal=false
 
