@@ -58,6 +58,8 @@ class profile::cas::server(
      Optional[String] $service_def_base_dn = 'ou=cas,ou=system,dc=malariagen,dc=net',
      String  $tgc_encryption_key,
      String  $tgc_signing_key,
+     String  $webflow_encryption_key,
+     String  $webflow_signing_key,
      String  $clearpass_encryption_key,
      String  $clearpass_signing_key,
 
@@ -92,6 +94,8 @@ class profile::cas::server(
                                                                     'service_def_base_dn'   => $service_def_base_dn,
                                                                     'tgc_encryption_key'    => $tgc_encryption_key,
                                                                     'tgc_signing_key'       => $tgc_signing_key,
+                                                                    'webflow_encryption_key'    => $webflow_encryption_key,
+                                                                    'webflow_signing_key'       => $webflow_signing_key,
                                                                     'clearpass_encryption_key'    => $clearpass_encryption_key,
                                                                     'clearpass_signing_key'       => $clearpass_signing_key,
 
