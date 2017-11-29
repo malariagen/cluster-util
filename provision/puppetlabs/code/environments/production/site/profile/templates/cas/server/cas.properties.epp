@@ -234,3 +234,5 @@ cas.serviceRegistry.ldap.bindCredential=<%= $ldap_manager_password %>
 # cas.serviceRegistry.ldap.validator.attributeName=objectClass
 # cas.serviceRegistry.ldap.validator.attributeValues=top
 # cas.serviceRegistry.ldap.validator.dn=
+
+cas.authn.oauth.userProfileViewType=FLAT
