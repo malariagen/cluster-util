@@ -236,3 +236,4 @@ cas.serviceRegistry.ldap.bindCredential=<%= $ldap_manager_password %>
 # cas.serviceRegistry.ldap.validator.dn=
 
 cas.authn.oauth.userProfileViewType=FLAT
+cas.theme.defaultThemeName=malariagen
