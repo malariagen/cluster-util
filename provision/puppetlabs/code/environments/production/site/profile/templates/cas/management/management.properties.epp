@@ -15,7 +15,6 @@ cas.server.name:<%= $cas_server_name %>
 cas.server.prefix:<%= $cas_server_name %>/<%= $context %>
 
 cas.mgmt.adminRoles=ROLE_ADMIN
-cas.mgmt.userPropertiesFile=file:/etc/cas/config/users.properties
 
 # Update this URL to point at server running this management app
 #cas.mgmt.serverName=https://mmoayyed.unicon.net:8443
@@ -27,56 +26,50 @@ server.port=8443
 spring.thymeleaf.mode=HTML
 logging.config=file:/etc/cas/config/log4j2-management.xml
 
-cas.authn.attributeRepository.defaultAttributesToRelease=sn,cn,givenName,mail,memberOf,malariagenUID
-cas.personDirectory.principalAttribute=mail
-cas.personDirectory.returnNull=false
-cas.personDirectory.principalResolutionFailureFatal=false
 
-# cas.mgmt.authzAttributes[0]=memberOf
-# cas.mgmt.authzAttributes[1]=groupMembership
+##
+# CAS Authentication Attributes
+#
+cas.authn.attributeRepository.stub.attributes.uid=uid
+cas.authn.attributeRepository.stub.attributes.givenName=givenName
+cas.authn.attributeRepository.stub.attributes.malariagenUID=malariagenUID
+cas.authn.attributeRepository.stub.attributes.mail=mail
 
-# cas.mgmt.ldap.ldapAuthz.groupAttribute=
-# cas.mgmt.ldap.ldapAuthz.groupPrefix=
-# cas.mgmt.ldap.ldapAuthz.groupFilter=
-# cas.mgmt.ldap.ldapAuthz.groupBaseDn=
-# cas.mgmt.ldap.ldapAuthz.rolePrefix=ROLE_
-# cas.mgmt.ldap.ldapAuthz.roleAttribute=uugid
-# cas.mgmt.ldap.ldapAuthz.searchFilter=cn={user}
-# cas.mgmt.ldap.ldapAuthz.baseDn=
 
-# cas.mgmt.ldap.allowMultipleResults=false
-# cas.mgmt.ldap.baseDn=dc=example,dc=org
+# Attributes that you wish to resolve for the principal
+cas.authn.attributeRepository.attributes.uid=uid
+cas.authn.attributeRepository.attributes.mail=mail
+cas.authn.attributeRepository.attributes.displayName=displayName
+cas.authn.attributeRepository.attributes.cn=commonName
+cas.authn.attributeRepository.attributes.affiliation=groupMembership
+cas.authn.attributeRepository.attributes.lastName=sn
+cas.authn.attributeRepository.attributes.firstName=givenName
+cas.authn.attributeRepository.attributes.givenName=givenName
+cas.authn.attributeRepository.attributes.member=memberOf
+
+cas.mgmt.authzAttributes[0]=memberOf
+cas.mgmt.authzAttributes[1]=groupMembership
+
+cas.mgmt.ldap.ldapAuthz.groupAttribute=cn
+cas.mgmt.ldap.ldapAuthz.groupPrefix=ROLE_
+cas.mgmt.ldap.ldapAuthz.groupFilter=(member={0})
+cas.mgmt.ldap.ldapAuthz.groupBaseDn=ou=manage,ou=groups,dc=malariagen,dc=net
+cas.mgmt.ldap.ldapAuthz.rolePrefix=ROLE_
+cas.mgmt.ldap.ldapAuthz.roleAttribute=memberOf
+cas.mgmt.ldap.ldapAuthz.searchFilter=(mail={user})
+cas.mgmt.ldap.ldapAuthz.baseDn=dc=malariagen,dc=net
+
+
+cas.authn.ldap[0].userFilter=mail={user}
+cas.authn.ldap[0].dnFormat=cn=%s,ou=users,ou=people,dc=malariagen,dc=net
+cas.authn.ldap[0].principalAttributeId=mail
+
 cas.mgmt.ldap.baseDn=<%= $service_def_base_dn %>
-# cas.mgmt.ldap.ldapUrl=ldaps://ldap1.example.edu ldaps://ldap2.example.edu
 cas.mgmt.ldap.ldapUrl=<%= $ldap_url.join(' ') %>
-# cas.mgmt.ldap.connectionStrategy=
 cas.mgmt.ldap.connectionStrategy=ACTIVE_PASSIVE
-# cas.mgmt.ldap.userFilter=cn={user}
 cas.mgmt.ldap.userFilter=<%= $user_filter %>
-# cas.mgmt.ldap.bindDn=cn=Directory Manager,dc=example,dc=org
 cas.mgmt.ldap.bindDn=<%= $ldap_manager_userdn %>
-# cas.mgmt.ldap.bindCredential=Password
 cas.mgmt.ldap.bindCredential=<%= $ldap_manager_password %>
-# cas.mgmt.ldap.providerClass=org.ldaptive.provider.unboundid.UnboundIDProvider
-# cas.mgmt.ldap.connectTimeout=5000
-# cas.mgmt.ldap.trustCertificates=
-# cas.mgmt.ldap.keystore=
-# cas.mgmt.ldap.keystorePassword=
-# cas.mgmt.ldap.keystoreType=JKS|JCEKS|PKCS12
-# cas.mgmt.ldap.poolPassivator=NONE|CLOSE|BIND
-# cas.mgmt.ldap.minPoolSize=3
-# cas.mgmt.ldap.maxPoolSize=10
-# cas.mgmt.ldap.validateOnCheckout=true
-# cas.mgmt.ldap.validatePeriodically=true
-# cas.mgmt.ldap.validatePeriod=600
-# cas.mgmt.ldap.validateTimeout=5000
-# cas.mgmt.ldap.failFast=true
-# cas.mgmt.ldap.idleTime=500
-# cas.mgmt.ldap.prunePeriod=600
-# cas.mgmt.ldap.blockWaitTime=5000
-# cas.mgmt.ldap.subtreeSearch=true
-# cas.mgmt.ldap.useSsl=true
-# cas.mgmt.ldap.useStartTls=false
 
 cas.serviceRegistry.ldap.serviceDefinitionAttribute=casServiceDescription
 cas.serviceRegistry.ldap.idAttribute=cn
