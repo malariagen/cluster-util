@@ -27,7 +27,7 @@ profile::sftp::partner::partners:
           - name: 'Gavin'
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
    
-          - name: 'Tobias'
+          - name: 'Apinjoh Tobias <apinjoh.tobias@ubuea.cm>'
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiBcCfn+/FeHXl8xnc25RoChO7BJyrYi8yE5zBPBFc6VLOvNhp+t3gty2KT5r6J/nH+Hmj2o5+SZFnSa5lWFf6UBtpAVTbEuK3Fig9Iq+FLSfs8OfDmYFXLKaEu7jm5eJan/viKum9MnFUnHcZco11Du+FumzWXTCV0bP8irB3UtDi4UlhVwDFGokKcs3Clbw0WDfH2lS4rOcI+m8KHE0H+NmEyKQR2hLNUOSjrtlhrqnMNyxwmqS6THCpvbsFnfd/hw2iAWzxJG3KFZnib68ZbJE3K2HK+m0zcWTXktzYps1vzs0W4W52C3LNBiE5S7gMrRTM3ps7ymxV5VGn4wGhQ== rsa-key-20180118'
           - name: 'kristofk'
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLO9ADClfYWP9zSlECl75zxNIAKYsyU8s5sR2VPLqLuWOeExS9IWVoFZce6voXyhdRA0N2SpTQPnqIYPGtKZswlrGI7M87Iqzx0X1ANDEKFLZggRtVOIPWjxXx6Pn/QOFbp9V0xroXX2nhOEwFb2JzvBp7zovzgA9hsuZDEmXE/YXjkz8NA/rHKtfNJQ1Kzs9HF5/hH0ANSpDVmAa1vtCtAop6X/VjILk/Rw1jcEf6PMcMPPVCYNvE1W2HKcwRJPrtHV68uSIembgJ/0Zu59muqySAPjfiy3FoqyzRieFw92RSaKQDc56yCsipwMnQCcLEfTbn60ktb2prXyhxY7J1 kristofk@KWIAT22'
