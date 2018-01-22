@@ -20,10 +20,17 @@ profile::sftp::partner::partners:
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhxXPzf/xPgOZom3023u4DzqlmnMY4BvVgRTpSPmi31cqghVAidZ+qKeEiLYK8l+PkjVfxeYOgZgn8VfZ99ZpS1Fz3+mxR0zdPIfYe5+blOdEWZuTfv0Gsv84Iyw628SbgtZyFlXeq9kDtQgueF/W4cUO9zO0Xbl42HrLJ+DOr2nU9OHfTUTN42jEHO4by0DGzvitzlKm4x6HiGKsTiQ4MVKiuYilVdOrN972uXxF2EDS8Cj1oi4V/v2K8DZYQZhJHsEX3rb79LVkpuAPjXJHTvduBIGgQe5aPSW2eBQrwjQM21FgMCd2JSX9ZDkZn71lsffIPR4Sy8CR3Y/csAGqzw== rsa-key-20151021'
           - name: ''
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCohpbQVDsu6rMhWuHd7FgSJ3/uOP/m340pZGm/5LlEGfVCh+VCWf13vRTYz2MmdIuEBeRtxhSLbEt8NGCi04AnKRGZDDP/EZbtyJ4sxga0/AaJ9LATc3l//AVzxvLW0jmJeTaFkaA2PD48HNGv0Um6xe6VYFpL3JFn0a+8BeYGFkVe097nmAQLZHqI7dLK4Vaq7pUlUXZnqebDbbruAgGONrIH0dC70Z7Z3qCvuKI2m/PZ8Y6KLQ4poyEhHPS3LTrntIWF15aYRAbHNownQOC2maLG1hLTxBEazXFseucKm999mqDgyu0p6BWXTyJRVNUVpflMBggLNB0vPO6opT7h gclarke@dhcp264.well.ox.ac.uk'
+          - name: ''
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLO9ADClfYWP9zSlECl75zxNIAKYsyU8s5sR2VPLqLuWOeExS9IWVoFZce6voXyhdRA0N2SpTQPnqIYPGtKZswlrGI7M87Iqzx0X1ANDEKFLZggRtVOIPWjxXx6Pn/QOFbp9V0xroXX2nhOEwFb2JzvBp7zovzgA9hsuZDEmXE/YXjkz8NA/rHKtfNJQ1Kzs9HF5/hH0ANSpDVmAa1vtCtAop6X/VjILk/Rw1jcEf6PMcMPPVCYNvE1W2HKcwRJPrtHV68uSIembgJ/0Zu59muqySAPjfiy3FoqyzRieFw92RSaKQDc56yCsipwMnQCcLEfTbn60ktb2prXyhxY7J1 kristofk@KWIAT22'
     - name: 'cameroon-gwas'
       keys:
           - name: 'Gavin'
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+   
+          - name: 'Tobias'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiBcCfn+/FeHXl8xnc25RoChO7BJyrYi8yE5zBPBFc6VLOvNhp+t3gty2KT5r6J/nH+Hmj2o5+SZFnSa5lWFf6UBtpAVTbEuK3Fig9Iq+FLSfs8OfDmYFXLKaEu7jm5eJan/viKum9MnFUnHcZco11Du+FumzWXTCV0bP8irB3UtDi4UlhVwDFGokKcs3Clbw0WDfH2lS4rOcI+m8KHE0H+NmEyKQR2hLNUOSjrtlhrqnMNyxwmqS6THCpvbsFnfd/hw2iAWzxJG3KFZnib68ZbJE3K2HK+m0zcWTXktzYps1vzs0W4W52C3LNBiE5S7gMrRTM3ps7ymxV5VGn4wGhQ== rsa-key-20180118'
+          - name: 'kristofk'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDLO9ADClfYWP9zSlECl75zxNIAKYsyU8s5sR2VPLqLuWOeExS9IWVoFZce6voXyhdRA0N2SpTQPnqIYPGtKZswlrGI7M87Iqzx0X1ANDEKFLZggRtVOIPWjxXx6Pn/QOFbp9V0xroXX2nhOEwFb2JzvBp7zovzgA9hsuZDEmXE/YXjkz8NA/rHKtfNJQ1Kzs9HF5/hH0ANSpDVmAa1vtCtAop6X/VjILk/Rw1jcEf6PMcMPPVCYNvE1W2HKcwRJPrtHV68uSIembgJ/0Zu59muqySAPjfiy3FoqyzRieFw92RSaKQDc56yCsipwMnQCcLEfTbn60ktb2prXyhxY7J1 kristofk@KWIAT22'
     - name: 'gambia-gwas'
       keys:
           - name: 'Gavin'
@@ -44,6 +51,8 @@ profile::sftp::partner::partners:
       keys:
           - name: 'Gavin'
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: 'Kenneth Baillie <kennethbaillie@gmail.com>'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/fTIDbLpxmGiOZhSci2Vhcq/hsa1CzvxmXIkAL+2cYKDQaEBKLI+gQbBg3hsm/O+JWMQ9VWnYWB0dhrOgFDeFtm/EYsZf+Opn/M0cDT6+3/Wai+qJdIdiEEZ9LXhHqQHEE7gaaJhRFQIqWQ67YqpT1cn1gdyisO8NHHDLqOlr9h3Z8g34jX0bzewdvIxnE9QAZhSU6Ar7JAX094Ox1Hr8Uq/ENy7iBrd4ZBppvQ7QP7C75s9AnWjhdK4s7AJ+uz8pTMjm9Rgcm5u4ssbqESKPzZK1cw3SQ9TRFDcnzBBqATIW0Df8Mn/09n5+dBqEIj35Y7jw6uYaqhAsqDxGbMqz jkb@vpn2-051.vpn.net.ed.ac.uk'
           - name: ''
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAgfenSzeAIum13wrtLtRfUIeqFoKOrXhs9QtU8wIK2GAVmOS9YsMl2VuHa+5QliRbC0KXmrw2H5Rp/JyDVXZurJStVKUMWsH/5Vgji56yvj/KB7iZB5u9TwXeWOJUPiwWuguCUpnNc6O4KLdvU3bB3Z/O6XW/CV9D30GwNPOaTeunN++AMQOPKHJ2pVqMij0X3cJXMQIMVALc3RXwYpCEBWyerhXkuLKTUc/fXODAoXScXGTcKWFTra/oTJkB1h/5VqC7pb5SbYRNP2o1wN/TzCImH2ShXCI4DAkok0l5qYs9JtOo9e4hDXjTT80kZCFVoWCycoSjXMcFW0oBJWDt0Q== rsa-key-20151208'
     - name: 'mali-gwas'
@@ -96,12 +105,3 @@ ssh::server_options:
         AllowTcpForwarding: 'no'
         PermitTunnel: 'no'
         X11Forwarding: 'no'
-	'Match User oswann':
-		ChrootDirectory: '/home/%u'
-		ForceCommand: 'internal-sftp'
-		AllowTcpForwarding: 'no'
-	'Match User kwiat-malaria':
-		ChrootDirectory: '/home/%u'
-		ForceCommand: 'internal-sftp'
-		AllowTcpForwarding: 'no'
-
