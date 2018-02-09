@@ -74,10 +74,16 @@ class profile::ldap::client(
 
 	realize(User["${fallback_user}"])
 
+    file { "/${fallback_user}":
+        ensure  => "directory",
+        owner   => "${fallback_user}",
+        mode    => '0700',
+        require => [ User["${fallback_user}"]]
+    }
 	ssh_authorized_key { 'fallback_ssh':
 		  user => "${fallback_user}",
 		  type => 'rsa',
-		  key => "${fallback_ssh_key}"
+		  key => "${fallback_ssh_key}",
 	}
 
 	class {'::sssd':
