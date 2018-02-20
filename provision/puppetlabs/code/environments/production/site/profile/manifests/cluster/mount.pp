@@ -9,7 +9,7 @@ class profile::cluster::mount(
 ) {
 
 
-    $nfs_options = "rw,rsize=32768,wsize=32768,intr,noatime,nfsvers=3,soft,bg,actimeo=0,timeo=600"
+    $nfs_options = "auto,nofail,noatime,nolock,intr,tcp,actimeo=1800,rsize=32768,wsize=32768"
 
 
     class { '::nfs':
