@@ -97,7 +97,7 @@ ssh::server_options:
     AuthorizedKeysCommand: '/etc/ssh/ldap-keys.sh'
     AuthorizedKeysCommandUser: 'root'
     Subsystem: 'sftp internal-sftp'
-    'Match Group datarelease':
+    'Match Group datarelease User *,!gav':
         ChrootDirectory: '/mnt/d2200sb/datarelease/%u'
         Banner: '/mnt/d2200sb/datarelease/sftp_banner'
         AuthorizedKeysFile: '/etc/ssh-pool/%u.pub'
