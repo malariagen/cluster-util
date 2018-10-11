@@ -1,10 +1,10 @@
 class profile::ssl::default(
     String $server_key_directory,
     String $server_key_group,
-    String $server_key,
+    Optional[String] $server_key = undef,
     String $server_key_location,
     String $server_cert_location,
-    String $server_cert,
+    Optional[String] $server_cert = undef,
     Optional[String] $ca_cert_location = undef,
     Optional[String] $ca_cert = undef,
     Optional[String] $cert_chain_location = undef,
@@ -23,21 +23,25 @@ class profile::ssl::default(
         mode => '0750'
     }
 
-    file { $server_key_location:
-        owner => 'root', 
-        group => $server_key_group,
-        mode => '0640' ,
-        content => $server_key
+    if $server_key {
+      file { $server_key_location:
+          owner => 'root', 
+          group => $server_key_group,
+          mode => '0640' ,
+          content => $server_key
+      }
     }
 
-    file { $server_cert_location:
-        owner => 'root', 
-        group => $server_key_group,
-        mode => '0644' ,
-        content => $server_cert
+    if $server_cert and $server_cert_location {
+      file { $server_cert_location:
+          owner => 'root', 
+          group => $server_key_group,
+          mode => '0644' ,
+          content => $server_cert
+      }
     }
 
-    if $ca_cert_location {
+    if $ca_cert and $ca_cert_location {
         file { $ca_cert_location:
             owner => 'root', 
             group => $server_key_group,
@@ -46,7 +50,7 @@ class profile::ssl::default(
         }
     }
 
-    if $cert_chain_location {
+    if $cert_chain and $cert_chain_location {
         file { $cert_chain_location:
             owner => 'root', 
             group => $server_key_group,
