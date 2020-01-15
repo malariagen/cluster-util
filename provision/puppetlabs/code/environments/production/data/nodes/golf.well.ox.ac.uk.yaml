@@ -59,6 +59,8 @@ profile::sftp::partner::partners:
       keys:
           - name: 'Gavin'
             pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCpg424JkDF6YjTR3DZ1ZDbJCIWjcpDDX4tnMYiMEMzYVVmG8FpA1eFXaa59mtTJcvq35TxlMjK/N7IqJLIblpWEvgflAERJBG5lHcWatDCjswyJmQHqbve/lVZGSa07dxacPqJrgcqxrsX582jy7Bs5nmgFVlg9C9l9iGZuQfa5bLBMx4iIb9690ckUCx9HKBKK4uJCEdBMvCwy30rTXoZ4UqcSbyz/+WuY20nNfzBDtDWB8dBxgK0S8WJKL/RuU1hKHqDxnKFGkTA1wXF5ibX7Mgykdh+bhxA2r6YhYUm5QOpW7kM3US3FR2RsuBti1Z4BCcaw7FpBCSxss7KWfdr gavin.band@well.ox.ac.uk'
+          - name: 'Antoine Dara'
+            pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDJfMtKvUw4pPLZybkpLNyFBgbrLim4kcS2zN+8UfvQ9dF5r4GsGwuTBwG/PPQdMuTtopTz/5qf2HqJF/yE4fzZoh02KShjCO43OUSw3wlGW8Q9D3CRfY1IH1LfnV0Exy/qDlaFp362UpROHpuRMNohhXxtHaAVAWNcOm94dyX8sWgVqyrAiqgnyQ22uCCMbEFvMZDefLY6Z2yEgPR8hnffwZA5kvLFOCuZL/GsfSS6K97r9dmYAD5eTtgDH+fM4FH0GgFOOAjFu+gD25d340TUwgaYAr058Pi6eVmhO+2egrLBm/H7hRP/M7cu1DYRy1d/x8V8iTzwdYFSUrvtUXEQPCxus1+8T6V37KO9obUQKrXp39eubuVRNjXTWZxlHCHzjtecoSXqV/4OKaQLXNpZTKEz5wHOfWPfPw63JAvZkUuuDQxgXv+YOKPqk1XV3dN1W4goGd6w5Fu6Kv8s1Gd9rf0ufo05Fii5Xg9oYFHSKrpeDy4PwA/2B2gvJPUcVxP8gMdCds9ZwLDd22Pu27UlTI0Vyh15yqRwL/1tUQ1ptywj/sNO+MCBl5x6pQWXDHoTvPOCFd+EUu0n7YUkuhVZojsYRIjVpoa9Ol2l1a54pykxY6kgN7gdPZvqOCOUNoaoZkYLNo4xi1N8E2RXUPUNtrIangnzWMUYvvBjPFwkRw== tonydara@icermali.org'
     - name: 'nigeria-gwas'
       keys:
           - name: 'Gavin'
